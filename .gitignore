@@ -6,11 +6,12 @@ dist/
 wheels/
 *.egg-info
 
-# Virtual environments
+# Entornos virtuales (.venv es enlace a .venv.nosync para que iCloud no lo sincronice)
 .venv
+*.nosync
 
 # Datos (se regeneran con los scripts)
-/data/
+/data
 
 # Secretos
 .env

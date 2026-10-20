@@ -81,10 +81,16 @@ def build(con: duckdb.DuckDBPyConnection, states: list[str]) -> None:
         WITH geo AS (
             {union_sql([f"SELECT CVEGEO, CVE_ENT, CVE_MUN, CVE_LOC, CVE_AGEB, geom FROM ST_Read('{shp(c, 'a')}')" for c in states])}
         ),
+        -- Las filas de totales dicen "Total AGEB urbana"; el nombre real está en las filas de manzana.
+        nombres_loc AS (
+            SELECT ENTIDAD, MUN, LOC, ANY_VALUE(NOM_LOC) AS localidad
+            FROM censo_raw WHERE MZA <> '000'
+            GROUP BY ALL
+        ),
         censo AS (
             SELECT
                 ENTIDAD || MUN || LOC || AGEB AS cvegeo,
-                NOM_LOC AS localidad,
+                n.localidad,
                 TRY_CAST(POBTOT AS INTEGER) AS poblacion,
                 TRY_CAST(P_18YMAS AS INTEGER) AS pob_18_mas,
                 TRY_CAST(GRAPROES AS DOUBLE) AS escolaridad_prom,
@@ -96,6 +102,7 @@ def build(con: duckdb.DuckDBPyConnection, states: list[str]) -> None:
                 TRY_CAST(VPH_INTER AS INTEGER) AS viv_con_internet,
                 TRY_CAST(VPH_PC AS INTEGER) AS viv_con_pc
             FROM censo_raw
+            LEFT JOIN nombres_loc n USING (ENTIDAD, MUN, LOC)
             WHERE AGEB <> '0000' AND MZA = '000'
         ),
         base AS (
