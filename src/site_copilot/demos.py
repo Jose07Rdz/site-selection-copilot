@@ -30,6 +30,7 @@ def listar() -> list[dict]:
     for p in sorted(DEMOS_DIR.glob("*.json")):
         d = json.loads(p.read_text(encoding="utf-8"))
         d["resultado"] = Resultado(**d["resultado"])
+        d["slug"] = _slug(d.get("titulo", d["pregunta"]))  # para enlaces directos: ?ejemplo=<slug>
         demos.append(d)
     orden = {c: i for i, c in enumerate(CATEGORIAS)}
     return sorted(demos, key=lambda d: (orden.get(d.get("categoria"), len(orden)), d.get("titulo", "")))

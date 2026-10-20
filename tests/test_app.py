@@ -44,3 +44,12 @@ def test_cada_ejemplo_se_puede_abrir(sin_keys):
         at = at.button(key=f"demo{i}").click().run()
         assert not at.exception
         assert d["resultado"].texto.strip()[:80] in _textos(at)
+
+
+def test_enlace_directo_abre_el_ejemplo(sin_keys):
+    d = listar()[3]
+    at = AppTest.from_file(APP, default_timeout=60)
+    at.query_params["ejemplo"] = d["slug"]
+    at = at.run()
+    assert not at.exception
+    assert d["resultado"].texto.strip()[:80] in _textos(at)

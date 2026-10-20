@@ -183,7 +183,11 @@ def key_del_entorno() -> bool:
 
 ss = st.session_state
 lista_demos = demos.listar()
-ss.setdefault("seleccion", {**lista_demos[0], "es_demo": True} if lista_demos else None)
+if "seleccion" not in ss:
+    # Enlace directo a un ejemplo: ?ejemplo=<slug> (p. ej. ?ejemplo=cafeteria-en-la-colonia-americana)
+    pedido = next((d for d in lista_demos if d["slug"] == st.query_params.get("ejemplo")), None)
+    inicial = pedido or (lista_demos[0] if lista_demos else None)
+    ss.seleccion = {**inicial, "es_demo": True} if inicial else None
 ss.setdefault("copilot", None)
 ss.setdefault("byok", "")
 
@@ -235,6 +239,7 @@ with st.container(key="galeria-tarjetas"):
                     key=f"demo{lista_demos.index(d)}", type="primary" if activo else "secondary", use_container_width=True,
                 ):
                     ss.seleccion = {**d, "es_demo": True}
+                    st.query_params["ejemplo"] = d["slug"]
                     st.rerun()
 
 with st.container(key="galeria-movil"):
@@ -244,6 +249,7 @@ with st.container(key="galeria-movil"):
                            label_visibility="collapsed")
     if elegido is not None and elegido != (titulos[actual] if actual is not None else None):
         ss.seleccion = {**visibles[titulos.index(elegido)], "es_demo": True}
+        st.query_params["ejemplo"] = ss.seleccion["slug"]
         st.rerun()
 
 # ---------------------------------------------------------------------------
@@ -283,6 +289,7 @@ if modo_vivo:
         copilot = obtener_copilot()
         ss.seleccion = {"titulo": "Tu pregunta", "pregunta": pregunta, "resultado": r, "es_demo": False,
                         "modelo": copilot.model, "proveedor": copilot.provider}
+        st.query_params.pop("ejemplo", None)
         st.rerun()
 
 st.space("small")
