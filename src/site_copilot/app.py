@@ -11,6 +11,7 @@ Modos:
 """
 
 import base64
+import importlib
 import os
 
 import anthropic
@@ -21,6 +22,10 @@ from streamlit_folium import st_folium
 
 from site_copilot import demos
 from site_copilot.agent import Copilot, Resultado
+
+# Tras un push, Streamlit Cloud vuelve a ejecutar este archivo pero conserva los módulos ya importados.
+# Recargar `demos` evita que la app nueva use la versión vieja (p. ej. sin el campo "slug").
+importlib.reload(demos)
 
 st.set_page_config(page_title="Site Selection Copilot", page_icon=":material/location_on:", layout="wide")
 

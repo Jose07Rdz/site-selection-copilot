@@ -53,3 +53,20 @@ def test_enlace_directo_abre_el_ejemplo(sin_keys):
     at = at.run()
     assert not at.exception
     assert d["resultado"].texto.strip()[:80] in _textos(at)
+
+
+def test_no_falla_con_modulo_demos_viejo_en_memoria(sin_keys, monkeypatch):
+    # Streamlit Cloud re-ejecuta app.py tras un push pero conserva los módulos ya importados.
+    # Simula la versión anterior de demos.listar (sin "slug"): la app debe recargarla y no fallar.
+    import site_copilot.demos as demos_mod
+
+    original = demos_mod.listar
+
+    def listar_viejo():
+        return [{k: v for k, v in d.items() if k != "slug"} for d in original()]
+
+    monkeypatch.setattr(demos_mod, "listar", listar_viejo)
+    at = AppTest.from_file(APP, default_timeout=60)
+    at.query_params["ejemplo"] = "cafeteria-en-la-colonia-americana"
+    at = at.run()
+    assert not at.exception
