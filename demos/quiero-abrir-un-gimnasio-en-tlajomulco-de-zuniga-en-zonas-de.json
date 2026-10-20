@@ -1,0 +1,686 @@
+{
+ "titulo": "Gimnasio en Tlajomulco",
+ "categoria": "Ranking",
+ "pregunta": "Quiero abrir un gimnasio en Tlajomulco de Zúñiga, en zonas de nivel socioeconómico medio o más. ¿Dónde hay mucha población y pocos gimnasios?",
+ "proveedor": "openai",
+ "modelo": "gpt-5-mini",
+ "fecha": "2026-10-19",
+ "resultado": {
+  "texto": "Recomendación breve\n- Tres zonas prometedoras en Tlajomulco: el área comercial del centro de Tlajomulco, La Purísima (fraccionamiento) y Lomas de San Agustín; todas cumplen el criterio inicial (NSE municipal ≥ 4 en el centroide) y muestran buena población con pocos gimnasios privados en el punto sugerido.\n\nCódigo SCIAN usado\n- Conté la competencia usando 713943 (Centros de acondicionamiento físico del sector privado). No incluí los centros del sector público (713944) como competencia directa.\n\nCandidatas (validé cada punto sugerido con perfil_zona y conteo de competidores)\n| Zona / AGEB (cvegeo) | Punto sugerido (lat, lon) | Población en el radio (estim., 1 km) | Competidores privados (713943) en 1 km | Comercios cercanos (a 500 m, DENUE) | NSE (quintil municipal) |\n|---|---:|---:|---:|---:|---:|\n| Tlajomulco de Zúñiga (140970001212A) | 20.453406, -103.433372 | 19,539 (perfil_zona) | 1 (a 971 m) | 32 | 4 |\n| La Purísima [Fraccionamiento] (1409708634145) | 20.484514, -103.248950 | 12,290 (perfil_zona) | 0 | 60 | 4 (centroide) |\n| Lomas de San Agustín (1409708440744) | 20.521229, -103.451816 | 10,680 (perfil_zona) | 0 | 35 | 5 |\n\nPor qué (puntos clave)\n- Tlajomulco centro (punto 1): área con ~19.5k personas en 1 km y muchos negocios (perfil_zona reports 435 negocios en ~1 km), solo 1 gimnasio privado detectado en 1 km (a ~971 m) — buena base de clientes y presencia comercial ya establecida para visibilidad.  \n- La Purísima (punto 2): ~12.3k personas en 1 km, 0 gimnasios privados detectados en 1 km y 60 comercios a 500 m — bajo conflicto directo y buena densidad comercial para captar clientes.  \n- Lomas de San Agustín (punto 3): ~10.7k personas en 1 km, NSE más alto (quintil 5), 0 gimnasios privados en 1 km y 35 comercios a 500 m — mercado de mayor poder adquisitivo y baja competencia privada local.\n\nRiesgos y supuestos\n- Población y comercios basados en Censo 2020 y DENUE (fecha de captura); la demografía y oferta comercial pudieron cambiar.  \n- Conté solo competencia privada (713943). Los centros públicos (713944) existen pero los consideré no directamente competitivos; si quiere que los incluya, lo cuento también.  \n- Algunos AGEB muestran discrepancias: por ejemplo, La Purísima aparece como quintil 4 en el centroide (usado para filtrar) pero el perfil alrededor del punto sugerido tiene promedio de quintiles municipal más bajo (zona mixta). Valide en sitio el perfil socioeconómico preciso.  \n- DENUE no distingue cadenas vs. gimnasios pequeños ni calidad/servicios; 0 competidores no garantiza ausencia de demanda o baja competencia real (puede haber estudios en locales o oferta informal).\n\nSiguiente paso recomendado (acción)\n- Visitar físicamente los puntos sugeridos (las coordenadas en la tabla). Para cada uno: (a) verificar locales disponibles y visibilidad en la calle, (b) preguntar por aforos y horarios actuales de gimnasios cercanos (competidor identificado en Tlajomulco centro), (c) si quiere, puedo generar una isócrona a 10 minutos en auto o a 15 min a pie desde cada punto para estimar cobertura y cuenta de competidores adicionalmente. ¿Quiere que genere las isócronas y cuente competencia pública+privada (713943 + 713944) para estas 3 ubicaciones?",
+  "capas": [
+   {
+    "herramienta": "rankear_zonas",
+    "tipo": "puntos",
+    "entrada": {
+     "municipios": [
+      "Tlajomulco de Zúñiga"
+     ],
+     "scian": [
+      "713943"
+     ],
+     "nse_min": 4,
+     "radio_m": 1000.0,
+     "top_n": 10,
+     "min_comercio": 25
+    },
+    "datos": [
+     {
+      "cvegeo": "140970001212A",
+      "lat": 20.453406,
+      "lon": -103.433372,
+      "comercios_150m": 16,
+      "competidores_radio": 1,
+      "dist_competidor_m": 971
+     },
+     {
+      "cvegeo": "1409708634145",
+      "lat": 20.484514,
+      "lon": -103.24895,
+      "comercios_150m": 23,
+      "competidores_radio": 0,
+      "dist_competidor_m": null
+     },
+     {
+      "cvegeo": "1409708440744",
+      "lat": 20.521229,
+      "lon": -103.451816,
+      "comercios_150m": 18,
+      "competidores_radio": 0,
+      "dist_competidor_m": null
+     },
+     {
+      "cvegeo": "1409707771780",
+      "lat": 20.47644,
+      "lon": -103.254401,
+      "comercios_150m": 19,
+      "competidores_radio": 0,
+      "dist_competidor_m": null
+     },
+     {
+      "cvegeo": "1409700321831",
+      "lat": 20.524915,
+      "lon": -103.434325,
+      "comercios_150m": 15,
+      "competidores_radio": 3,
+      "dist_competidor_m": 854
+     },
+     {
+      "cvegeo": "1409708432952",
+      "lat": 20.496826,
+      "lon": -103.409616,
+      "comercios_150m": 18,
+      "competidores_radio": 3,
+      "dist_competidor_m": 215
+     },
+     {
+      "cvegeo": "1409705601719",
+      "lat": 20.518979,
+      "lon": -103.421003,
+      "comercios_150m": 18,
+      "competidores_radio": 0,
+      "dist_competidor_m": null
+     },
+     {
+      "cvegeo": "140970853187A",
+      "lat": 20.524161,
+      "lon": -103.362408,
+      "comercios_150m": 28,
+      "competidores_radio": 1,
+      "dist_competidor_m": 952
+     },
+     {
+      "cvegeo": "1409708222219",
+      "lat": 20.523097,
+      "lon": -103.369692,
+      "comercios_150m": 25,
+      "competidores_radio": 5,
+      "dist_competidor_m": 430
+     },
+     {
+      "cvegeo": "1409705601282",
+      "lat": 20.519255,
+      "lon": -103.420235,
+      "comercios_150m": 20,
+      "competidores_radio": 0,
+      "dist_competidor_m": null
+     }
+    ]
+   },
+   {
+    "herramienta": "perfil_zona",
+    "tipo": "geojson",
+    "entrada": {
+     "lat": 20.453406,
+     "lon": -103.433372,
+     "radio_m": 1000.0
+    },
+    "datos": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        -103.42375015467086,
+        20.4534963326058
+       ],
+       [
+        -103.4239163984742,
+        20.45172540942319
+       ],
+       [
+        -103.42444600236021,
+        20.450019083084136
+       ],
+       [
+        -103.42531860187518,
+        20.448442922713955
+       ],
+       [
+        -103.42650065531134,
+        20.447057493123246
+       ],
+       [
+        -103.42794673394337,
+        20.44591602827227
+       ],
+       [
+        -103.42960126829657,
+        20.445062386634408
+       ],
+       [
+        -103.4314006832673,
+        20.44452936686338
+       ],
+       [
+        -103.4332758401027,
+        20.444337448321054
+       ],
+       [
+        -103.4351546915749,
+        20.444494004720006
+       ],
+       [
+        -103.43696504858487,
+        20.444993021001036
+       ],
+       [
+        -103.43863735220162,
+        20.445815324288144
+       ],
+       [
+        -103.44010734493492,
+        20.446929320076404
+       ],
+       [
+        -103.44131853886643,
+        20.448292205454617
+       ],
+       [
+        -103.44222438597986,
+        20.449851612882505
+       ],
+       [
+        -103.44279006735732,
+        20.451547621522177
+       ],
+       [
+        -103.4429938324258,
+        20.453315059000825
+       ],
+       [
+        -103.44282783660873,
+        20.455086005295918
+       ],
+       [
+        -103.44229844491974,
+        20.456792402618664
+       ],
+       [
+        -103.4414259895075,
+        20.45836867103705
+       ],
+       [
+        -103.4402439901414,
+        20.459754229291125
+       ],
+       [
+        -103.43879786731512,
+        20.460895823832836
+       ],
+       [
+        -103.43714319723149,
+        20.46174957644458
+       ],
+       [
+        -103.43534357565792,
+        20.46228267157774
+       ],
+       [
+        -103.43346817280067,
+        20.46247461839742
+       ],
+       [
+        -103.43158907334221,
+        20.462318038885954
+       ],
+       [
+        -103.42977850413519,
+        20.461818951621268
+       ],
+       [
+        -103.42810605641573,
+        20.460996540285922
+       ],
+       [
+        -103.42663600961235,
+        20.459882415834276
+       ],
+       [
+        -103.42542485987511,
+        20.458519400765326
+       ],
+       [
+        -103.4245191484921,
+        20.456959882363588
+       ],
+       [
+        -103.42395367371748,
+        20.45526379836175
+       ],
+       [
+        -103.42375015467086,
+        20.4534963326058
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "herramienta": "competencia_cercana",
+    "tipo": "puntos",
+    "entrada": {
+     "lat": 20.453406,
+     "lon": -103.433372,
+     "scian": [
+      "713943"
+     ],
+     "radio_m": 1000.0
+    },
+    "datos": [
+     {
+      "id": 7311116,
+      "nombre": "SPINNING",
+      "actividad": "Centros de acondicionamiento físico del sector privado",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.45926671,
+      "lon": -103.4264577,
+      "distancia_m": 971.0
+     }
+    ]
+   },
+   {
+    "herramienta": "perfil_zona",
+    "tipo": "geojson",
+    "entrada": {
+     "lat": 20.484514,
+     "lon": -103.24895,
+     "radio_m": 1000.0
+    },
+    "datos": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        -103.23932582496523,
+        20.48459267321332
+       ],
+       [
+        -103.23949452358374,
+        20.482821908509244
+       ],
+       [
+        -103.24002657738285,
+        20.481116182579207
+       ],
+       [
+        -103.24090152777448,
+        20.47954104146266
+       ],
+       [
+        -103.24208574273447,
+        20.478157010795414
+       ],
+       [
+        -103.24353371050597,
+        20.477017270780443
+       ],
+       [
+        -103.24518978905316,
+        20.476165613616736
+       ],
+       [
+        -103.24699034396448,
+        20.475634761711873
+       ],
+       [
+        -103.24886619270626,
+        20.475445111137574
+       ],
+       [
+        -103.25074526147534,
+        20.475603948469956
+       ],
+       [
+        -103.25255535282214,
+        20.476105171012616
+       ],
+       [
+        -103.25422691801054,
+        20.47692952111665
+       ],
+       [
+        -103.25569572790126,
+        20.47804532562459
+       ],
+       [
+        -103.25690533999727,
+        20.479409712114602
+       ],
+       [
+        -103.25780926703393,
+        20.480970255349437
+       ],
+       [
+        -103.25837276384621,
+        20.482666990826573
+       ],
+       [
+        -103.25857416378624,
+        20.48443471822161
+       ],
+       [
+        -103.25840571315366,
+        20.48620550635043
+       ],
+       [
+        -103.25787387129934,
+        20.487911303484648
+       ],
+       [
+        -103.25699906454471,
+        20.4894865527447
+       ],
+       [
+        -103.25581490304651,
+        20.490870712030816
+       ],
+       [
+        -103.25436689042247,
+        20.49201058155909
+       ],
+       [
+        -103.25271067553686,
+        20.492862349413247
+       ],
+       [
+        -103.25090991355748,
+        20.49339327633406
+       ],
+       [
+        -103.24903381854227,
+        20.49358295482935
+       ],
+       [
+        -103.24715450178725,
+        20.493424094072253
+       ],
+       [
+        -103.24534419849566,
+        20.492922800325413
+       ],
+       [
+        -103.24367248967026,
+        20.492098342077842
+       ],
+       [
+        -103.24220362631776,
+        20.490982408950988
+       ],
+       [
+        -103.24099405907427,
+        20.489617892947685
+       ],
+       [
+        -103.24009026837604,
+        20.488057239022464
+       ],
+       [
+        -103.23952697863182,
+        20.486360428529373
+       ],
+       [
+        -103.23932582496523,
+        20.48459267321332
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "herramienta": "competencia_cercana",
+    "tipo": "puntos",
+    "entrada": {
+     "lat": 20.484514,
+     "lon": -103.24895,
+     "scian": [
+      "713943"
+     ],
+     "radio_m": 1000.0
+    },
+    "datos": []
+   },
+   {
+    "herramienta": "perfil_zona",
+    "tipo": "geojson",
+    "entrada": {
+     "lat": 20.521229,
+     "lon": -103.451816,
+     "radio_m": 1000.0
+    },
+    "datos": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        -103.44218933698687,
+        20.52132050366456
+       ],
+       [
+        -103.44235542254843,
+        20.519549464015324
+       ],
+       [
+        -103.44288505941003,
+        20.517842980629283
+       ],
+       [
+        -103.44375788183667,
+        20.51626662867659
+       ],
+       [
+        -103.44494033954292,
+        20.51488098034363
+       ],
+       [
+        -103.44638698826093,
+        20.5137392780116
+       ],
+       [
+        -103.44804223660677,
+        20.51288538929445
+       ],
+       [
+        -103.44984248204311,
+        20.512352122352457
+       ],
+       [
+        -103.4517185539125,
+        20.51215996605302
+       ],
+       [
+        -103.45359836983604,
+        20.51231630324691
+       ],
+       [
+        -103.45540970366626,
+        20.51281512729434
+       ],
+       [
+        -103.45708295894755,
+        20.513637272697196
+       ],
+       [
+        -103.45855384162905,
+        20.514751151004596
+       ],
+       [
+        -103.4597658295989,
+        20.516113963805225
+       ],
+       [
+        -103.46067234432746,
+        20.517673346333698
+       ],
+       [
+        -103.46123854123613,
+        20.51936937869741
+       ],
+       [
+        -103.46144264993062,
+        20.5211368876051
+       ],
+       [
+        -103.46127681261575,
+        20.522907950287806
+       ],
+       [
+        -103.46074738819921,
+        20.524614504488646
+       ],
+       [
+        -103.45987471007318,
+        20.526190964256443
+       ],
+       [
+        -103.45869230655464,
+        20.527576740991037
+       ],
+       [
+        -103.45724561366185,
+        20.52871857276321
+       ],
+       [
+        -103.45559022950394,
+        20.529572572252892
+       ],
+       [
+        -103.45378977729438,
+        20.530105914435723
+       ],
+       [
+        -103.45191345916999,
+        20.53029809898957
+       ],
+       [
+        -103.45003339499976,
+        20.530141738762186
+       ],
+       [
+        -103.44822184872447,
+        20.529642843899968
+       ],
+       [
+        -103.44654844914257,
+        20.52882059068198
+       ],
+       [
+        -103.44507751227337,
+        20.52770658397296
+       ],
+       [
+        -103.44386556847832,
+        20.52634364173222
+       ],
+       [
+        -103.44295918956183,
+        20.52478414843121
+       ],
+       [
+        -103.44239319942638,
+        20.523088040826632
+       ],
+       [
+        -103.44218933698687,
+        20.52132050366456
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "herramienta": "competencia_cercana",
+    "tipo": "puntos",
+    "entrada": {
+     "lat": 20.521229,
+     "lon": -103.451816,
+     "scian": [
+      "713943"
+     ],
+     "radio_m": 1000.0
+    },
+    "datos": []
+   }
+  ],
+  "llamadas": [
+   {
+    "herramienta": "buscar_actividad",
+    "entrada": {
+     "texto": "gimnasio"
+    }
+   },
+   {
+    "herramienta": "rankear_zonas",
+    "entrada": {
+     "municipios": [
+      "Tlajomulco de Zúñiga"
+     ],
+     "scian": [
+      "713943"
+     ],
+     "nse_min": 4,
+     "radio_m": 1000.0,
+     "top_n": 10,
+     "min_comercio": 25
+    }
+   },
+   {
+    "herramienta": "perfil_zona",
+    "entrada": {
+     "lat": 20.453406,
+     "lon": -103.433372,
+     "radio_m": 1000.0
+    }
+   },
+   {
+    "herramienta": "competencia_cercana",
+    "entrada": {
+     "lat": 20.453406,
+     "lon": -103.433372,
+     "scian": [
+      "713943"
+     ],
+     "radio_m": 1000.0
+    }
+   },
+   {
+    "herramienta": "perfil_zona",
+    "entrada": {
+     "lat": 20.484514,
+     "lon": -103.24895,
+     "radio_m": 1000.0
+    }
+   },
+   {
+    "herramienta": "competencia_cercana",
+    "entrada": {
+     "lat": 20.484514,
+     "lon": -103.24895,
+     "scian": [
+      "713943"
+     ],
+     "radio_m": 1000.0
+    }
+   },
+   {
+    "herramienta": "perfil_zona",
+    "entrada": {
+     "lat": 20.521229,
+     "lon": -103.451816,
+     "radio_m": 1000.0
+    }
+   },
+   {
+    "herramienta": "competencia_cercana",
+    "entrada": {
+     "lat": 20.521229,
+     "lon": -103.451816,
+     "scian": [
+      "713943"
+     ],
+     "radio_m": 1000.0
+    }
+   }
+  ],
+  "tokens_entrada": 15023,
+  "tokens_salida": 3546
+ }
+}

@@ -1,0 +1,732 @@
+{
+ "titulo": "Consultorio dental en Tlaquepaque o Tonalá",
+ "categoria": "Ranking",
+ "pregunta": "¿Dónde conviene abrir un consultorio dental en San Pedro Tlaquepaque o Tonalá? Busco zonas con comercio y poca competencia.",
+ "proveedor": "openai",
+ "modelo": "gpt-5-mini",
+ "fecha": "2026-10-19",
+ "resultado": {
+  "texto": "Recomendación breve\n- Recomiendo validar locales primero en Tonalá (punto sugerido 20.662996, -103.25208) y después en la zona de Tlaquepaque alrededor de 20.6048, -103.3687. Tonalá muestra buena demanda con muy poca competencia cercana; Tlaquepaque ofrece más comercio pero ya hay 2 consultorios en el entorno inmediato.\n\nCandidatas recomendadas\n\n| Zona / AGEB (cvegeo) | Punto sugerido (lat, lon) | Población en radio (~1 km) | Competidores (consultorios, 1 km) | Comercios cercanos (a 500 m) | NSE (quintil municipal) |\n|---|---:|---:|---:|---:|---:|\n| Tonalá — 1410100012073 | 20.662996, -103.252080 | 32,729 (perfil_zona) | 1 (competencia_cercana) | 64 | 3 |\n| San Pedro Tlaquepaque — 1409800013125 | 20.604826, -103.368680 | 38,242 (perfil_zona) | 2 (competencia_cercana) | 100 | 1 |\n| San Pedro Tlaquepaque — 1409800013318 | 20.604702, -103.368302 | 37,115 (perfil_zona) | 2 (competencia_cercana) | 77 | 1 |\n\nPor qué (puntos clave)\n- Traducción del giro: usé el código SCIAN 621211 (Consultorios dentales del sector privado) para medir competencia; el código público 621212 existe pero es casi inexistente en la zona.  \n- Tonalá (20.662996, -103.25208): perfil_zona muestra ~32.7k personas en 1 km y 774 negocios totales en el área; competencia_cercana reporta solo 1 consultorio privado dentro de 1 km → baja competencia relativa con suficiente comercio.  \n- Tlaquepaque (20.6048, -103.3687): áreas alrededor del punto sugerido tienen mucho comercio (100 comercios a 500 m) y población mayor (~38.2k), pero competencia_cercana detectó 2 consultorios dentro de 1 km — buen flujo de clientes pero ya hay proveedores cercanos.  \n- Las candidatas se eligieron sobre AGEB con suficiente comercio (filtro mínimo) y buen balance población/competencia (score utilizado: población en 1 km / (competidores +1)).\n\nRiesgos y supuestos\n- Población y AGEB: datos del Censo 2020 (puede haber cambios de población y nuevos desarrollos desde entonces).  \n- Fuentes comerciales: DENUE/DEN data puede no distinguir entre cadenas y consultorios independientes; algunos consultorios pueden faltar o estar cerrados.  \n- NSE aproximado: se usa un índice derivado de variables de vivienda/escolaridad y es relativo dentro del municipio (quintiles municipales).  \n- Conteo de competidores: basado en clasificación SCIAN; hay posibilidad de subregistro o de consultorios que no aparecen con coordenadas precisas, por eso recomiendo inspección física en el punto_sugerido.\n\nSiguientes pasos sugeridos (acción)\n- Visitar y auditar 2 locales en el punto sugerido de Tonalá y 2 en el de Tlaquepaque para evaluar renta, visibilidad y flujo peatonal; validar distancia a los consultorios ya identificados.  \n- Si quieres, puedo sacar isócronas a auto/peatón desde cualquiera de los puntos sugeridos y listar los competidores más cercanos con distancias y datos de personal ocupado para priorizar locales exactos. ¿Cuál punto quieres que valide primero?",
+  "capas": [
+   {
+    "herramienta": "rankear_zonas",
+    "tipo": "puntos",
+    "entrada": {
+     "municipios": [
+      "San Pedro Tlaquepaque",
+      "Tonalá"
+     ],
+     "scian": [
+      "621211"
+     ],
+     "nse_min": 1,
+     "radio_m": 1000.0,
+     "top_n": 10,
+     "min_comercio": 25
+    },
+    "datos": [
+     {
+      "cvegeo": "1410100012073",
+      "lat": 20.662996,
+      "lon": -103.25208,
+      "comercios_150m": 23,
+      "competidores_radio": 1,
+      "dist_competidor_m": 959
+     },
+     {
+      "cvegeo": "1409800013125",
+      "lat": 20.604826,
+      "lon": -103.36868,
+      "comercios_150m": 38,
+      "competidores_radio": 2,
+      "dist_competidor_m": 855
+     },
+     {
+      "cvegeo": "1409800013318",
+      "lat": 20.604702,
+      "lon": -103.368302,
+      "comercios_150m": 29,
+      "competidores_radio": 2,
+      "dist_competidor_m": 897
+     },
+     {
+      "cvegeo": "1409800011862",
+      "lat": 20.604213,
+      "lon": -103.369317,
+      "comercios_150m": 41,
+      "competidores_radio": 3,
+      "dist_competidor_m": 817
+     },
+     {
+      "cvegeo": "1410100011215",
+      "lat": 20.588273,
+      "lon": -103.260429,
+      "comercios_150m": 20,
+      "competidores_radio": 0,
+      "dist_competidor_m": null
+     },
+     {
+      "cvegeo": "1409800013252",
+      "lat": 20.5923,
+      "lon": -103.271829,
+      "comercios_150m": 35,
+      "competidores_radio": 0,
+      "dist_competidor_m": null
+     },
+     {
+      "cvegeo": "1409800012502",
+      "lat": 20.610306,
+      "lon": -103.36811,
+      "comercios_150m": 31,
+      "competidores_radio": 6,
+      "dist_competidor_m": 794
+     },
+     {
+      "cvegeo": "1409800013182",
+      "lat": 20.589774,
+      "lon": -103.265957,
+      "comercios_150m": 30,
+      "competidores_radio": 0,
+      "dist_competidor_m": null
+     },
+     {
+      "cvegeo": "1409800013002",
+      "lat": 20.593073,
+      "lon": -103.264685,
+      "comercios_150m": 33,
+      "competidores_radio": 0,
+      "dist_competidor_m": null
+     },
+     {
+      "cvegeo": "1409800012061",
+      "lat": 20.5885,
+      "lon": -103.261308,
+      "comercios_150m": 23,
+      "competidores_radio": 0,
+      "dist_competidor_m": null
+     }
+    ]
+   },
+   {
+    "herramienta": "perfil_zona",
+    "tipo": "geojson",
+    "entrada": {
+     "lat": 20.662996,
+     "lon": -103.25208,
+     "radio_m": 1000.0
+    },
+    "datos": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        -103.24244310052055,
+        20.663074881652534
+       ],
+       [
+        -103.24261198131214,
+        20.661303868229794
+       ],
+       [
+        -103.24314469924265,
+        20.65959789498526
+       ],
+       [
+        -103.2440207701695,
+        20.658022517483932
+       ],
+       [
+        -103.2452065189849,
+        20.656638270478048
+       ],
+       [
+        -103.24665637497812,
+        20.655498342522584
+       ],
+       [
+        -103.24831462355618,
+        20.65464653307738
+       ],
+       [
+        -103.25011754693445,
+        20.654115570434872
+       ],
+       [
+        -103.25199587159123,
+        20.653925854944266
+       ],
+       [
+        -103.2538774286123,
+        20.65408467568443
+       ],
+       [
+        -103.25568992496336,
+        20.654585930589214
+       ],
+       [
+        -103.2573637195176,
+        20.65541036074477
+       ],
+       [
+        -103.25883449748457,
+        20.65652628988493
+       ],
+       [
+        -103.26004574074392,
+        20.657890840760064
+       ],
+       [
+        -103.26095089934012,
+        20.65945158177727
+       ],
+       [
+        -103.26151518076003,
+        20.66114854080071
+       ],
+       [
+        -103.2617168881729,
+        20.662916508893247
+       ],
+       [
+        -103.26154825602546,
+        20.6646875456128
+       ],
+       [
+        -103.26101575060663,
+        20.66639358968515
+       ],
+       [
+        -103.26013982370594,
+        20.667969074762407
+       ],
+       [
+        -103.25895412850458,
+        20.669353449714805
+       ],
+       [
+        -103.257504227551,
+        20.670493506508713
+       ],
+       [
+        -103.25584584228298,
+        20.67134542606981
+       ],
+       [
+        -103.25404271129497,
+        20.67187646334151
+       ],
+       [
+        -103.25216413971533,
+        20.672066206612953
+       ],
+       [
+        -103.25028233405011,
+        20.671907362576
+       ],
+       [
+        -103.2484696251874,
+        20.671406036843386
+       ],
+       [
+        -103.24679568660697,
+        20.670581499111904
+       ],
+       [
+        -103.24532485502597,
+        20.669465442025245
+       ],
+       [
+        -103.24411365672698,
+        20.668100762311635
+       ],
+       [
+        -103.24320863482075,
+        20.66653991117855
+       ],
+       [
+        -103.24264456101058,
+        20.664842877525913
+       ],
+       [
+        -103.24244310052055,
+        20.663074881652534
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "herramienta": "competencia_cercana",
+    "tipo": "puntos",
+    "entrada": {
+     "lat": 20.662996,
+     "lon": -103.25208,
+     "scian": [
+      "621211",
+      "621212"
+     ],
+     "radio_m": 1000.0
+    },
+    "datos": [
+     {
+      "id": 1891177,
+      "nombre": "CONSULTORIO DENTAL SIN NOMBRE",
+      "actividad": "Consultorios dentales del sector privado",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.65878248,
+      "lon": -103.26011999,
+      "distancia_m": 959.0
+     }
+    ]
+   },
+   {
+    "herramienta": "perfil_zona",
+    "tipo": "geojson",
+    "entrada": {
+     "lat": 20.604826,
+     "lon": -103.36868,
+     "radio_m": 1000.0
+    },
+    "datos": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        -103.35904732273461,
+        20.604912252008162
+       ],
+       [
+        -103.35921460155974,
+        20.60314118800634
+       ],
+       [
+        -103.35974561689648,
+        20.60143488294621
+       ],
+       [
+        -103.36061995002979,
+        20.599858905147535
+       ],
+       [
+        -103.36180399262216,
+        20.598473812428136
+       ],
+       [
+        -103.3632522395119,
+        20.59733282583334
+       ],
+       [
+        -103.36490903791773,
+        20.59647978549132
+       ],
+       [
+        -103.366710725758,
+        20.595947466979798
+       ],
+       [
+        -103.36858807696855,
+        20.595756322736072
+       ],
+       [
+        -103.37046896002707,
+        20.59591369673062
+       ],
+       [
+        -103.37228110779124,
+        20.596413542485287
+       ],
+       [
+        -103.3739548925324,
+        20.59723665523572
+       ],
+       [
+        -103.37542599984938,
+        20.598351409346403
+       ],
+       [
+        -103.37663789898527,
+        20.599714972733313
+       ],
+       [
+        -103.37754401480474,
+        20.601274951766957
+       ],
+       [
+        -103.37810951803543,
+        20.60297140361132
+       ],
+       [
+        -103.37831266491668,
+        20.60473913883708
+       ],
+       [
+        -103.37814563459426,
+        20.606510225965728
+       ],
+       [
+        -103.37761483180792,
+        20.60821660179544
+       ],
+       [
+        -103.37674064291383,
+        20.609792687232446
+       ],
+       [
+        -103.37555665429039,
+        20.61117790807197
+       ],
+       [
+        -103.37410836288304,
+        20.61231902376346
+       ],
+       [
+        -103.37245142825041,
+        20.613172174525086
+       ],
+       [
+        -103.37064953321345,
+        20.61370456796864
+       ],
+       [
+        -103.36877193538017,
+        20.613895740249127
+       ],
+       [
+        -103.36689080381895,
+        20.61373834312776
+       ],
+       [
+        -103.36507844350439,
+        20.61323842660349
+       ],
+       [
+        -103.36340451452399,
+        20.61241520621473
+       ],
+       [
+        -103.36193335323807,
+        20.611300323983976
+       ],
+       [
+        -103.36072149861984,
+        20.609936631500293
+       ],
+       [
+        -103.35981551902717,
+        20.608376542047086
+       ],
+       [
+        -103.35925022299313,
+        20.60668001527068
+       ],
+       [
+        -103.35904732273461,
+        20.604912252008162
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "herramienta": "competencia_cercana",
+    "tipo": "puntos",
+    "entrada": {
+     "lat": 20.604826,
+     "lon": -103.36868,
+     "scian": [
+      "621211",
+      "621212"
+     ],
+     "radio_m": 1000.0
+    },
+    "datos": [
+     {
+      "id": 7866162,
+      "nombre": "ODONTOLOGIA INTEGRAL Y ORTODONCIA ORALIA",
+      "actividad": "Consultorios dentales del sector privado",
+      "personal_ocupado": "6 a 10 personas",
+      "lat": 20.60713341,
+      "lon": -103.37651712,
+      "distancia_m": 855.0
+     },
+     {
+      "id": 11456282,
+      "nombre": "MOVADENT",
+      "actividad": "Consultorios dentales del sector privado",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.60371161,
+      "lon": -103.37758558,
+      "distancia_m": 935.0
+     }
+    ]
+   },
+   {
+    "herramienta": "perfil_zona",
+    "tipo": "geojson",
+    "entrada": {
+     "lat": 20.604702,
+     "lon": -103.368302,
+     "radio_m": 1000.0
+    },
+    "datos": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        -103.35866933133939,
+        20.604788228095877
+       ],
+       [
+        -103.35883661496828,
+        20.60301716467759
+       ],
+       [
+        -103.35936763459337,
+        20.601310861097534
+       ],
+       [
+        -103.36024197133487,
+        20.599734885618595
+       ],
+       [
+        -103.36142601671665,
+        20.598349795969327
+       ],
+       [
+        -103.36287426546991,
+        20.597208813077184
+       ],
+       [
+        -103.36453106474187,
+        20.5963557769279
+       ],
+       [
+        -103.3663327524176,
+        20.595823462938103
+       ],
+       [
+        -103.36821010243932,
+        20.595632323371426
+       ],
+       [
+        -103.37009098333037,
+        20.595789702018493
+       ],
+       [
+        -103.37190312803168,
+        20.59628955222252
+       ],
+       [
+        -103.37357690893226,
+        20.597112669048148
+       ],
+       [
+        -103.37504801177845,
+        20.59822742670332
+       ],
+       [
+        -103.37625990598501,
+        20.599590992967894
+       ],
+       [
+        -103.37716601660605,
+        20.601150974101685
+       ],
+       [
+        -103.37773151456892,
+        20.602847427188067
+       ],
+       [
+        -103.37793465631533,
+        20.604615162749948
+       ],
+       [
+        -103.37776762118844,
+        20.60638624929581
+       ],
+       [
+        -103.37723681411265,
+        20.608092623646314
+       ],
+       [
+        -103.37636262160903,
+        20.60966870676436
+       ],
+       [
+        -103.37517863019477,
+        20.611053924534314
+       ],
+       [
+        -103.37373033692266,
+        20.612195036523506
+       ],
+       [
+        -103.37207340142302,
+        20.61304818309245
+       ],
+       [
+        -103.37027150655024,
+        20.613580572013962
+       ],
+       [
+        -103.36839390990596,
+        20.613771739616883
+       ],
+       [
+        -103.36651278051289,
+        20.613614337842165
+       ],
+       [
+        -103.3647004232623,
+        20.613114416867717
+       ],
+       [
+        -103.36302649812384,
+        20.612291192402964
+       ],
+       [
+        -103.36155534131014,
+        20.6111763066271
+       ],
+       [
+        -103.36034349162243,
+        20.60981261126545
+       ],
+       [
+        -103.35943751722907,
+        20.60825251971203
+       ],
+       [
+        -103.35887222646323,
+        20.60655599169391
+       ],
+       [
+        -103.35866933133939,
+        20.604788228095877
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "herramienta": "competencia_cercana",
+    "tipo": "puntos",
+    "entrada": {
+     "lat": 20.604702,
+     "lon": -103.368302,
+     "scian": [
+      "621211",
+      "621212"
+     ],
+     "radio_m": 1000.0
+    },
+    "datos": [
+     {
+      "id": 7866162,
+      "nombre": "ODONTOLOGIA INTEGRAL Y ORTODONCIA ORALIA",
+      "actividad": "Consultorios dentales del sector privado",
+      "personal_ocupado": "6 a 10 personas",
+      "lat": 20.60713341,
+      "lon": -103.37651712,
+      "distancia_m": 897.0
+     },
+     {
+      "id": 11456282,
+      "nombre": "MOVADENT",
+      "actividad": "Consultorios dentales del sector privado",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.60371161,
+      "lon": -103.37758558,
+      "distancia_m": 973.0
+     }
+    ]
+   }
+  ],
+  "llamadas": [
+   {
+    "herramienta": "buscar_actividad",
+    "entrada": {
+     "texto": "dentista"
+    }
+   },
+   {
+    "herramienta": "rankear_zonas",
+    "entrada": {
+     "municipios": [
+      "San Pedro Tlaquepaque",
+      "Tonalá"
+     ],
+     "scian": [
+      "621211"
+     ],
+     "nse_min": 1,
+     "radio_m": 1000.0,
+     "top_n": 10,
+     "min_comercio": 25
+    }
+   },
+   {
+    "herramienta": "perfil_zona",
+    "entrada": {
+     "lat": 20.662996,
+     "lon": -103.25208,
+     "radio_m": 1000.0
+    }
+   },
+   {
+    "herramienta": "competencia_cercana",
+    "entrada": {
+     "lat": 20.662996,
+     "lon": -103.25208,
+     "scian": [
+      "621211",
+      "621212"
+     ],
+     "radio_m": 1000.0
+    }
+   },
+   {
+    "herramienta": "perfil_zona",
+    "entrada": {
+     "lat": 20.604826,
+     "lon": -103.36868,
+     "radio_m": 1000.0
+    }
+   },
+   {
+    "herramienta": "competencia_cercana",
+    "entrada": {
+     "lat": 20.604826,
+     "lon": -103.36868,
+     "scian": [
+      "621211",
+      "621212"
+     ],
+     "radio_m": 1000.0
+    }
+   },
+   {
+    "herramienta": "perfil_zona",
+    "entrada": {
+     "lat": 20.604702,
+     "lon": -103.368302,
+     "radio_m": 1000.0
+    }
+   },
+   {
+    "herramienta": "competencia_cercana",
+    "entrada": {
+     "lat": 20.604702,
+     "lon": -103.368302,
+     "scian": [
+      "621211",
+      "621212"
+     ],
+     "radio_m": 1000.0
+    }
+   }
+  ],
+  "tokens_entrada": 14262,
+  "tokens_salida": 2427
+ }
+}

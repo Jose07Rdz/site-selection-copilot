@@ -1,0 +1,929 @@
+{
+ "titulo": "Tienda de conveniencia en Puerto Vallarta",
+ "categoria": "Ranking",
+ "pregunta": "¿Dónde abrirías una tienda de abarrotes o minisúper en Puerto Vallarta para atender a la población local, con la menor competencia posible?",
+ "proveedor": "openai",
+ "modelo": "gpt-5-mini",
+ "fecha": "2026-10-19",
+ "resultado": {
+  "texto": "Recomendación breve\n- Abrir un abarrotes/minisúper en zonas de Ixtapa o Las Juntas (Puerto Vallarta) ofrece buena densidad de población en 500 m y relativamente pocos competidores; sin embargo revise la competencia inmediata (hay tiendas existentes en los puntos sugeridos) y valore diferenciación (horario, reparto, frescos).\n\nCandidatas (validadas en el punto sugerido)\n| Zona / AGEB (localidad) | Punto sugerido (lat, lon) | Población en 500 m | Competidores en 500 m (en el punto) | Comercios cercanos (500 m) | NSE (quintil municipal) |\n|---|---:|---:|---:|---:|---:|\n| 1406700283078 (Ixtapa) | 20.712266, -105.231980 | 3,040 (AGEB, rankear_zonas) | 7 (competencia_cercana) | 17 (comercios_500m) | 4 |\n| 1406700312366 (Las Juntas) | 20.703917, -105.238905 | 3,546 (AGEB, rankear_zonas) | 8 (competencia_cercana) | 22 (comercios_500m) | 5 |\n| 1406700010942 (Puerto Vallarta - nodo comercial) | 20.677885, -105.248602 | 3,119 (AGEB, rankear_zonas) | 11 (competencia_cercana en punto) | 44 (comercios_500m) | 3 |\n\nPor qué (datos clave y observaciones)\n- Ixtapa (1406700283078): 3,040 personas en 500 m y sólo 7 competidores en el punto → relación población/competidor favorable; NSE municipal 4 indica poder adquisitivo medio-alto relativo dentro del municipio. (Fuente: rankear_zonas + competencia_cercana/perfil_zona.)\n- Las Juntas (1406700312366): 3,546 personas en 500 m con 8 competidores; buena base residencial y comercio suficiente para captar clientes locales. (Fuente: rankear_zonas + competencia_cercana/perfil_zona.)\n- Nodo cerca de 20.6779,-105.2486: aunque el AGEB muestra ~3,119 habitantes, el punto sugerido es muy comercial (perfil_zona registró muchos negocios y baja población residencial inmediata), por lo que conviene si busca ventas a transeúntes/turismo o clientes del aeropuerto, no solo vecindad. (Fuente: perfil_zona y competencia_cercana.)\n\nRiesgos y supuestos\n- Población usada = Censo 2020 por AGEB; cambios demográficos recientes no están reflejados.  \n- DENUE/negocios: no distingue cadenas vs independientes ni captura horarios/fórmulas comerciales; varios puntos sugeridos ya tienen abarrotes/minisúper (competidores a 0 m en las validaciones).  \n- NSE = quintil municipal aproximado (no es NSE AMAI); interpretar como relativo dentro del municipio.  \n- Recomendación operativa: visitar los puntos sugeridos (validar disponibilidad de local, flujo peatonal real, condiciones de estacionamiento y contratos de renta), y considerar nichos (horario extendido, reparto a domicilio, productos frescos) para diferenciarse de las tiendas existentes.\n\nSi quieres, hago:\n- un mapa con los puntos sugeridos y competidores cercanos,\n- comparativo de isócronas a 5 o 10 minutos en auto/peatonal para cada punto,\n- o buscar AGEBs alternas con menos comercio cercano (más residenciales) si prefieres menor visibilidad comercial y menos competencia. ¿Qué prefieres?",
+  "capas": [
+   {
+    "herramienta": "rankear_zonas",
+    "tipo": "puntos",
+    "entrada": {
+     "municipios": [
+      "Puerto Vallarta"
+     ],
+     "scian": [
+      "461110",
+      "462112",
+      "462111"
+     ],
+     "nse_min": 1,
+     "radio_m": 500.0,
+     "top_n": 10,
+     "min_comercio": 15
+    },
+    "datos": [
+     {
+      "cvegeo": "1406700282718",
+      "lat": 20.710776,
+      "lon": -105.208412,
+      "comercios_150m": 11,
+      "competidores_radio": 34,
+      "dist_competidor_m": 0
+     },
+     {
+      "cvegeo": "1406700010459",
+      "lat": 20.656287,
+      "lon": -105.223791,
+      "comercios_150m": 17,
+      "competidores_radio": 28,
+      "dist_competidor_m": 91
+     },
+     {
+      "cvegeo": "1406700012309",
+      "lat": 20.641263,
+      "lon": -105.217617,
+      "comercios_150m": 16,
+      "competidores_radio": 16,
+      "dist_competidor_m": 7
+     },
+     {
+      "cvegeo": "140670028118A",
+      "lat": 20.710776,
+      "lon": -105.208412,
+      "comercios_150m": 11,
+      "competidores_radio": 34,
+      "dist_competidor_m": 0
+     },
+     {
+      "cvegeo": "140670001082A",
+      "lat": 20.655204,
+      "lon": -105.235307,
+      "comercios_150m": 42,
+      "competidores_radio": 27,
+      "dist_competidor_m": 22
+     },
+     {
+      "cvegeo": "1406700010942",
+      "lat": 20.677885,
+      "lon": -105.248602,
+      "comercios_150m": 20,
+      "competidores_radio": 11,
+      "dist_competidor_m": 100
+     },
+     {
+      "cvegeo": "1406700283078",
+      "lat": 20.712266,
+      "lon": -105.23198,
+      "comercios_150m": 6,
+      "competidores_radio": 7,
+      "dist_competidor_m": 0
+     },
+     {
+      "cvegeo": "140670001171A",
+      "lat": 20.644751,
+      "lon": -105.220301,
+      "comercios_150m": 39,
+      "competidores_radio": 14,
+      "dist_competidor_m": 27
+     },
+     {
+      "cvegeo": "1406700011758",
+      "lat": 20.655204,
+      "lon": -105.235307,
+      "comercios_150m": 42,
+      "competidores_radio": 27,
+      "dist_competidor_m": 22
+     },
+     {
+      "cvegeo": "1406700312366",
+      "lat": 20.703917,
+      "lon": -105.238905,
+      "comercios_150m": 6,
+      "competidores_radio": 8,
+      "dist_competidor_m": 0
+     }
+    ]
+   },
+   {
+    "herramienta": "perfil_zona",
+    "tipo": "geojson",
+    "entrada": {
+     "lat": 20.712266,
+     "lon": -105.23198,
+     "radio_m": 500.0
+    },
+    "datos": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        -105.22716083030676,
+        20.712368121660003
+       ],
+       [
+        -105.22723226996423,
+        20.711481567277744
+       ],
+       [
+        -105.22748615908311,
+        20.71062516136734
+       ],
+       [
+        -105.22791273776913,
+        20.70983181416519
+       ],
+       [
+        -105.22849561071159,
+        20.709132012060998
+       ],
+       [
+        -105.22921237757048,
+        20.708552646251174
+       ],
+       [
+        -105.23003549393962,
+        20.708115979600013
+       ],
+       [
+        -105.23093332978034,
+        20.70783879137058
+       ],
+       [
+        -105.2318713846626,
+        20.70773173264909
+       ],
+       [
+        -105.23281361315598,
+        20.70779891719736
+       ],
+       [
+        -105.23372380950386,
+        20.70803776343132
+       ],
+       [
+        -105.23456699844884,
+        20.708439093586744
+       ],
+       [
+        -105.2353107788439,
+        20.708987486269194
+       ],
+       [
+        -105.23592656848574,
+        20.70966186886157
+       ],
+       [
+        -105.23639070238191,
+        20.710436327057757
+       ],
+       [
+        -105.23668534226562,
+        20.711281100455096
+       ],
+       [
+        -105.23679916239362,
+        20.712163725987523
+       ],
+       [
+        -105.23672778522942,
+        20.713050285295406
+       ],
+       [
+        -105.23647395020105,
+        20.71390670812146
+       ],
+       [
+        -105.23604740896803,
+        20.714700081654
+       ],
+       [
+        -105.23546455113916,
+        20.7153999154948
+       ],
+       [
+        -105.23474777475356,
+        20.715979313615794
+       ],
+       [
+        -105.23392462566774,
+        20.716416008233587
+       ],
+       [
+        -105.2330267389012,
+        20.71669321582752
+       ],
+       [
+        -105.23208862263701,
+        20.716800282363284
+       ],
+       [
+        -105.23114633165035,
+        20.716733092889342
+       ],
+       [
+        -105.23023608121197,
+        20.716494229739766
+       ],
+       [
+        -105.22939285481398,
+        20.716092873253967
+       ],
+       [
+        -105.22864905930531,
+        20.715544448834915
+       ],
+       [
+        -105.2280332791902,
+        20.714870033931337
+       ],
+       [
+        -105.22756917801071,
+        20.714095547768512
+       ],
+       [
+        -105.22727458905283,
+        20.713250755006662
+       ],
+       [
+        -105.22716083030676,
+        20.712368121660003
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "herramienta": "competencia_cercana",
+    "tipo": "puntos",
+    "entrada": {
+     "lat": 20.712266,
+     "lon": -105.23198,
+     "scian": [
+      "461110",
+      "462112",
+      "462111"
+     ],
+     "radio_m": 500.0
+    },
+    "datos": [
+     {
+      "id": 11822570,
+      "nombre": "KIOSKO 31151 VERDE VALLARTA",
+      "actividad": "Comercio al por menor en minisupers",
+      "personal_ocupado": "6 a 10 personas",
+      "lat": 20.71226567,
+      "lon": -105.2319799,
+      "distancia_m": 0.0
+     },
+     {
+      "id": 6476631,
+      "nombre": "TIENDA DE ABARROTES MARLEN",
+      "actividad": "Comercio al por menor en tiendas de abarrotes, ultramarinos y misceláneas",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.71261276,
+      "lon": -105.23405125,
+      "distancia_m": 219.0
+     },
+     {
+      "id": 6470912,
+      "nombre": "TIENDA DE ABARROTES BRAVO",
+      "actividad": "Comercio al por menor en tiendas de abarrotes, ultramarinos y misceláneas",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.71178214,
+      "lon": -105.22967114,
+      "distancia_m": 246.0
+     },
+     {
+      "id": 7872423,
+      "nombre": "MINI SUPER VERDE VALLARTA",
+      "actividad": "Comercio al por menor en tiendas de abarrotes, ultramarinos y misceláneas",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.71295206,
+      "lon": -105.23431994,
+      "distancia_m": 255.0
+     },
+     {
+      "id": 6488075,
+      "nombre": "TIENDA DE ABARROTES GALINDO",
+      "actividad": "Comercio al por menor en tiendas de abarrotes, ultramarinos y misceláneas",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.71262783,
+      "lon": -105.23491098,
+      "distancia_m": 307.0
+     },
+     {
+      "id": 10378340,
+      "nombre": "TIENDA DE ABARROTES SIN NOMBRE",
+      "actividad": "Comercio al por menor en tiendas de abarrotes, ultramarinos y misceláneas",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.71427218,
+      "lon": -105.23514535,
+      "distancia_m": 398.0
+     },
+     {
+      "id": 9897545,
+      "nombre": "ABARROTES MARLEN",
+      "actividad": "Comercio al por menor en tiendas de abarrotes, ultramarinos y misceláneas",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.71253777,
+      "lon": -105.23603058,
+      "distancia_m": 422.0
+     }
+    ]
+   },
+   {
+    "herramienta": "perfil_zona",
+    "tipo": "geojson",
+    "entrada": {
+     "lat": 20.677885,
+     "lon": -105.248602,
+     "radio_m": 500.0
+    },
+    "datos": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        -105.24378407046278,
+        20.677987644582927
+       ],
+       [
+        -105.2438553827376,
+        20.677101104947877
+       ],
+       [
+        -105.2441091017142,
+        20.676244693129775
+       ],
+       [
+        -105.24453547403787,
+        20.67545131959132
+       ],
+       [
+        -105.24511811232877,
+        20.674751471733064
+       ],
+       [
+        -105.24583462526401,
+        20.674172042507976
+       ],
+       [
+        -105.24665747819446,
+        20.67373529721558
+       ],
+       [
+        -105.24755505120362,
+        20.673458018139065
+       ],
+       [
+        -105.24849285395989,
+        20.67335085985443
+       ],
+       [
+        -105.24943485072,
+        20.673417939948855
+       ],
+       [
+        -105.25034484463096,
+        20.67365668085214
+       ],
+       [
+        -105.25118786821382,
+        20.67405790884845
+       ],
+       [
+        -105.25193152667588,
+        20.67460620647065
+       ],
+       [
+        -105.25254724250007,
+        20.67528050475641
+       ],
+       [
+        -105.25301135353178,
+        20.6760548926414
+       ],
+       [
+        -105.25330602238454,
+        20.676899612426734
+       ],
+       [
+        -105.25341992220386,
+        20.677782203108244
+       ],
+       [
+        -105.25334867239266,
+        20.678668747666432
+       ],
+       [
+        -105.25309500748662,
+        20.679525176410895
+       ],
+       [
+        -105.25266867260868,
+        20.68031857630196
+       ],
+       [
+        -105.25208604943788,
+        20.681018455927155
+       ],
+       [
+        -105.25136952699526,
+        20.6815979174973
+       ],
+       [
+        -105.25054664137733,
+        20.682034690788687
+       ],
+       [
+        -105.24964901747697,
+        20.68231198925542
+       ],
+       [
+        -105.24871115337352,
+        20.68241915536958
+       ],
+       [
+        -105.24776909414979,
+        20.68235207035202
+       ],
+       [
+        -105.24685904616827,
+        20.682113312522457
+       ],
+       [
+        -105.24601598513969,
+        20.681712058173513
+       ],
+       [
+        -105.2452723115575,
+        20.68116372878434
+       ],
+       [
+        -105.24465660524072,
+        20.68048939815353
+       ],
+       [
+        -105.2441925268965,
+        20.679714982269584
+       ],
+       [
+        -105.24389790893491,
+        20.678870243093982
+       ],
+       [
+        -105.24378407046278,
+        20.677987644582927
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "herramienta": "competencia_cercana",
+    "tipo": "puntos",
+    "entrada": {
+     "lat": 20.677885,
+     "lon": -105.248602,
+     "scian": [
+      "461110",
+      "462112",
+      "462111"
+     ],
+     "radio_m": 500.0
+    },
+    "datos": [
+     {
+      "id": 9331978,
+      "nombre": "AEROMARKET",
+      "actividad": "Comercio al por menor en minisupers",
+      "personal_ocupado": "11 a 30 personas",
+      "lat": 20.67814827,
+      "lon": -105.249526,
+      "distancia_m": 100.0
+     },
+     {
+      "id": 9566898,
+      "nombre": "TIENDA MEXICO LOVERS",
+      "actividad": "Comercio al por menor en tiendas de abarrotes, ultramarinos y misceláneas",
+      "personal_ocupado": "6 a 10 personas",
+      "lat": 20.67814827,
+      "lon": -105.249526,
+      "distancia_m": 100.0
+     },
+     {
+      "id": 7500111,
+      "nombre": "SUPER VALLARTA",
+      "actividad": "Comercio al por menor en tiendas de abarrotes, ultramarinos y misceláneas",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.67820551,
+      "lon": -105.24691585,
+      "distancia_m": 179.0
+     },
+     {
+      "id": 9492706,
+      "nombre": "TIENDA DE ABARROTESS",
+      "actividad": "Comercio al por menor en tiendas de abarrotes, ultramarinos y misceláneas",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.67563262,
+      "lon": -105.24778117,
+      "distancia_m": 265.0
+     },
+     {
+      "id": 1936757,
+      "nombre": "TIENDA DE ABARROTES MINI SUPER LUIS",
+      "actividad": "Comercio al por menor en tiendas de abarrotes, ultramarinos y misceláneas",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.67576986,
+      "lon": -105.24707893,
+      "distancia_m": 284.0
+     },
+     {
+      "id": 1936768,
+      "nombre": "ABARROTES PALOMERA",
+      "actividad": "Comercio al por menor en tiendas de abarrotes, ultramarinos y misceláneas",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.67506916,
+      "lon": -105.24681957,
+      "distancia_m": 364.0
+     },
+     {
+      "id": 6342317,
+      "nombre": "OXXO SUC 50LJU LAS JUNTAS PVA",
+      "actividad": "Comercio al por menor en minisupers",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.67704088,
+      "lon": -105.25263437,
+      "distancia_m": 430.0
+     },
+     {
+      "id": 9424263,
+      "nombre": "ABARROTES LIBERTAD",
+      "actividad": "Comercio al por menor en tiendas de abarrotes, ultramarinos y misceláneas",
+      "personal_ocupado": "6 a 10 personas",
+      "lat": 20.67661429,
+      "lon": -105.24440198,
+      "distancia_m": 459.0
+     },
+     {
+      "id": 6344671,
+      "nombre": "OXXO SUC 50HQG TERMINAL AEREA III PVA",
+      "actividad": "Comercio al por menor en minisupers",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.67402188,
+      "lon": -105.25015515,
+      "distancia_m": 459.0
+     },
+     {
+      "id": 1936774,
+      "nombre": "TIENDA DE ABARROTES SILVIA",
+      "actividad": "Comercio al por menor en tiendas de abarrotes, ultramarinos y misceláneas",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.67392329,
+      "lon": -105.24695752,
+      "distancia_m": 473.0
+     },
+     {
+      "id": 1936772,
+      "nombre": "TIENDA DE ABARROTES GARCIA",
+      "actividad": "Comercio al por menor en tiendas de abarrotes, ultramarinos y misceláneas",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.67366469,
+      "lon": -105.24734755,
+      "distancia_m": 487.0
+     }
+    ]
+   },
+   {
+    "herramienta": "perfil_zona",
+    "tipo": "geojson",
+    "entrada": {
+     "lat": 20.703917,
+     "lon": -105.238905,
+     "radio_m": 500.0
+    },
+    "datos": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        -105.23408613370054,
+        20.704019339973655
+       ],
+       [
+        -105.23415752344253,
+        20.70313278778929
+       ],
+       [
+        -105.23441135290612,
+        20.7022763756045
+       ],
+       [
+        -105.23483786448976,
+        20.701483013896727
+       ],
+       [
+        -105.23542066546148,
+        20.70078318961284
+       ],
+       [
+        -105.23613735824676,
+        20.70020379480118
+       ],
+       [
+        -105.2369604012857,
+        20.699767093440183
+       ],
+       [
+        -105.23785816735707,
+        20.699489866126246
+       ],
+       [
+        -105.2387961587115,
+        20.69938276544712
+       ],
+       [
+        -105.2397383323594,
+        20.69944990677679
+       ],
+       [
+        -105.2406484846514,
+        20.699688710191943
+       ],
+       [
+        -105.241491642023,
+        20.700089999573883
+       ],
+       [
+        -105.24223540454051,
+        20.700638355095485
+       ],
+       [
+        -105.24285119068789,
+        20.701312705568004
+       ],
+       [
+        -105.24331533560738,
+        20.702087137920174
+       ],
+       [
+        -105.24361000060911,
+        20.702931892742974
+       ],
+       [
+        -105.24372385898515,
+        20.703814507684612
+       ],
+       [
+        -105.24365253172961,
+        20.704701064792705
+       ],
+       [
+        -105.243398756353,
+        20.705557493894588
+       ],
+       [
+        -105.24297228222262,
+        20.70635088193737
+       ],
+       [
+        -105.24238949636857,
+        20.70705073796492
+       ],
+       [
+        -105.24167279406379,
+        20.707630165096166
+       ],
+       [
+        -105.24084971831743,
+        20.708066894432385
+       ],
+       [
+        -105.23995190133017,
+        20.708344141118125
+       ],
+       [
+        -105.23901384860285,
+        20.70845124961653
+       ],
+       [
+        -105.2380716124685,
+        20.708384103363066
+       ],
+       [
+        -105.2371614060895,
+        20.708145283030813
+       ],
+       [
+        -105.2363182112646,
+        20.70774396731382
+       ],
+       [
+        -105.23557443362945,
+        20.707195580048612
+       ],
+       [
+        -105.23495865700158,
+        20.7065211972565
+       ],
+       [
+        -105.2344945447895,
+        20.70574673692913
+       ],
+       [
+        -105.23419993070367,
+        20.704901962734525
+       ],
+       [
+        -105.23408613370054,
+        20.704019339973655
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "herramienta": "competencia_cercana",
+    "tipo": "puntos",
+    "entrada": {
+     "lat": 20.703917,
+     "lon": -105.238905,
+     "scian": [
+      "461110",
+      "462112",
+      "462111"
+     ],
+     "radio_m": 500.0
+    },
+    "datos": [
+     {
+      "id": 1934527,
+      "nombre": "ABARROTES CON VENTA DE CERVEZ LA HIELERA",
+      "actividad": "Comercio al por menor en tiendas de abarrotes, ultramarinos y misceláneas",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.70391672,
+      "lon": -105.23890454,
+      "distancia_m": 0.0
+     },
+     {
+      "id": 1934528,
+      "nombre": "ABARROTES CON VENTA DE CERVEZA LOMA BONITA",
+      "actividad": "Comercio al por menor en tiendas de abarrotes, ultramarinos y misceláneas",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.70320006,
+      "lon": -105.23898549,
+      "distancia_m": 80.0
+     },
+     {
+      "id": 7499673,
+      "nombre": "ABARROTES JOANA",
+      "actividad": "Comercio al por menor en tiendas de abarrotes, ultramarinos y misceláneas",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.70468462,
+      "lon": -105.23916619,
+      "distancia_m": 90.0
+     },
+     {
+      "id": 1934525,
+      "nombre": "MINI SUPER LOS CHAVOS",
+      "actividad": "Comercio al por menor en tiendas de abarrotes, ultramarinos y misceláneas",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.704225,
+      "lon": -105.23975049,
+      "distancia_m": 94.0
+     },
+     {
+      "id": 10577086,
+      "nombre": "YOLI ABARROTES",
+      "actividad": "Comercio al por menor en tiendas de abarrotes, ultramarinos y misceláneas",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.70335624,
+      "lon": -105.23966252,
+      "distancia_m": 100.0
+     },
+     {
+      "id": 12322253,
+      "nombre": "KIOSKO 31152 REAL IXTAPA",
+      "actividad": "Comercio al por menor en minisupers",
+      "personal_ocupado": "6 a 10 personas",
+      "lat": 20.70584621,
+      "lon": -105.23587399,
+      "distancia_m": 381.0
+     },
+     {
+      "id": 1773482,
+      "nombre": "ABARROTES MELISSA",
+      "actividad": "Comercio al por menor en tiendas de abarrotes, ultramarinos y misceláneas",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.70191837,
+      "lon": -105.24280929,
+      "distancia_m": 463.0
+     },
+     {
+      "id": 1934513,
+      "nombre": "ABARROTES JORGE",
+      "actividad": "Comercio al por menor en tiendas de abarrotes, ultramarinos y misceláneas",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.70115962,
+      "lon": -105.24228101,
+      "distancia_m": 466.0
+     }
+    ]
+   }
+  ],
+  "llamadas": [
+   {
+    "herramienta": "buscar_actividad",
+    "entrada": {
+     "texto": "abarrotes minisúper tienda de abarrotes supermercado"
+    }
+   },
+   {
+    "herramienta": "rankear_zonas",
+    "entrada": {
+     "municipios": [
+      "Puerto Vallarta"
+     ],
+     "scian": [
+      "461110",
+      "462112",
+      "462111"
+     ],
+     "nse_min": 1,
+     "radio_m": 500.0,
+     "top_n": 10,
+     "min_comercio": 15
+    }
+   },
+   {
+    "herramienta": "perfil_zona",
+    "entrada": {
+     "lat": 20.712266,
+     "lon": -105.23198,
+     "radio_m": 500.0
+    }
+   },
+   {
+    "herramienta": "competencia_cercana",
+    "entrada": {
+     "lat": 20.712266,
+     "lon": -105.23198,
+     "scian": [
+      "461110",
+      "462112",
+      "462111"
+     ],
+     "radio_m": 500.0
+    }
+   },
+   {
+    "herramienta": "perfil_zona",
+    "entrada": {
+     "lat": 20.677885,
+     "lon": -105.248602,
+     "radio_m": 500.0
+    }
+   },
+   {
+    "herramienta": "competencia_cercana",
+    "entrada": {
+     "lat": 20.677885,
+     "lon": -105.248602,
+     "scian": [
+      "461110",
+      "462112",
+      "462111"
+     ],
+     "radio_m": 500.0
+    }
+   },
+   {
+    "herramienta": "perfil_zona",
+    "entrada": {
+     "lat": 20.703917,
+     "lon": -105.238905,
+     "radio_m": 500.0
+    }
+   },
+   {
+    "herramienta": "competencia_cercana",
+    "entrada": {
+     "lat": 20.703917,
+     "lon": -105.238905,
+     "scian": [
+      "461110",
+      "462112",
+      "462111"
+     ],
+     "radio_m": 500.0
+    }
+   }
+  ],
+  "tokens_entrada": 17550,
+  "tokens_salida": 5765
+ }
+}

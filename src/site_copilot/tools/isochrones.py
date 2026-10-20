@@ -136,9 +136,24 @@ def precargar(zona: str = "zm_guadalajara") -> None:
     print(f"Guardado {path.name}: {len(G.nodes):,} nodos, {len(G.edges):,} aristas")
 
 
-def _nodo_mas_cercano(G: nx.MultiDiGraph, lat: float, lon: float) -> int:
-    ids = np.array(list(G.nodes))
-    xy = np.array([(G.nodes[n]["x"], G.nodes[n]["y"]) for n in ids])
+_NODOS_PRINCIPALES: dict[int, tuple[np.ndarray, np.ndarray]] = {}
+
+
+def _nodos_red_principal(G: nx.MultiGraph | nx.MultiDiGraph) -> tuple[np.ndarray, np.ndarray]:
+    """Ids y coordenadas de los nodos de la componente conexa más grande (calculado una vez por grafo).
+
+    Evita arrancar la isócrona en un tramo aislado (estacionamiento, privada) desde donde no se llega a ningún lado.
+    """
+    if id(G) not in _NODOS_PRINCIPALES:
+        comps = nx.strongly_connected_components(G) if G.is_directed() else nx.connected_components(G)
+        ids = np.array(list(max(comps, key=len)))
+        xy = np.array([(G.nodes[n]["x"], G.nodes[n]["y"]) for n in ids])
+        _NODOS_PRINCIPALES[id(G)] = (ids, xy)
+    return _NODOS_PRINCIPALES[id(G)]
+
+
+def _nodo_mas_cercano(G: nx.MultiGraph | nx.MultiDiGraph, lat: float, lon: float) -> int:
+    ids, xy = _nodos_red_principal(G)
     d2 = ((xy[:, 0] - lon) * math.cos(math.radians(lat))) ** 2 + (xy[:, 1] - lat) ** 2
     return int(ids[int(np.argmin(d2))])
 

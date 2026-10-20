@@ -1,0 +1,34 @@
+{
+ "titulo": "Gimnasios por habitante en Jalisco",
+ "categoria": "Datos",
+ "pregunta": "¿Qué municipios de Jalisco con más de 50 mil habitantes tienen más gimnasios por cada 10 mil habitantes, y cuáles tienen menos?",
+ "proveedor": "openai",
+ "modelo": "gpt-5-mini",
+ "fecha": "2026-10-19",
+ "resultado": {
+  "texto": "Usé los códigos SCIAN relacionados con gimnasios: 713943 (centros de acondicionamiento físico privados) y 713944 (públicos). A continuación las municipalidades de Jalisco con >50,000 hab. que tienen más y menos gimnasios por cada 10,000 habitantes (basado en DENUE para gimnasios y población municipal 2020):\n\nMás gimnasios (mayor gimnasios por 10k)\n- Tepatitlán de Morelos — Población 150,190; gimnasios 71; 4.73 gimnasios/10,000 hab.\n- Ocotlán — Población 106,050; gimnasios 50; 4.71 gimnasios/10,000 hab.\n- San Juan de los Lagos — Población 72,230; gimnasios 33; 4.57 gimnasios/10,000 hab.\n- Autlán de Navarro — Población 64,931; gimnasios 29; 4.47 gimnasios/10,000 hab.\n- Arandas — Población 80,609; gimnasios 34; 4.22 gimnasios/10,000 hab.\n\nMenos gimnasios (menor gimnasios por 10k)\n- Ixtlahuacán de los Membrillos — Población 67,969; gimnasios 8; 1.18 gimnasios/10,000 hab.\n- Poncitlán — Población 53,659; gimnasios 9; 1.68 gimnasios/10,000 hab.\n- Atotonilco el Alto — Población 64,009; gimnasios 12; 1.87 gimnasios/10,000 hab.\n- Tlajomulco de Zúñiga — Población 727,750; gimnasios 148; 2.03 gimnasios/10,000 hab.\n- Tala — Población 87,690; gimnasios 18; 2.05 gimnasios/10,000 hab.\n\nNotas y limitaciones\n- Cifras de gimnasios: conteo de DENUE por SCIAN (713943, 713944). Pueden incluir gimnasios pequeños, estudios y centros que no compiten directamente con cadenas grandes.  \n- Población: Censo 2020 (municipal).  \n- Interpretación: tasa alta puede indicar mercado más saturado o mayor demanda; tasa baja no siempre significa oportunidad (puede haber baja demanda o falta de oferta localizada).  \nSi quieres, preparo un ranking completo de todos los municipios >50k en Jalisco, o un mapa/tabla exportable con estas métricas. ¿Te interesa top 10 o el listado completo?",
+  "capas": [],
+  "llamadas": [
+   {
+    "herramienta": "buscar_actividad",
+    "entrada": {
+     "texto": "gimnasio"
+    }
+   },
+   {
+    "herramienta": "consulta_sql",
+    "entrada": {
+     "sql": "WITH gimnasios AS (\n  SELECT cve_mun, count(*) AS gimnasios\n  FROM negocios\n  WHERE scian LIKE '713943%' OR scian LIKE '713944%'\n  GROUP BY cve_mun\n)\nSELECT m.cve_mun, m.municipio, m.poblacion, coalesce(g.gimnasios,0) AS gimnasios, \n       round( (coalesce(g.gimnasios,0) * 10000.0) / m.poblacion, 2) AS gimnasios_por_10k\nFROM municipios m\nLEFT JOIN gimnasios g USING (cve_mun)\nWHERE m.entidad = 'Jalisco' OR m.entidad = 'JALISCO' OR m.entidad = 'Jalisco ' OR m.entidad = 'Jalisco'\n  AND m.poblacion > 50000\nORDER BY gimnasios_por_10k DESC\nLIMIT 200;"
+    }
+   },
+   {
+    "herramienta": "consulta_sql",
+    "entrada": {
+     "sql": "WITH gimnasios AS (\n  SELECT cve_mun, count(*) AS gimnasios\n  FROM negocios\n  WHERE scian LIKE '713943%' OR scian LIKE '713944%'\n  GROUP BY cve_mun\n)\nSELECT m.cve_mun, m.municipio, m.poblacion, coalesce(g.gimnasios,0) AS gimnasios, \n       round( (coalesce(g.gimnasios,0) * 10000.0) / m.poblacion, 2) AS gimnasios_por_10k\nFROM municipios m\nLEFT JOIN gimnasios g USING (cve_mun)\nWHERE m.entidad = 'Jalisco' AND m.poblacion > 50000\nORDER BY gimnasios_por_10k DESC;"
+    }
+   }
+  ],
+  "tokens_entrada": 24078,
+  "tokens_salida": 2184
+ }
+}

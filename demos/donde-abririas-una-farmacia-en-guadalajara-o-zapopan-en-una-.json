@@ -1,4 +1,6 @@
 {
+ "titulo": "Farmacia en Guadalajara o Zapopan",
+ "categoria": "Ranking",
  "pregunta": "¿Dónde abrirías una farmacia en Guadalajara o Zapopan, en una zona de nivel socioeconómico medio-alto y con poca competencia?",
  "proveedor": "openai",
  "modelo": "gpt-5-mini",

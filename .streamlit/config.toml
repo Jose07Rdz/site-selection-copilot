@@ -1,0 +1,20 @@
+# Sistema de diseño "Data-Dense Dashboard" (ui-ux-pro-max): azul marino + acento ámbar, Fira Sans / Fira Code.
+[theme]
+base = "light"
+primaryColor = "#1E40AF"
+backgroundColor = "#F8FAFC"
+secondaryBackgroundColor = "#EEF2F8"
+textColor = "#0F172A"
+linkColor = "#1E40AF"
+borderColor = "#DBE3EF"
+font = "Fira Sans:https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&display=swap"
+codeFont = "Fira Code:https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap"
+headingFontWeights = [700, 600, 600, 600, 600, 600]
+baseRadius = "10px"
+showWidgetBorder = true
+
+[client]
+toolbarMode = "minimal"
+
+[browser]
+gatherUsageStats = false

@@ -1,0 +1,430 @@
+{
+ "titulo": "Comida rápida junto a CUCEI",
+ "categoria": "Competencia",
+ "pregunta": "Estoy pensando en un local de comida rápida frente a CUCEI, Universidad de Guadalajara (20.6563, -103.3253). ¿Cuánta competencia de restaurantes de comida rápida y taquerías hay a 500 metros y quiénes son los más cercanos?",
+ "proveedor": "openai",
+ "modelo": "gpt-5-mini",
+ "fecha": "2026-10-19",
+ "resultado": {
+  "texto": "Recomendación breve\nHay alta concentración de comida rápida y taquerías frente a CUCEI: 24 locales dentro de 500 m. Valida el punto exacto del local (cualquiera compite con oferta ya establecida) y prueba con un menú o horario diferencial.\n\nTabla de competencia (círculo 500 m frente a CUCEI)\n| Zona / AGEB | Punto sugerido (lat, lon) | Población en el radio | Competidores (500 m) | Comercios cercanos (total) | NSE (quintil municipal promedio) |\n|---|---:|---:|---:|---:|---:|\n| Frente a CUCEI (círculo 500 m; 8 AGEBs incl.) | 20.6563, -103.3253 | 3,816 (estimado) | 24 (12 taquerías, 7 antojitos, 5 pizza/hamb.) | 232 negocios | ~3.8 (promedio quintil municipal) |\n\nQué códigos SCIAN usé y por qué\n- Incluí SCIAN 722514 (taquerías/tortas), 722513 (antojitos) y 722517 (pizzas/hamburguesas/hot dogs) porque compiten directamente en comida rápida y antojos estudiantiles.\n\nPor qué (datos clave)\n- Competencia: 24 establecimientos de las actividades seleccionadas en un radio de 500 m (12 tacos, 7 antojitos, 5 pizzas/hamb.). (Fuente: conteo DENUE)\n- Densidad comercial: hay ~232 negocios en el área de 500 m, lo que indica actividad comercial significativa y flujo peatonal potencial. (Fuente: perfil de zona)\n- Demografía: población estimada dentro de 500 m = 3,816 personas (Censo 2020, estimado por herramienta), con escolaridad promedio ~12.5 años.\n- Principales competidores más cercanos (distancia en metros):  \n  - TACOS BARBACOUS — 266 m  \n  - SUPER TORTAS AHOGADAS EL ROBERTS — 267 m  \n  - CHE PIZZA — 280 m  \n  - FUENTE DE SODAS OSWALD — 306 m  \n  - SPEED PIZZA — 306 m  \n  (Listado provisto por DENUE; hay más hasta completar 24 locales.)\n\nRiesgos y supuestos\n- Población y perfil demográfico son de Censo 2020 (estimaciones actuales pueden variar).  \n- DENUE/DENUE (negocios) puede incluir locales cerrados o con geolocalización imprecisa; no distingue bien entre cadenas y establecimientos independientes.  \n- Interpreté \"comida rápida y taquerías\" como SCIAN 722514, 722513 y 722517; si quieres incluir cafeterías, puestos ambulantes u otros giros los puedo agregar.  \n- Recomendación operacional: visita los puntos sugeridos en horas pico para validar afluencia estudiantil y competencia directa (no confíes solo en los datos).\n\n¿Quieres que haga un mapa con la ubicación de esos competidores o que evalúe horarios pico/isócronas de 5–10 minutos a pie para escoger el mejor local?",
+  "capas": [
+   {
+    "herramienta": "competencia_cercana",
+    "tipo": "puntos",
+    "entrada": {
+     "lat": 20.6563,
+     "lon": -103.3253,
+     "scian": [
+      "722514",
+      "722517",
+      "722513"
+     ],
+     "radio_m": 500.0
+    },
+    "datos": [
+     {
+      "id": 11248839,
+      "nombre": "TACOS BARBACOUS",
+      "actividad": "Restaurantes con servicio de preparación de antojitos",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.65558255,
+      "lon": -103.32774158,
+      "distancia_m": 266.0
+     },
+     {
+      "id": 1843492,
+      "nombre": "SUPER TORTAS AHOGADAS EL ROBERTS",
+      "actividad": "Restaurantes con servicio de preparación de tacos y tortas",
+      "personal_ocupado": "11 a 30 personas",
+      "lat": 20.65560541,
+      "lon": -103.32775813,
+      "distancia_m": 267.0
+     },
+     {
+      "id": 1689406,
+      "nombre": "CHE PIZZA",
+      "actividad": "Restaurantes con servicio de preparación de pizzas, hamburguesas, hot dogs y pollos rostizados para llevar",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.65563868,
+      "lon": -103.32790051,
+      "distancia_m": 280.0
+     },
+     {
+      "id": 10264618,
+      "nombre": "FUENTE DE SODAS OSWALD",
+      "actividad": "Restaurantes con servicio de preparación de tacos y tortas",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.65374411,
+      "lon": -103.32639342,
+      "distancia_m": 306.0
+     },
+     {
+      "id": 1689344,
+      "nombre": "SPEED PIZZA",
+      "actividad": "Restaurantes con servicio de preparación de pizzas, hamburguesas, hot dogs y pollos rostizados para llevar",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.65374411,
+      "lon": -103.32639342,
+      "distancia_m": 306.0
+     },
+     {
+      "id": 7800704,
+      "nombre": "SPAZIO DELI",
+      "actividad": "Restaurantes con servicio de preparación de tacos y tortas",
+      "personal_ocupado": "11 a 30 personas",
+      "lat": 20.65673332,
+      "lon": -103.32864964,
+      "distancia_m": 352.0
+     },
+     {
+      "id": 1689345,
+      "nombre": "SPEED PIZZA",
+      "actividad": "Restaurantes con servicio de preparación de pizzas, hamburguesas, hot dogs y pollos rostizados para llevar",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.65794581,
+      "lon": -103.3284329,
+      "distancia_m": 374.0
+     },
+     {
+      "id": 11839361,
+      "nombre": "CHUBBYS",
+      "actividad": "Restaurantes con servicio de preparación de antojitos",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.65633154,
+      "lon": -103.32894444,
+      "distancia_m": 379.0
+     },
+     {
+      "id": 11350267,
+      "nombre": "LAS MUÑECAS LONCHERIA",
+      "actividad": "Restaurantes con servicio de preparación de antojitos",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.65833952,
+      "lon": -103.32825659,
+      "distancia_m": 382.0
+     },
+     {
+      "id": 1843459,
+      "nombre": "HAMBURGUESAS LA MICHOACANA",
+      "actividad": "Restaurantes con servicio de preparación de pizzas, hamburguesas, hot dogs y pollos rostizados para llevar",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.65726807,
+      "lon": -103.3289428,
+      "distancia_m": 394.0
+     },
+     {
+      "id": 1687793,
+      "nombre": "HAMBURGUESAS AL CARBON",
+      "actividad": "Restaurantes con servicio de preparación de pizzas, hamburguesas, hot dogs y pollos rostizados para llevar",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.65931794,
+      "lon": -103.32325874,
+      "distancia_m": 397.0
+     },
+     {
+      "id": 10926030,
+      "nombre": "I LONCH",
+      "actividad": "Restaurantes con servicio de preparación de tacos y tortas",
+      "personal_ocupado": "6 a 10 personas",
+      "lat": 20.65869202,
+      "lon": -103.32814091,
+      "distancia_m": 398.0
+     },
+     {
+      "id": 10417257,
+      "nombre": "LA TROCA DE PAPEL",
+      "actividad": "Restaurantes con servicio de preparación de tacos y tortas",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.6581159,
+      "lon": -103.32859722,
+      "distancia_m": 398.0
+     },
+     {
+      "id": 10200366,
+      "nombre": "Q ANTOJO",
+      "actividad": "Restaurantes con servicio de preparación de antojitos",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.65269777,
+      "lon": -103.32553757,
+      "distancia_m": 401.0
+     },
+     {
+      "id": 10129894,
+      "nombre": "TAQUERIA PEYO",
+      "actividad": "Restaurantes con servicio de preparación de tacos y tortas",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.65807295,
+      "lon": -103.32872417,
+      "distancia_m": 407.0
+     },
+     {
+      "id": 10900945,
+      "nombre": "PASTES ELINGLES",
+      "actividad": "Restaurantes con servicio de preparación de antojitos",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.65814236,
+      "lon": -103.32867921,
+      "distancia_m": 407.0
+     },
+     {
+      "id": 7800702,
+      "nombre": "BURRITOS CALIFORNIA",
+      "actividad": "Restaurantes con servicio de preparación de tacos y tortas",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.6558342,
+      "lon": -103.32929871,
+      "distancia_m": 419.0
+     },
+     {
+      "id": 11551288,
+      "nombre": "TACOS SIN NOMBRE",
+      "actividad": "Restaurantes con servicio de preparación de tacos y tortas",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.65244277,
+      "lon": -103.32545389,
+      "distancia_m": 429.0
+     },
+     {
+      "id": 1687747,
+      "nombre": "TACOS EL JOVEN",
+      "actividad": "Restaurantes con servicio de preparación de tacos y tortas",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.66003335,
+      "lon": -103.32419167,
+      "distancia_m": 431.0
+     },
+     {
+      "id": 10771722,
+      "nombre": "TACO EL JEFEREFE",
+      "actividad": "Restaurantes con servicio de preparación de antojitos",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.65558111,
+      "lon": -103.32947355,
+      "distancia_m": 442.0
+     },
+     {
+      "id": 6436177,
+      "nombre": "TACO EL UNICO",
+      "actividad": "Restaurantes con servicio de preparación de tacos y tortas",
+      "personal_ocupado": "11 a 30 personas",
+      "lat": 20.65537175,
+      "lon": -103.32945511,
+      "distancia_m": 444.0
+     },
+     {
+      "id": 10236639,
+      "nombre": "LONCHERIA LA FIRMA",
+      "actividad": "Restaurantes con servicio de preparación de tacos y tortas",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.65800876,
+      "lon": -103.32917959,
+      "distancia_m": 446.0
+     },
+     {
+      "id": 7800703,
+      "nombre": "LONCHERIA LA EXQUISITA",
+      "actividad": "Restaurantes con servicio de preparación de tacos y tortas",
+      "personal_ocupado": "6 a 10 personas",
+      "lat": 20.65552134,
+      "lon": -103.32966198,
+      "distancia_m": 462.0
+     },
+     {
+      "id": 1843503,
+      "nombre": "MENUDERIA JUANITA",
+      "actividad": "Restaurantes con servicio de preparación de antojitos",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.65252757,
+      "lon": -103.32783808,
+      "distancia_m": 496.0
+     }
+    ]
+   },
+   {
+    "herramienta": "perfil_zona",
+    "tipo": "geojson",
+    "entrada": {
+     "lat": 20.6563,
+     "lon": -103.3253,
+     "radio_m": 500.0
+    },
+    "datos": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        -103.32048181269846,
+        20.656341832096505
+       ],
+       [
+        -103.32056573751713,
+        20.655456286472724
+       ],
+       [
+        -103.32083159402016,
+        20.654603167415495
+       ],
+       [
+        -103.32126916246654,
+        20.653815258805594
+       ],
+       [
+        -103.32186162529474,
+        20.653122837999437
+       ],
+       [
+        -103.32258621372459,
+        20.652552512520007
+       ],
+       [
+        -103.32341508286521,
+        20.652126197822007
+       ],
+       [
+        -103.32431638168163,
+        20.65186027537221
+       ],
+       [
+        -103.32525547671676,
+        20.65176496335771
+       ],
+       [
+        -103.32619628258651,
+        20.651843924168563
+       ],
+       [
+        -103.32710264818616,
+        20.65209412371473
+       ],
+       [
+        -103.32793974541882,
+        20.65250594797428
+       ],
+       [
+        -103.32867540715901,
+        20.65306357230156
+       ],
+       [
+        -103.32928136310504,
+        20.653745569326656
+       ],
+       [
+        -103.32973432607403,
+        20.65452573212
+       ],
+       [
+        -103.33001688701209,
+        20.65537408103088
+       ],
+       [
+        -103.33011818430992,
+        20.65625801554983
+       ],
+       [
+        -103.33003432165756,
+        20.657143566966095
+       ],
+       [
+        -103.32976851831202,
+        20.657996703705606
+       ],
+       [
+        -103.32933098592162,
+        20.65878463919573
+       ],
+       [
+        -103.3287385365586,
+        20.659477091987736
+       ],
+       [
+        -103.32801393695324,
+        20.660047449689024
+       ],
+       [
+        -103.3271850336978,
+        20.660473791939502
+       ],
+       [
+        -103.32628368302086,
+        20.660739733077712
+       ],
+       [
+        -103.32534452627485,
+        20.66083505207147
+       ],
+       [
+        -103.32440365823881,
+        20.660756085468172
+       ],
+       [
+        -103.32349723948165,
+        20.660505868239674
+       ],
+       [
+        -103.32266010619304,
+        20.660094017099933
+       ],
+       [
+        -103.32192443098765,
+        20.65953636078682
+       ],
+       [
+        -103.32131848621712,
+        20.658854331539818
+       ],
+       [
+        -103.32086555736298,
+        20.658074141193982
+       ],
+       [
+        -103.32058304828543,
+        20.657225773594693
+       ],
+       [
+        -103.32048181269846,
+        20.656341832096505
+       ]
+      ]
+     ]
+    }
+   }
+  ],
+  "llamadas": [
+   {
+    "herramienta": "buscar_actividad",
+    "entrada": {
+     "texto": "comida rápida"
+    }
+   },
+   {
+    "herramienta": "buscar_actividad",
+    "entrada": {
+     "texto": "taquería"
+    }
+   },
+   {
+    "herramienta": "competencia_cercana",
+    "entrada": {
+     "lat": 20.6563,
+     "lon": -103.3253,
+     "scian": [
+      "722514",
+      "722517",
+      "722513"
+     ],
+     "radio_m": 500.0
+    }
+   },
+   {
+    "herramienta": "perfil_zona",
+    "entrada": {
+     "lat": 20.6563,
+     "lon": -103.3253,
+     "radio_m": 500.0
+    }
+   }
+  ],
+  "tokens_entrada": 12385,
+  "tokens_salida": 2765
+ }
+}

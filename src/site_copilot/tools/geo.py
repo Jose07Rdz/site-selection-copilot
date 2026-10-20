@@ -7,6 +7,7 @@ Cada función devuelve un dict serializable a JSON. Las llaves que empiezan con 
 import json
 import math
 import re
+import unicodedata
 from functools import cache
 
 import duckdb
@@ -83,18 +84,52 @@ def _haversine_sql(lat: float, lon: float, lat_col: str = "lat", lon_col: str = 
 # Catálogos
 # ---------------------------------------------------------------------------
 
+# Términos coloquiales -> palabras que usa el catálogo SCIAN (sin acentos).
+SINONIMOS = {
+    "gimnasio": "acondicionamiento fisico", "gym": "acondicionamiento fisico",
+    "veterinaria": "veterinarios mascotas", "veterinario": "veterinarios mascotas",
+    "dentista": "dentales", "odontologo": "dentales", "odontologico": "dentales",
+    "taqueria": "tacos", "comida rapida": "tacos antojitos hamburguesas autoservicio",
+    "tienda de conveniencia": "minisupers", "oxxo": "minisupers", "minisuper": "minisupers",
+    "tiendita": "abarrotes", "estetica": "belleza peluquerias", "barberia": "peluquerias",
+    "peluqueria": "peluquerias", "pizzeria": "pizzas", "cafe": "cafeterias", "super": "supermercados",
+}
+STOPWORDS = {"de", "del", "la", "las", "el", "los", "y", "o", "en", "para", "con", "un", "una", "por",
+             "tienda", "tiendas", "local", "negocio", "venta", "abrir", "servicio", "servicios"}
+
+
+def _normalizar(texto: str) -> str:
+    t = unicodedata.normalize("NFKD", texto.lower()).encode("ascii", "ignore").decode()
+    return re.sub(r"[^a-z0-9 ]+", " ", t)
+
+
+def _raices(texto: str) -> list[str]:
+    """Raíces de búsqueda: aplica sinónimos y recorta terminaciones (consultorio dental -> consultori, dent)."""
+    t = f" {_normalizar(texto)} "
+    for coloquial, catalogo in SINONIMOS.items():
+        if f" {coloquial} " in t:
+            t = t.replace(f" {coloquial} ", f" {catalogo} ")
+    palabras = [w for w in t.split() if len(w) >= 3 and w not in STOPWORDS]
+    return list(dict.fromkeys(w[: max(4, len(w) - 2)] for w in palabras))
+
+
 def buscar_actividad(texto: str, limite: int = 15) -> dict:
-    """Busca actividades económicas SCIAN por texto (sin importar acentos)."""
-    patron = f"%{texto.strip()}%"
-    res = rows("""
-        SELECT scian, actividad, COUNT(*) AS negocios
+    """Busca actividades económicas SCIAN por texto; tolera acentos, plurales y términos coloquiales."""
+    raices = _raices(texto)
+    if not raices:
+        raise ToolError("Escribe el giro con al menos una palabra descriptiva, p. ej. 'farmacia' o 'gimnasio'.")
+    coincidencias = " + ".join("(strip_accents(lower(actividad)) LIKE ?)::INT" for _ in raices)
+    res = rows(f"""
+        SELECT scian, actividad, COUNT(*) AS negocios, ANY_VALUE({coincidencias}) AS coincidencias
         FROM negocios
-        WHERE strip_accents(lower(actividad)) LIKE strip_accents(lower(?))
-        GROUP BY ALL ORDER BY negocios DESC LIMIT ?
-    """, [patron, limite])
+        GROUP BY scian, actividad
+        HAVING coincidencias > 0
+        ORDER BY coincidencias DESC, negocios DESC
+        LIMIT ?
+    """, [*(f"%{r}%" for r in raices), limite])
     if not res:
-        raise ToolError(f"No encontré actividades con '{texto}'. Prueba con un término más general.")
-    return {"actividades": res}
+        raise ToolError(f"No encontré actividades para '{texto}'. Prueba con otra palabra (p. ej. el producto que se vende).")
+    return {"terminos_buscados": raices, "actividades": res}
 
 
 def buscar_municipio(texto: str) -> dict:

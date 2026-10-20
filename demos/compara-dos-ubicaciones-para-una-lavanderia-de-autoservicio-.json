@@ -1,0 +1,646 @@
+{
+ "titulo": "Lavandería: Centro vs. Providencia",
+ "categoria": "Comparación",
+ "pregunta": "Compara dos ubicaciones para una lavandería de autoservicio: el Centro de Guadalajara (20.6767, -103.3475) y Providencia (20.6950, -103.3870). ¿Cuál tiene más población, mejor nivel socioeconómico y menos competencia en 1 km?",
+ "proveedor": "openai",
+ "modelo": "gpt-5-mini",
+ "fecha": "2026-10-19",
+ "resultado": {
+  "texto": "Recomendación breve\n- Providencia tiene mayor población y un nivel socioeconómico más alto; el Centro tiene menos competencia en 1 km. Si priorizas clientes con mayor poder adquisitivo y uso de autoservicio, Providencia suele ser mejor; si buscas menos tiendas similares en el radio, el Centro.\n\nHe usado el código SCIAN 812210 (Lavanderías y tintorerías) para contar competidores.\n\nTabla comparativa\n\n| Zona / Punto sugerido | Punto (lat, lon) | Población en 1 km | Competidores (SCIAN 812210, 1 km) | Comercios en 1 km (total) | NSE (quintil municipal promedio) |\n|---|---:|---:|---:|---:|---:|\n| Centro de Guadalajara | 20.6767, -103.3475 | 13,498 | 12 | 10,424 | 2.93 (~quintil 3, medio) |\n| Providencia | 20.6950, -103.3870 | 15,159 | 17 | 1,473 | 4.91 (~quintil 5, alto) |\n\nPor qué (datos clave)\n- Población: Providencia ≈ 15,159 personas en 1 km vs Centro ≈ 13,498 (perfil_zona, radio 1 km).\n- NSE: Providencia muestra un nse_quintil_municipal_prom ≈ 4.9 (alto/quintil 5) frente a ≈ 2.9 (medio/quintil 3) en el Centro — indica mayor poder adquisitivo y mayor porcentaje de viviendas con auto.\n- Competencia: Conté negocios con SCIAN 812210 en 1 km — Centro: 12 lavanderías; Providencia: 17 lavanderías (competencia_cercana).\n- Actividad comercial: El Centro tiene muchos más comercios en el área (≈10,424) frente a Providencia (≈1,473), lo que sugiere mayor movimiento peatonal y oferta de servicios en Centro.\n\nRiesgos y supuestos\n- Población y características son del Censo 2020 (estimaciones de perfil_zona); la población actual puede haber cambiado.\n- Competidores contados con DENUE/SCIAN 812210 (lavanderías y tintorerías). DENUE no siempre distingue formato (autoservicio vs tintorería con servicio); algunos competidores pueden ser tintorerías/plancha y no autoservicio puro.\n- El NSE es una aproximación (quintil municipal derivado de escolaridad y equipamiento) — útil para comparación local pero no es el NSE AMAI oficial.\n- La presencia de pocos competidores no siempre asegura demanda; revise afluencia real, tarifa, y validación en punto específico (visitas y pruebas de demanda).\n\nSi quieres, puedo:\n- Listar las lavanderías cercanas por nombre y distancia (ya disponibles) y marcar cuáles parecen autoservicio por tamaño/personal.\n- Hacer un análisis de isócrona en auto o a pie (por ejemplo 10 minutos) para ver alcance efectivo de clientes.",
+  "capas": [
+   {
+    "herramienta": "perfil_zona",
+    "tipo": "geojson",
+    "entrada": {
+     "lat": 20.6767,
+     "lon": -103.3475,
+     "radio_m": 1000.0
+    },
+    "datos": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        -103.3378621797519,
+        20.676784917053023
+       ],
+       [
+        -103.33802982564667,
+        20.675013780132524
+       ],
+       [
+        -103.33856139156427,
+        20.673307456197325
+       ],
+       [
+        -103.33943643762055,
+        20.671731514299257
+       ],
+       [
+        -103.3406213280755,
+        20.670346510888123
+       ],
+       [
+        -103.34207052518542,
+        20.66920566359215
+       ],
+       [
+        -103.34372833965952,
+        20.668352807202222
+       ],
+       [
+        -103.34553107038101,
+        20.667820710241305
+       ],
+       [
+        -103.34740945122341,
+        20.667629816643505
+       ],
+       [
+        -103.34929131111207,
+        20.66778746075259
+       ],
+       [
+        -103.35110434537992,
+        20.668287585709393
+       ],
+       [
+        -103.3527788922411,
+        20.669110976013428
+       ],
+       [
+        -103.35425060801185,
+        20.67022599535123
+       ],
+       [
+        -103.3554629385518,
+        20.671589801431367
+       ],
+       [
+        -103.35636929214016,
+        20.67314999128179
+       ],
+       [
+        -103.35693483035544,
+        20.674846613950514
+       ],
+       [
+        -103.3571378080775,
+        20.676614473432718
+       ],
+       [
+        -103.356970410937,
+        20.678385633469286
+       ],
+       [
+        -103.35643905775595,
+        20.68009202805719
+       ],
+       [
+        -103.35556415603128,
+        20.681668077388398
+       ],
+       [
+        -103.35437931952984,
+        20.683053208657377
+       ],
+       [
+        -103.35293007778138,
+        20.684194184770686
+       ],
+       [
+        -103.35127212687253,
+        20.68504715132619
+       ],
+       [
+        -103.34946918869099,
+        20.68557932302923
+       ],
+       [
+        -103.34759056094717,
+        20.68577024456683
+       ],
+       [
+        -103.34570845230427,
+        20.685612577341708
+       ],
+       [
+        -103.34389520529984,
+        20.685112381732143
+       ],
+       [
+        -103.34222051410704,
+        20.684288883994988
+       ],
+       [
+        -103.3407487443828,
+        20.683173736799347
+       ],
+       [
+        -103.33953645848139,
+        20.681809801901878
+       ],
+       [
+        -103.33863024132779,
+        20.6802495018859
+       ],
+       [
+        -103.33806491057256,
+        20.678552804475057
+       ],
+       [
+        -103.3378621797519,
+        20.676784917053023
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "herramienta": "perfil_zona",
+    "tipo": "geojson",
+    "entrada": {
+     "lat": 20.695,
+     "lon": -103.387,
+     "radio_m": 1000.0
+    },
+    "datos": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        -103.37736089799338,
+        20.695087416276714
+       ],
+       [
+        -103.37752804824537,
+        20.69331621191294
+       ],
+       [
+        -103.37805918683996,
+        20.691609727071537
+       ],
+       [
+        -103.37893389030725,
+        20.69003353699347
+       ],
+       [
+        -103.380118536064,
+        20.688648207671605
+       ],
+       [
+        -103.38156759576152,
+        20.68750696926366
+       ],
+       [
+        -103.38322538538264,
+        20.686653671593717
+       ],
+       [
+        -103.3850282047611,
+        20.68612110014427
+       ],
+       [
+        -103.386906784362,
+        20.685929717082598
+       ],
+       [
+        -103.38878894547464,
+        20.686086875559077
+       ],
+       [
+        -103.39060237186136,
+        20.686586537372555
+       ],
+       [
+        -103.39227738667493,
+        20.687409504815133
+       ],
+       [
+        -103.39374962825715,
+        20.688524157818023
+       ],
+       [
+        -103.3949625222696,
+        20.68988766816313
+       ],
+       [
+        -103.39586945534468,
+        20.691447644240004
+       ],
+       [
+        -103.3964355667961,
+        20.693144143310796
+       ],
+       [
+        -103.3966390894759,
+        20.694911974121474
+       ],
+       [
+        -103.3964721880702,
+        20.696683201517963
+       ],
+       [
+        -103.395941262345,
+        20.698389756913304
+       ],
+       [
+        -103.39506670336276,
+        20.699966054325447
+       ],
+       [
+        -103.39388211171018,
+        20.70135151142081
+       ],
+       [
+        -103.39243300749908,
+        20.702492878589386
+       ],
+       [
+        -103.39077508152343,
+        20.703346286404333
+       ],
+       [
+        -103.38897205470823,
+        20.703878932614735
+       ],
+       [
+        -103.38709322816874,
+        20.704070343671557
+       ],
+       [
+        -103.38521081820979,
+        20.703913162162372
+       ],
+       [
+        -103.38339717895367,
+        20.70341342979493
+       ],
+       [
+        -103.38172201965506,
+        20.702590355018323
+       ],
+       [
+        -103.38024972396867,
+        20.701475574241947
+       ],
+       [
+        -103.3790368744698,
+        20.70011193513624
+       ],
+       [
+        -103.37813007774925,
+        20.698551848914303
+       ],
+       [
+        -103.37756417373458,
+        20.69685527508258
+       ],
+       [
+        -103.37736089799338,
+        20.695087416276714
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "herramienta": "competencia_cercana",
+    "tipo": "puntos",
+    "entrada": {
+     "lat": 20.6767,
+     "lon": -103.3475,
+     "scian": [
+      "812210"
+     ],
+     "radio_m": 1000.0
+    },
+    "datos": [
+     {
+      "id": 10984613,
+      "nombre": "LAVANDERIA SCARLET",
+      "actividad": "Lavanderías y tintorerías",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.67813887,
+      "lon": -103.35231134,
+      "distancia_m": 525.0
+     },
+     {
+      "id": 10015332,
+      "nombre": "LAVANDERIA SIN NOMBRE",
+      "actividad": "Lavanderías y tintorerías",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.67281599,
+      "lon": -103.35052015,
+      "distancia_m": 534.0
+     },
+     {
+      "id": 7144158,
+      "nombre": "LAVANDERIA AHI LA VEMOS",
+      "actividad": "Lavanderías y tintorerías",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.67935931,
+      "lon": -103.35193505,
+      "distancia_m": 548.0
+     },
+     {
+      "id": 7799580,
+      "nombre": "LAVANDERIA LAVATRON",
+      "actividad": "Lavanderías y tintorerías",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.67293504,
+      "lon": -103.34217338,
+      "distancia_m": 695.0
+     },
+     {
+      "id": 11594506,
+      "nombre": "LAVANDERIA LAUNDRY",
+      "actividad": "Lavanderías y tintorerías",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.67379303,
+      "lon": -103.35344296,
+      "distancia_m": 698.0
+     },
+     {
+      "id": 1961378,
+      "nombre": "TINTORERIAS DIMAR",
+      "actividad": "Lavanderías y tintorerías",
+      "personal_ocupado": "6 a 10 personas",
+      "lat": 20.68354961,
+      "lon": -103.34845856,
+      "distancia_m": 768.0
+     },
+     {
+      "id": 11110141,
+      "nombre": "PLANCHADURA",
+      "actividad": "Lavanderías y tintorerías",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.68338631,
+      "lon": -103.35054854,
+      "distancia_m": 808.0
+     },
+     {
+      "id": 8691049,
+      "nombre": "LAVANDERIA ALDAMA",
+      "actividad": "Lavanderías y tintorerías",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.67170522,
+      "lon": -103.34143878,
+      "distancia_m": 840.0
+     },
+     {
+      "id": 1961347,
+      "nombre": "LAVAMAX",
+      "actividad": "Lavanderías y tintorerías",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.68430191,
+      "lon": -103.34994107,
+      "distancia_m": 883.0
+     },
+     {
+      "id": 8400390,
+      "nombre": "PLANCHADURIA SIN NOMBRE",
+      "actividad": "Lavanderías y tintorerías",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.68220429,
+      "lon": -103.35420848,
+      "distancia_m": 928.0
+     },
+     {
+      "id": 11199050,
+      "nombre": "LAVANDERIA CHAVEZ",
+      "actividad": "Lavanderías y tintorerías",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.66954193,
+      "lon": -103.34208188,
+      "distancia_m": 975.0
+     },
+     {
+      "id": 11086121,
+      "nombre": "LAVANDERIA LAVATOP",
+      "actividad": "Lavanderías y tintorerías",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.6846779,
+      "lon": -103.34324555,
+      "distancia_m": 991.0
+     }
+    ]
+   },
+   {
+    "herramienta": "competencia_cercana",
+    "tipo": "puntos",
+    "entrada": {
+     "lat": 20.695,
+     "lon": -103.387,
+     "scian": [
+      "812210"
+     ],
+     "radio_m": 1000.0
+    },
+    "datos": [
+     {
+      "id": 1958231,
+      "nombre": "PLANCHADO RAPIDO",
+      "actividad": "Lavanderías y tintorerías",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.69308245,
+      "lon": -103.38627415,
+      "distancia_m": 226.0
+     },
+     {
+      "id": 9313119,
+      "nombre": "LAVANDERIA AQUAMATIC",
+      "actividad": "Lavanderías y tintorerías",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.69715913,
+      "lon": -103.38605632,
+      "distancia_m": 259.0
+     },
+     {
+      "id": 11321998,
+      "nombre": "DO IN CLEAN LAVANDERIA Y TINTORERIA",
+      "actividad": "Lavanderías y tintorerías",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.69432675,
+      "lon": -103.38401956,
+      "distancia_m": 319.0
+     },
+     {
+      "id": 6498086,
+      "nombre": "NANAPLANCHA",
+      "actividad": "Lavanderías y tintorerías",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.69702871,
+      "lon": -103.38927533,
+      "distancia_m": 327.0
+     },
+     {
+      "id": 11355280,
+      "nombre": "MASTER DRY CLEANER TINTORERIA",
+      "actividad": "Lavanderías y tintorerías",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.69769904,
+      "lon": -103.38572457,
+      "distancia_m": 328.0
+     },
+     {
+      "id": 9313118,
+      "nombre": "OFICINAS AQUAMATIC",
+      "actividad": "Lavanderías y tintorerías",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.69769904,
+      "lon": -103.38572457,
+      "distancia_m": 328.0
+     },
+     {
+      "id": 10976247,
+      "nombre": "LAVANDERIA DE COLORES",
+      "actividad": "Lavanderías y tintorerías",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.69755898,
+      "lon": -103.38906873,
+      "distancia_m": 357.0
+     },
+     {
+      "id": 1957319,
+      "nombre": "TINTORERIA DIMAR",
+      "actividad": "Lavanderías y tintorerías",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.69701828,
+      "lon": -103.38982529,
+      "distancia_m": 370.0
+     },
+     {
+      "id": 1957579,
+      "nombre": "DRY LIKE CLEAN",
+      "actividad": "Lavanderías y tintorerías",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.69612935,
+      "lon": -103.38355828,
+      "distancia_m": 379.0
+     },
+     {
+      "id": 6436810,
+      "nombre": "LA PLANCHA Y MAS",
+      "actividad": "Lavanderías y tintorerías",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.69193471,
+      "lon": -103.38964507,
+      "distancia_m": 438.0
+     },
+     {
+      "id": 1664851,
+      "nombre": "DIMAR PREMIERE",
+      "actividad": "Lavanderías y tintorerías",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.69707882,
+      "lon": -103.38122526,
+      "distancia_m": 644.0
+     },
+     {
+      "id": 1957942,
+      "nombre": "TINTORERIA TINTORAMA DE GUADALAJARA",
+      "actividad": "Lavanderías y tintorerías",
+      "personal_ocupado": "11 a 30 personas",
+      "lat": 20.6948563,
+      "lon": -103.37965854,
+      "distancia_m": 764.0
+     },
+     {
+      "id": 7781776,
+      "nombre": "5ASEC",
+      "actividad": "Lavanderías y tintorerías",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.70109778,
+      "lon": -103.38315884,
+      "distancia_m": 787.0
+     },
+     {
+      "id": 1957941,
+      "nombre": "TINTORERIA Y PLANCHADURIA RELUCE",
+      "actividad": "Lavanderías y tintorerías",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.69549355,
+      "lon": -103.37941458,
+      "distancia_m": 791.0
+     },
+     {
+      "id": 9937718,
+      "nombre": "LAVANDERIA DO IT CLEAN",
+      "actividad": "Lavanderías y tintorerías",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.69776095,
+      "lon": -103.37926513,
+      "distancia_m": 861.0
+     },
+     {
+      "id": 1958215,
+      "nombre": "PLANCHA DO IT CLEAN",
+      "actividad": "Lavanderías y tintorerías",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.68728629,
+      "lon": -103.388056,
+      "distancia_m": 865.0
+     },
+     {
+      "id": 1665799,
+      "nombre": "SUPER PLANCHA",
+      "actividad": "Lavanderías y tintorerías",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.68654286,
+      "lon": -103.38556157,
+      "distancia_m": 952.0
+     }
+    ]
+   }
+  ],
+  "llamadas": [
+   {
+    "herramienta": "buscar_actividad",
+    "entrada": {
+     "texto": "lavandería"
+    }
+   },
+   {
+    "herramienta": "perfil_zona",
+    "entrada": {
+     "lat": 20.6767,
+     "lon": -103.3475,
+     "radio_m": 1000.0
+    }
+   },
+   {
+    "herramienta": "perfil_zona",
+    "entrada": {
+     "lat": 20.695,
+     "lon": -103.387,
+     "radio_m": 1000.0
+    }
+   },
+   {
+    "herramienta": "competencia_cercana",
+    "entrada": {
+     "lat": 20.6767,
+     "lon": -103.3475,
+     "scian": [
+      "812210"
+     ],
+     "radio_m": 1000.0
+    }
+   },
+   {
+    "herramienta": "competencia_cercana",
+    "entrada": {
+     "lat": 20.695,
+     "lon": -103.387,
+     "scian": [
+      "812210"
+     ],
+     "radio_m": 1000.0
+    }
+   }
+  ],
+  "tokens_entrada": 8702,
+  "tokens_salida": 2122
+ }
+}

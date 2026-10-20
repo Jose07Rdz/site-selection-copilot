@@ -1,4 +1,6 @@
 {
+ "titulo": "Cafetería en la colonia Americana",
+ "categoria": "Isócrona",
  "pregunta": "Quiero abrir una cafetería de especialidad en la colonia Americana de Guadalajara (20.6737, -103.3700). ¿Cuánta gente vive a 10 minutos caminando y cuántas cafeterías compiten ahí? ¿Vale la pena?",
  "proveedor": "openai",
  "modelo": "gpt-5-mini",

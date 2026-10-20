@@ -1,0 +1,419 @@
+{
+ "titulo": "Veterinaria cerca de Andares",
+ "categoria": "Isócrona",
+ "pregunta": "Quiero abrir una veterinaria junto a Plaza Andares en Zapopan (20.7103, -103.4119). ¿Cuánta gente vive a 10 minutos en auto y cuántas veterinarias hay en esa área?",
+ "proveedor": "openai",
+ "modelo": "gpt-5-mini",
+ "fecha": "2026-10-19",
+ "resultado": {
+  "texto": "Rápido: en un viaje de 10 minutos en auto desde Plaza Andares (20.7103, -103.4119) hay aproximadamente 114,902 personas y se detectaron 26 veterinarias en el área.\n\nDetalles (fuente: isócrona DENUE/Censo):\n- Área alcanzable (10 min auto): 28.56 km²\n- Población estimada dentro del área: 114,902 personas\n- Total de negocios en el área: 5,647\n- Veterinarias encontradas: 26 (clasificadas como SCIAN 541941 — \"Servicios veterinarios para mascotas, sector privado\")\n- Búsqueda inicial incluyó también SCIAN 541942 (servicios veterinarios del sector público), pero no se encontraron registros públicos dentro del isócron a 10 min.\n\nLimitaciones / próximos pasos:\n- La población está basada en Censo 2020 (estimada por isócrona sobre AGEBs).  \n- Los datos de negocios provienen del DENUE; puede haber subregistro, cierres recientes o locales no clasificados correctamente.  \n- ¿Quieres que liste las veterinarias más cercanas con distancia, o que haga la misma medición a 5 y 15 minutos, o que revise competencia incluyendo tiendas de mascotas (SCIAN 465911)?",
+  "capas": [
+   {
+    "herramienta": "isocrona",
+    "tipo": "puntos",
+    "entrada": {
+     "lat": 20.7103,
+     "lon": -103.4119,
+     "minutos": 10.0,
+     "modo": "auto",
+     "scian": [
+      "541941",
+      "541942"
+     ]
+    },
+    "datos": [
+     {
+      "id": 1808877,
+      "nombre": "VETERINARIA DACTARY",
+      "actividad": "Servicios veterinarios para mascotas prestados por el sector privado",
+      "lat": 20.6686036,
+      "lon": -103.42423632
+     },
+     {
+      "id": 1653711,
+      "nombre": "VETERINARIA PETLIFE",
+      "actividad": "Servicios veterinarios para mascotas prestados por el sector privado",
+      "lat": 20.67279308,
+      "lon": -103.42500359
+     },
+     {
+      "id": 11235397,
+      "nombre": "LOMONT HOSPITAL VETERINARIO",
+      "actividad": "Servicios veterinarios para mascotas prestados por el sector privado",
+      "lat": 20.68155662,
+      "lon": -103.42123694
+     },
+     {
+      "id": 1640133,
+      "nombre": "VETERINARIA ANDRADE",
+      "actividad": "Servicios veterinarios para mascotas prestados por el sector privado",
+      "lat": 20.6830633,
+      "lon": -103.42807434
+     },
+     {
+      "id": 7230248,
+      "nombre": "VETERINARIA SPA Y THERAPY",
+      "actividad": "Servicios veterinarios para mascotas prestados por el sector privado",
+      "lat": 20.68249759,
+      "lon": -103.41960728
+     },
+     {
+      "id": 11562888,
+      "nombre": "VETLEAF",
+      "actividad": "Servicios veterinarios para mascotas prestados por el sector privado",
+      "lat": 20.68729614,
+      "lon": -103.39112195
+     },
+     {
+      "id": 1702667,
+      "nombre": "ANIMAL LOVERS",
+      "actividad": "Servicios veterinarios para mascotas prestados por el sector privado",
+      "lat": 20.68838095,
+      "lon": -103.42778765
+     },
+     {
+      "id": 8373139,
+      "nombre": "VET PETS",
+      "actividad": "Servicios veterinarios para mascotas prestados por el sector privado",
+      "lat": 20.68751212,
+      "lon": -103.42361866
+     },
+     {
+      "id": 1958148,
+      "nombre": "VETERINARIA ANIMALS MEDICOS VETERINARIOS",
+      "actividad": "Servicios veterinarios para mascotas prestados por el sector privado",
+      "lat": 20.69109816,
+      "lon": -103.39736428
+     },
+     {
+      "id": 6206115,
+      "nombre": "MONDO PETTITE",
+      "actividad": "Servicios veterinarios para mascotas prestados por el sector privado",
+      "lat": 20.68889665,
+      "lon": -103.41913998
+     },
+     {
+      "id": 11514873,
+      "nombre": "PET PARK SPA BOUTIQUE VERINARIA",
+      "actividad": "Servicios veterinarios para mascotas prestados por el sector privado",
+      "lat": 20.69689233,
+      "lon": -103.38936152
+     },
+     {
+      "id": 1642886,
+      "nombre": "HOSPITAL VETERINARIA UNIVERSIDAD",
+      "actividad": "Servicios veterinarios para mascotas prestados por el sector privado",
+      "lat": 20.69921594,
+      "lon": -103.41566946
+     },
+     {
+      "id": 6731972,
+      "nombre": "A & V BUSINESS",
+      "actividad": "Servicios veterinarios para mascotas prestados por el sector privado",
+      "lat": 20.701816,
+      "lon": -103.38386694
+     },
+     {
+      "id": 11411153,
+      "nombre": "TAKIBA",
+      "actividad": "Servicios veterinarios para mascotas prestados por el sector privado",
+      "lat": 20.71154655,
+      "lon": -103.38188509
+     },
+     {
+      "id": 1865829,
+      "nombre": "VETERINARIA MORO",
+      "actividad": "Servicios veterinarios para mascotas prestados por el sector privado",
+      "lat": 20.7142642,
+      "lon": -103.37845973
+     },
+     {
+      "id": 10243417,
+      "nombre": "CATS Y DOGS VETERINARIA",
+      "actividad": "Servicios veterinarios para mascotas prestados por el sector privado",
+      "lat": 20.71605646,
+      "lon": -103.39255205
+     },
+     {
+      "id": 1640916,
+      "nombre": "VETERINARIA ACUEDUCTO",
+      "actividad": "Servicios veterinarios para mascotas prestados por el sector privado",
+      "lat": 20.72252357,
+      "lon": -103.41247891
+     },
+     {
+      "id": 11140855,
+      "nombre": "GREATPET",
+      "actividad": "Servicios veterinarios para mascotas prestados por el sector privado",
+      "lat": 20.72756078,
+      "lon": -103.41986669
+     },
+     {
+      "id": 1700490,
+      "nombre": "VETERINARIA SANTA ESTHER",
+      "actividad": "Servicios veterinarios para mascotas prestados por el sector privado",
+      "lat": 20.72797508,
+      "lon": -103.41320813
+     },
+     {
+      "id": 7625290,
+      "nombre": "VETERINARIA",
+      "actividad": "Servicios veterinarios para mascotas prestados por el sector privado",
+      "lat": 20.72812911,
+      "lon": -103.41347919
+     },
+     {
+      "id": 10594660,
+      "nombre": "VETERINARIA CAT & DOG",
+      "actividad": "Servicios veterinarios para mascotas prestados por el sector privado",
+      "lat": 20.72842528,
+      "lon": -103.41037784
+     },
+     {
+      "id": 7593083,
+      "nombre": "ALVET VETERINARIA",
+      "actividad": "Servicios veterinarios para mascotas prestados por el sector privado",
+      "lat": 20.73033859,
+      "lon": -103.41193016
+     },
+     {
+      "id": 7625178,
+      "nombre": "VETERINARIA JOLONCHOS",
+      "actividad": "Servicios veterinarios para mascotas prestados por el sector privado",
+      "lat": 20.73103274,
+      "lon": -103.413722
+     },
+     {
+      "id": 1635895,
+      "nombre": "VETERINARIA TUZANIA",
+      "actividad": "Servicios veterinarios para mascotas prestados por el sector privado",
+      "lat": 20.73352438,
+      "lon": -103.41559462
+     },
+     {
+      "id": 10296456,
+      "nombre": "VETERINARIA FRANQUEZ",
+      "actividad": "Servicios veterinarios para mascotas prestados por el sector privado",
+      "lat": 20.73563084,
+      "lon": -103.40782823
+     },
+     {
+      "id": 1700817,
+      "nombre": "VETERINARIA PERIFERICO",
+      "actividad": "Servicios veterinarios para mascotas prestados por el sector privado",
+      "lat": 20.73713649,
+      "lon": -103.40561748
+     }
+    ]
+   },
+   {
+    "herramienta": "isocrona",
+    "tipo": "geojson",
+    "entrada": {
+     "lat": 20.7103,
+     "lon": -103.4119,
+     "minutos": 10.0,
+     "modo": "auto",
+     "scian": [
+      "541941",
+      "541942"
+     ]
+    },
+    "datos": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        -103.43330974459357,
+        20.717768555060864
+       ],
+       [
+        -103.43415753139814,
+        20.721428543947567
+       ],
+       [
+        -103.43403343666537,
+        20.72187737769864
+       ],
+       [
+        -103.42255441894032,
+        20.73200303553345
+       ],
+       [
+        -103.4127503640998,
+        20.735529942349032
+       ],
+       [
+        -103.40311057919496,
+        20.739478363178772
+       ],
+       [
+        -103.40267165241744,
+        20.739222856546277
+       ],
+       [
+        -103.40260402122378,
+        20.738666904147635
+       ],
+       [
+        -103.40491751207628,
+        20.734010082431734
+       ],
+       [
+        -103.40601765208105,
+        20.73063048900308
+       ],
+       [
+        -103.40778730347101,
+        20.72728222273528
+       ],
+       [
+        -103.40641014002601,
+        20.717000670348195
+       ],
+       [
+        -103.40355990796346,
+        20.716576789255672
+       ],
+       [
+        -103.3992724448449,
+        20.717794783430033
+       ],
+       [
+        -103.39420617143485,
+        20.719766774437414
+       ],
+       [
+        -103.39195900339168,
+        20.7201999452901
+       ],
+       [
+        -103.38818764522856,
+        20.71837482026244
+       ],
+       [
+        -103.38007031906221,
+        20.71604353123817
+       ],
+       [
+        -103.37222311874467,
+        20.714394926400253
+       ],
+       [
+        -103.37180512952808,
+        20.713767363328724
+       ],
+       [
+        -103.37263009464212,
+        20.710928411831745
+       ],
+       [
+        -103.37591550571379,
+        20.70401241393173
+       ],
+       [
+        -103.38025125466079,
+        20.69687170375946
+       ],
+       [
+        -103.38633760548107,
+        20.691142605857845
+       ],
+       [
+        -103.3898069512579,
+        20.686343392421175
+       ],
+       [
+        -103.39030976516933,
+        20.6861918917759
+       ],
+       [
+        -103.40486582617665,
+        20.688075662981717
+       ],
+       [
+        -103.4116529676323,
+        20.68371333228897
+       ],
+       [
+        -103.415917852831,
+        20.676912167978255
+       ],
+       [
+        -103.41949014940604,
+        20.672065517784876
+       ],
+       [
+        -103.42438829673767,
+        20.66827309008356
+       ],
+       [
+        -103.42510252084115,
+        20.668713226067684
+       ],
+       [
+        -103.42594897104993,
+        20.672784095287238
+       ],
+       [
+        -103.4306562862898,
+        20.68036546811281
+       ],
+       [
+        -103.43502052402283,
+        20.691409911488957
+       ],
+       [
+        -103.44040167792016,
+        20.699542439728273
+       ],
+       [
+        -103.44690483526317,
+        20.702149560295524
+       ],
+       [
+        -103.44754594892913,
+        20.70306463729664
+       ],
+       [
+        -103.44730373390254,
+        20.70382729018235
+       ],
+       [
+        -103.44101692241681,
+        20.708959561704276
+       ],
+       [
+        -103.43330974459357,
+        20.717768555060864
+       ]
+      ]
+     ]
+    }
+   }
+  ],
+  "llamadas": [
+   {
+    "herramienta": "buscar_actividad",
+    "entrada": {
+     "texto": "veterinaria"
+    }
+   },
+   {
+    "herramienta": "isocrona",
+    "entrada": {
+     "lat": 20.7103,
+     "lon": -103.4119,
+     "minutos": 10.0,
+     "modo": "auto",
+     "scian": [
+      "541941",
+      "541942"
+     ]
+    }
+   }
+  ],
+  "tokens_entrada": 6774,
+  "tokens_salida": 1371
+ }
+}

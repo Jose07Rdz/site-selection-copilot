@@ -1,12 +1,11 @@
-"""La app en modo demo (sin API key) no debe llamar a ninguna API y debe mostrar los ejemplos grabados."""
+"""La app sin API key o en modo público no debe poder llamar a ninguna API y debe mostrar los ejemplos grabados."""
 
 import pytest
 from streamlit.testing.v1 import AppTest
 
-from site_copilot.config import DB_PATH, ROOT
+from site_copilot.config import ROOT
 from site_copilot.demos import listar
 
-pytestmark = pytest.mark.skipif(not DB_PATH.exists(), reason="Corre primero site_copilot.data.build_db")
 APP = str(ROOT / "src" / "site_copilot" / "app.py")
 
 
@@ -17,20 +16,31 @@ def sin_keys(monkeypatch):
         monkeypatch.setenv(var, "")
 
 
-def test_modo_demo_sin_key(sin_keys):
+def _textos(at: AppTest) -> str:
+    return "\n".join(m.value for m in at.markdown)
+
+
+def test_sin_key_no_hay_chat_pero_si_opcion_de_key_propia(sin_keys):
     at = AppTest.from_file(APP, default_timeout=60).run()
     assert not at.exception
-    assert at.chat_input[0].disabled
-    assert any("Modo demo" in i.value for i in at.info)
+    assert len(at.chat_input) == 0
+    assert len(at.text_input) == 1  # campo opcional para la key del visitante
 
 
-def test_ejemplo_grabado_se_muestra(sin_keys):
+def test_modo_publico_solo_ejemplos(monkeypatch):
+    # Aunque haya key en el entorno, el modo público no expone chat ni campo de key.
+    monkeypatch.setenv("SITE_COPILOT_PUBLICO", "1")
+    monkeypatch.setenv("OPENAI_API_KEY", "sk-no-se-usa")
+    at = AppTest.from_file(APP, default_timeout=60).run()
+    assert not at.exception
+    assert len(at.chat_input) == 0 and len(at.text_input) == 0
+
+
+def test_cada_ejemplo_se_puede_abrir(sin_keys):
     demos = listar()
-    assert demos, "No hay demos grabadas en demos/"
+    assert len(demos) >= 10, "Se esperan al menos 10 ejemplos grabados en demos/"
     at = AppTest.from_file(APP, default_timeout=60).run()
-    boton = next(b for b in at.button if b.label == demos[0]["pregunta"])
-    at = boton.click().run()
-    assert not at.exception
-    textos = [m.markdown[0].value for m in at.chat_message if m.markdown]
-    assert demos[0]["pregunta"] in textos
-    assert demos[0]["resultado"].texto in textos
+    for i, d in enumerate(demos):
+        at = at.button(key=f"demo{i}").click().run()
+        assert not at.exception
+        assert d["resultado"].texto.strip()[:80] in _textos(at)

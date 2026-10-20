@@ -1,0 +1,173 @@
+{
+ "titulo": "Perfil de la Glorieta Chapalita",
+ "categoria": "Perfil",
+ "pregunta": "Dame el perfil socioeconómico y comercial de 1 km alrededor de la Glorieta Chapalita (20.6672, -103.4003): población, nivel socioeconómico, escolaridad y qué tipo de negocios dominan.",
+ "proveedor": "openai",
+ "modelo": "gpt-5-mini",
+ "fecha": "2026-10-19",
+ "resultado": {
+  "texto": "Recomendación (resumen): La zona a 1 km alrededor de la Glorieta Chapalita es de NSE medio‑alto (promedio municipal ≈5) y muy comercializada: alta población de día/noche y fuerte concentración de restaurantes y servicios personales/salud, por lo que es favorable para negocios de gastronomía, servicios profesionales y clínicas privadas.\n\nTabla de perfil (círculo 1 km)\n| Zona / AGEB | Punto (lat, lon) | Población (radio 1 km) | Negocios (total, proxy de competidores) | Comercios dominantes (cantidad) | NSE (quintil municipal promedio) |\n|---|---:|---:|---:|---|---:|\n| Glorieta Chapalita (radio 1 km) | 20.6672, -103.4003 | 14,700 | 1,484 | Restaurantes (111); Salones y clínicas de belleza (95); Consultorios médicos especializados (52); Consultorios dentales (48); Cafeterías (43) | 4.89 (≈ quintil 5 municipal) |\n\nPor qué (datos clave)\n- Población estimada en 1 km: 14,700 personas (perfil_zona).\n- Escolaridad promedio: 14.66 años (perfil_zona) — indica nivel educativo alto.\n- Viviendas habitadas: 5,532; 83% de viviendas con auto (pct_viv_auto = 0.83) — alta motorización y poder adquisitivo relativo.\n- Actividad comercial intensa: 1,484 negocios en el radio; principales rubros: restaurantes (111), salones/estética (95), consultorios médicos (52) y dentales (48), cafeterías (43) — la zona es un polo de servicios y gastronomía (perfil_zona).\n\nRiesgos y supuestos\n- Población y características sociodemográficas corresponden al Censo 2020 (estimación en el radio); pueden haber cambiado.  \n- Los conteos de negocios provienen del DENUE/Censo empresarial: no distinguen siempre cadenas de independientes ni intensidad real de competencia por formato.  \n- El NSE es aproximado (quintil municipal promedio calculado por herramienta), no es el NSE AMAI oficial.  \n- El indicador “negocios” incluye todo tipo de actividades registradas — conviene validar in situ la saturación por subsegmento (p. ej. cocina rápida vs. restaurante de especialidad).  \n\nSi quieres, valido la competencia más cercana (lista de locales por distancia) o calculo la isócrona a 10 minutos en auto/ a pie para este punto.",
+  "capas": [
+   {
+    "herramienta": "perfil_zona",
+    "tipo": "geojson",
+    "entrada": {
+     "lat": 20.6672,
+     "lon": -103.4003,
+     "radio_m": 1000.0
+    },
+    "datos": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        -103.39066289180917,
+        20.66728825565074
+       ],
+       [
+        -103.39082983309642,
+        20.66551707331945
+       ],
+       [
+        -103.39136069414734,
+        20.66381057743094
+       ],
+       [
+        -103.39223506216143,
+        20.662234343648624
+       ],
+       [
+        -103.39341932744794,
+        20.660848939640665
+       ],
+       [
+        -103.3948679762781,
+        20.659707598429133
+       ],
+       [
+        -103.39652534042045,
+        20.65885417378273
+       ],
+       [
+        -103.39832773605421,
+        20.658321456057642
+       ],
+       [
+        -103.40020590992239,
+        20.658129913037744
+       ],
+       [
+        -103.40208769889999,
+        20.658286904018038
+       ],
+       [
+        -103.40390080104493,
+        20.658786397233676
+       ],
+       [
+        -103.40557555196688,
+        20.659609201458046
+       ],
+       [
+        -103.40704760014759,
+        20.6607237028991
+       ],
+       [
+        -103.40826037868236,
+        20.66208707916866
+       ],
+       [
+        -103.40916727864497,
+        20.663646943815078
+       ],
+       [
+        -103.40973344062705,
+        20.66534335838858
+       ],
+       [
+        -103.40993709554519,
+        20.667111134886945
+       ],
+       [
+        -103.40977040301,
+        20.668882340245865
+       ],
+       [
+        -103.40923975476606,
+        20.67058890672569
+       ],
+       [
+        -103.40836553121596,
+        20.67216524791615
+       ],
+       [
+        -103.40718132005713,
+        20.67355077979714
+       ],
+       [
+        -103.40573262677786,
+        20.674692249879026
+       ],
+       [
+        -103.40407512637661,
+        20.67554578477382
+       ],
+       [
+        -103.40227252341832,
+        20.67607857734104
+       ],
+       [
+        -103.40039410272328,
+        20.676270148402697
+       ],
+       [
+        -103.39851206499362,
+        20.676113134394786
+       ],
+       [
+        -103.3966987500417,
+        20.67561357058781
+       ],
+       [
+        -103.39502385465576,
+        20.674790658955303
+       ],
+       [
+        -103.39355175234736,
+        20.67367602964129
+       ],
+       [
+        -103.39233901826171,
+        20.672312524501354
+       ],
+       [
+        -103.391432254558,
+        20.670752549606497
+       ],
+       [
+        -103.39086629990045,
+        20.669056060190886
+       ],
+       [
+        -103.39066289180917,
+        20.66728825565074
+       ]
+      ]
+     ]
+    }
+   }
+  ],
+  "llamadas": [
+   {
+    "herramienta": "perfil_zona",
+    "entrada": {
+     "lat": 20.6672,
+     "lon": -103.4003,
+     "radio_m": 1000.0
+    }
+   }
+  ],
+  "tokens_entrada": 3933,
+  "tokens_salida": 1690
+ }
+}

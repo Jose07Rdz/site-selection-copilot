@@ -68,9 +68,25 @@ uv run site-copilot                                # modo conversación
 uv run streamlit run src/site_copilot/app.py       # app con chat y mapa
 ```
 
-**Modo demo:** sin API key, la app muestra respuestas grabadas en `demos/` (nadie gasta créditos al visitarla) y el
-visitante puede poner su propia key para usarla en vivo. Para grabar un ejemplo:
-`uv run python -m site_copilot.demos "tu pregunta"`.
+**Modos de la app:**
+- **Público** (`SITE_COPILOT_PUBLICO=1`): solo la galería de 10 análisis grabados en `demos/`, sin chat ni campo de key.
+  Visitarla no cuesta nada y no necesita la base de datos.
+- **Local con key en `.env`:** galería + preguntas en vivo.
+- **Local sin key:** galería + campo opcional para usar una key propia.
+
+Para grabar un ejemplo nuevo:
+`uv run python -m site_copilot.demos --titulo "Farmacia en Zapopan" --categoria Ranking "tu pregunta"`
+
+### Despliegue en Streamlit Community Cloud
+
+1. En [share.streamlit.io](https://share.streamlit.io), *Create app* → este repositorio, rama `main`,
+   archivo principal `src/site_copilot/app.py`, Python 3.12.
+2. En *Advanced settings → Secrets*: `SITE_COPILOT_PUBLICO = "1"`.
+
+`requirements.txt` se genera con `uv export --no-dev --no-hashes --format requirements-txt -o requirements.txt`.
+
+El diseño sigue un sistema "Data-Dense Dashboard" (azul marino + acento ámbar, Fira Sans / Fira Code) definido en
+`.streamlit/config.toml`, con contraste AA, foco visible y respeto a `prefers-reduced-motion`.
 
 > En macOS con el Escritorio en iCloud, `.venv` y `data` son enlaces a carpetas `*.nosync` para que iCloud no los sincronice
 > (iCloud duplica y oculta archivos del entorno virtual y los datos pesan ~1 GB):
@@ -83,6 +99,7 @@ visitante puede poner su propia key para usarla en vivo. Para grabar un ejemplo:
 - [x] Agente con tool calling (Claude API) y CLI
 - [ ] Set de evaluación (~30 preguntas con respuesta esperada)
 - [x] UI con chat y mapa interactivo (Streamlit + Folium) con modo demo
+- [x] Galería pública de 10 análisis (sin costo por visita)
 - [ ] Despliegue público (Streamlit Community Cloud)
 
 ## Licencia de datos
