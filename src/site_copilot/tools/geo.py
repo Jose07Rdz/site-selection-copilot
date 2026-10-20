@@ -7,6 +7,7 @@ Cada función devuelve un dict serializable a JSON. Las llaves que empiezan con 
 import json
 import math
 import re
+import threading
 import unicodedata
 from functools import cache
 
@@ -27,7 +28,7 @@ class ToolError(ValueError):
 
 
 @cache
-def con() -> duckdb.DuckDBPyConnection:
+def _base() -> duckdb.DuckDBPyConnection:
     if not DB_PATH.exists():
         raise RuntimeError("No existe la base. Corre: uv run python -m site_copilot.data.build_db")
     c = duckdb.connect(str(DB_PATH), read_only=True)
@@ -35,6 +36,16 @@ def con() -> duckdb.DuckDBPyConnection:
     # Bloquea lectura/escritura de archivos y red desde SQL (p. ej. read_csv('/etc/...')).
     c.sql("SET enable_external_access = false; SET lock_configuration = true;")
     return c
+
+
+_hilo = threading.local()
+
+
+def con() -> duckdb.DuckDBPyConnection:
+    """Conexión por hilo (una conexión de DuckDB no se debe usar desde varios hilos a la vez)."""
+    if not hasattr(_hilo, "con"):
+        _hilo.con = _base().cursor()
+    return _hilo.con
 
 
 def rows(sql: str, params: list | None = None) -> list[dict]:
@@ -66,9 +77,13 @@ def _scian_filter(scian: list[str], col: str = "scian") -> tuple[str, list[str]]
 
 
 def circle_sql(lat: float, lon: float, radio_m: float) -> str:
-    """Expresión SQL de un círculo métrico real (buffer en LCC, devuelto a WGS84)."""
+    """Expresión SQL de un círculo métrico real (buffer en LCC, devuelto a WGS84).
+
+    32 segmentos por cuadrante (128 lados): el polígono cubre 99.96 % del círculo. Con el valor
+    por defecto (8) quedaba 0.6 % más chico y dejaba fuera negocios del borde.
+    """
     return (
-        f"ST_Transform(ST_Buffer(ST_Transform(ST_Point({lon}, {lat}), '{WGS84}', '{LCC}', always_xy := true), {radio_m}),"
+        f"ST_Transform(ST_Buffer(ST_Transform(ST_Point({lon}, {lat}), '{WGS84}', '{LCC}', always_xy := true), {radio_m}, 32),"
         f" '{LCC}', '{WGS84}', always_xy := true)"
     )
 

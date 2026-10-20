@@ -91,8 +91,9 @@ def _make_tools(registro: Resultado) -> list:
             raise SdkToolError(f"Falla interna de la herramienta ({type(e).__name__}); intenta otro enfoque.") from e
         for k in [k for k in out if k.startswith("_")]:
             registro.capas.append({"herramienta": nombre, "tipo": k[1:], "entrada": kwargs, "datos": out.pop(k)})
-        registro.llamadas.append({"herramienta": nombre, "entrada": kwargs})
-        return json.dumps(out, ensure_ascii=False, default=str)
+        salida = json.dumps(out, ensure_ascii=False, default=str)
+        registro.llamadas.append({"herramienta": nombre, "entrada": kwargs, "salida": salida})
+        return salida
 
     @beta_tool
     def buscar_actividad(texto: str) -> str:

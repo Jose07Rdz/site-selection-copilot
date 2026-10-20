@@ -49,6 +49,9 @@ def grabar(pregunta: str, titulo: str, categoria: str) -> Path:
         "fecha": date.today().isoformat(),
         "resultado": asdict(r),
     }
+    # Las salidas completas de las herramientas solo sirven para evaluar; no hacen falta en la demo.
+    for c in data["resultado"]["llamadas"]:
+        c.pop("salida", None)
     path.write_text(json.dumps(data, ensure_ascii=False, indent=1, default=str), encoding="utf-8")
     return path
 

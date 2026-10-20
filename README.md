@@ -98,10 +98,43 @@ El diseño sigue un sistema "Data-Dense Dashboard" (azul marino + acento ámbar,
 - [x] Pipeline de datos: DENUE + Censo 2020 + Marco Geoestadístico → DuckDB spatial
 - [x] Herramientas del agente: competencia, perfil de zona, ranking de zonas, isócronas (OSMnx), SQL de solo lectura
 - [x] Agente con tool calling (Claude API) y CLI
-- [ ] Set de evaluación (~30 preguntas con respuesta esperada)
+- [x] Set de evaluación (31 preguntas, calificación determinista)
 - [x] UI con chat y mapa interactivo (Streamlit + Folium) con modo demo
 - [x] Galería pública de 10 análisis (sin costo por visita)
 - [x] Despliegue público en Streamlit Community Cloud
+
+## Evaluación
+
+`evals/` contiene 31 preguntas en 7 categorías (ranking, competencia, perfil, isócronas, comparaciones,
+datos/SQL y robustez: fuera de cobertura, preguntas ambiguas, intento de leer archivos del servidor,
+coordenadas invertidas). La calificación es **determinista, sin un LLM como juez**:
+
+- **Cifras:** el valor correcto se calcula en el momento con las mismas herramientas o con SQL sobre la base,
+  y se busca en la respuesta con una tolerancia definida por caso.
+- **Uso de herramientas:** que use la herramienta adecuada, los códigos SCIAN correctos y los parámetros
+  esperados (p. ej. "NSE medio-alto" → `nse_min = 4`).
+- **Anclaje:** toda coordenada que menciona la respuesta debe venir de la pregunta o de una herramienta
+  (si no, la inventó); además se mide qué proporción de las cifras citadas tiene respaldo.
+
+Resultado con `gpt-5-mini` (19 de octubre de 2026, [reporte completo](evals/resultados/20261019-2240_gpt-5-mini.md)):
+
+| | |
+|---|---|
+| Casos correctos | **31/31** |
+| Coordenadas con respaldo | 22/22 |
+| Cifras citadas con respaldo | 92 % |
+| Costo de la corrida | ~US$0.16 (~17 s y 3 herramientas por pregunta) |
+
+La primera corrida dio 29/31 y ayudó a encontrar una imprecisión real: el círculo de `perfil_zona` se
+dibujaba con pocos lados y quedaba 0.6 % más chico, dejando fuera negocios del borde. Tras corregirlo,
+la corrida completa quedó en 31/31 ([corrida anterior](evals/resultados/historial/)).
+Siguiente paso: casos más difíciles y varias repeticiones por caso para medir variabilidad.
+
+```bash
+uv run python -m evals.run                      # todos los casos (gasta API; tope con --max-costo)
+uv run python -m evals.run --ids R1,C5,F1       # algunos casos
+uv run python -m evals.run --recalificar evals/resultados/<archivo>.json   # re-califica sin llamar a la API
+```
 
 ## Licencia de datos
 
