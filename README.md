@@ -42,7 +42,9 @@ pregunta ──► Claude (tool calling) ──► herramientas ──► DuckDB
 | `isocrona` | Área alcanzable en N minutos a pie o en auto, con su perfil y competencia |
 | `consulta_sql` | SQL de solo lectura para preguntas que las demás no cubren (sin acceso a archivos ni red) |
 
-El agente usa el Tool Runner del SDK de Anthropic con `claude-opus-5-5`, thinking adaptativo y fallback del lado del servidor ante rechazos.
+El agente no depende del proveedor: las mismas herramientas y el mismo prompt funcionan con
+**OpenAI** (Responses API con function calling, `gpt-5-mini` por defecto) o con **Anthropic**
+(Tool Runner del SDK, `claude-opus-5-5`). Se elige con `LLM_PROVIDER` en `.env`.
 Las isócronas en auto usan las velocidades de OpenStreetMap al 60 % para aproximar el tráfico urbano.
 
 ## Uso
@@ -56,7 +58,7 @@ uv run python -m site_copilot.data.build_db        # crea data/site_copilot.duck
 uv run python -m site_copilot.tools.isochrones     # precarga la red vial de auto de la ZM Guadalajara
 uv run pytest                                      # pruebas (no requieren API key)
 
-cp .env.example .env                               # y pon tu ANTHROPIC_API_KEY
+cp .env.example .env                               # y pon tu OPENAI_API_KEY (o ANTHROPIC_API_KEY)
 uv run site-copilot "¿Dónde abrirías una farmacia en Guadalajara o Zapopan, en zona de NSE medio-alto y con poca competencia?"
 uv run site-copilot                                # modo conversación
 ```

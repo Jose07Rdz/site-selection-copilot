@@ -1,4 +1,8 @@
-"""Agente de selección de ubicaciones: Claude + herramientas geoespaciales vía tool calling.
+"""Agente de selección de ubicaciones: LLM + herramientas geoespaciales vía tool calling.
+
+Soporta dos proveedores con las mismas herramientas y el mismo prompt:
+    LLM_PROVIDER=openai     (Responses API, modelo por defecto gpt-5-mini)
+    LLM_PROVIDER=anthropic  (Tool Runner, modelo por defecto claude-opus-5-5)
 
 Uso:
     uv run site-copilot "¿Dónde abrirías una farmacia en Zapopan en zona de NSE alto?"
@@ -12,15 +16,18 @@ from dataclasses import dataclass, field
 from typing import Any, Callable
 
 import anthropic
+import openai
 from anthropic import beta_tool
 from anthropic.lib.tools import ToolError as SdkToolError
 from dotenv import load_dotenv
 
+from site_copilot.config import ROOT
 from site_copilot.tools import geo
 from site_copilot.tools.geo import SCHEMA_DOC
 
-MODEL = os.getenv("SITE_COPILOT_MODEL", "claude-opus-5-5")
-EFFORT = os.getenv("SITE_COPILOT_EFFORT", "high")
+load_dotenv(ROOT / ".env")
+
+DEFAULT_MODELS = {"openai": "gpt-5-mini", "anthropic": "claude-opus-5-5"}
 MAX_ITERATIONS = 15
 
 SYSTEM_PROMPT = """\
@@ -167,25 +174,23 @@ def _make_tools(registro: Resultado) -> list:
     return [buscar_actividad, buscar_municipio, rankear_zonas, perfil_zona, competencia_cercana, isocrona, consulta_sql]
 
 
-class Copilot:
-    """Conversación con memoria: cada pregunta se agrega al historial."""
+class AnthropicBackend:
+    """Claude vía el Tool Runner del SDK de Anthropic (el SDK maneja el loop de herramientas)."""
 
-    def __init__(self, client: anthropic.Anthropic | None = None):
-        load_dotenv()
+    def __init__(self, model: str, effort: str, client: anthropic.Anthropic | None = None):
         self.client = client or anthropic.Anthropic()
-        self.system = SYSTEM_PROMPT.format(cobertura=_cobertura(), schema=SCHEMA_DOC)
+        self.model, self.effort = model, effort
         self.messages: list[dict] = []
 
-    def preguntar(self, pregunta: str, on_tool: Callable[[str, dict], None] | None = None) -> Resultado:
-        resultado = Resultado(texto="")
+    def preguntar(self, system: str, pregunta: str, resultado: Resultado, on_tool) -> None:
         self.messages.append({"role": "user", "content": pregunta})
         runner = self.client.beta.messages.tool_runner(
-            model=MODEL,
+            model=self.model,
             max_tokens=16000,
             max_iterations=MAX_ITERATIONS,
-            system=[{"type": "text", "text": self.system, "cache_control": {"type": "ephemeral"}}],
+            system=[{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}],
             thinking={"type": "adaptive"},
-            output_config={"effort": EFFORT},
+            output_config={"effort": self.effort},
             # Si el modelo rechaza la solicitud por un clasificador de seguridad, la API la reintenta con otro modelo.
             betas=["server-side-fallback-2026-07-01"],
             fallbacks="default",
@@ -199,10 +204,9 @@ class Copilot:
             resultado.tokens_salida += message.usage.output_tokens
             # El runner guarda su propia copia del historial; lo reflejamos para conservar la conversación.
             self.messages.append({"role": "assistant", "content": message.content})
-            if on_tool:
-                for b in message.content:
-                    if b.type == "tool_use":
-                        on_tool(b.name, b.input)
+            for b in message.content:
+                if b.type == "tool_use":
+                    on_tool(b.name, b.input)
             tool_response = runner.generate_tool_call_response()
             if tool_response is not None:
                 self.messages.append(tool_response)
@@ -211,10 +215,93 @@ class Copilot:
             raise RuntimeError("El modelo no devolvió respuesta.")
         if ultimo.stop_reason == "refusal":
             resultado.texto = "El modelo no pudo responder esta solicitud."
-        else:
-            resultado.texto = "\n".join(b.text for b in ultimo.content if b.type == "text").strip()
-            if ultimo.stop_reason == "max_tokens":
-                resultado.texto += "\n\n[Respuesta truncada por límite de tokens]"
+            return
+        resultado.texto = "\n".join(b.text for b in ultimo.content if b.type == "text").strip()
+        if ultimo.stop_reason == "max_tokens":
+            resultado.texto += "\n\n[Respuesta truncada por límite de tokens]"
+
+
+class OpenAIBackend:
+    """Modelos de OpenAI vía la Responses API, con un loop manual de function calling."""
+
+    def __init__(self, model: str, effort: str, client: openai.OpenAI | None = None):
+        self.client = client or openai.OpenAI()
+        self.model, self.effort = model, effort
+        self.items: list = []  # historial en formato de la Responses API
+
+    def _es_de_razonamiento(self) -> bool:
+        return self.model.startswith(("gpt-5", "o1", "o3", "o4"))
+
+    def preguntar(self, system: str, pregunta: str, resultado: Resultado, on_tool) -> None:
+        tools = _make_tools(resultado)
+        por_nombre = {t.name: t for t in tools}
+        specs = [
+            # strict=False: nuestros esquemas tienen parámetros opcionales con valor por defecto.
+            {"type": "function", "name": d["name"], "description": d["description"], "parameters": d["input_schema"], "strict": False}
+            for d in (t.to_dict() for t in tools)
+        ]
+        extra = {}
+        if self._es_de_razonamiento():
+            # Con store=False el razonamiento se reenvía cifrado en cada paso del loop.
+            extra = {"reasoning": {"effort": self.effort}, "include": ["reasoning.encrypted_content"]}
+        self.items.append({"role": "user", "content": pregunta})
+
+        for _ in range(MAX_ITERATIONS):
+            resp = self.client.responses.create(
+                model=self.model,
+                instructions=system,
+                input=self.items,
+                tools=specs,
+                parallel_tool_calls=True,
+                max_output_tokens=16000,
+                store=False,
+                **extra,
+            )
+            if resp.usage:
+                resultado.tokens_entrada += resp.usage.input_tokens
+                resultado.tokens_salida += resp.usage.output_tokens
+            # Se devuelven todos los items de salida (incluidos los de razonamiento) para continuar el turno.
+            self.items.extend(resp.output)
+            llamadas = [o for o in resp.output if o.type == "function_call"]
+            if not llamadas:
+                resultado.texto = resp.output_text.strip()
+                if resp.status == "incomplete":
+                    resultado.texto += "\n\n[Respuesta incompleta: límite de tokens]"
+                return
+            for c in llamadas:
+                try:
+                    args = json.loads(c.arguments or "{}")
+                    on_tool(c.name, args)
+                    salida = por_nombre[c.name].call(args)
+                except KeyError:
+                    salida = f"ERROR: la herramienta '{c.name}' no existe."
+                except json.JSONDecodeError:
+                    salida = "ERROR: los argumentos no son JSON válido."
+                except Exception as e:  # mismo criterio que el Tool Runner: el modelo ve el error y corrige
+                    salida = f"ERROR: {e}"
+                self.items.append({"type": "function_call_output", "call_id": c.call_id, "output": salida})
+        resultado.texto = "Se alcanzó el máximo de pasos sin una respuesta final."
+
+
+Backend = AnthropicBackend | OpenAIBackend
+
+
+class Copilot:
+    """Conversación con memoria: cada pregunta se agrega al historial del proveedor elegido."""
+
+    def __init__(self, provider: str | None = None, model: str | None = None, client: Any = None):
+        self.provider = (provider or os.getenv("LLM_PROVIDER", "openai")).lower()
+        if self.provider not in DEFAULT_MODELS:
+            raise ValueError(f"LLM_PROVIDER debe ser uno de {list(DEFAULT_MODELS)}")
+        self.model = model or os.getenv("LLM_MODEL") or DEFAULT_MODELS[self.provider]
+        effort = os.getenv("LLM_EFFORT", "medium")
+        cls = OpenAIBackend if self.provider == "openai" else AnthropicBackend
+        self.backend: Backend = cls(self.model, effort, client)
+        self.system = SYSTEM_PROMPT.format(cobertura=_cobertura(), schema=SCHEMA_DOC)
+
+    def preguntar(self, pregunta: str, on_tool: Callable[[str, dict], None] | None = None) -> Resultado:
+        resultado = Resultado(texto="")
+        self.backend.preguntar(self.system, pregunta, resultado, on_tool or (lambda *_: None))
         return resultado
 
 
@@ -226,8 +313,9 @@ def _imprimir_herramienta(nombre: str, entrada: dict) -> None:
 def main() -> None:
     try:
         copilot = Copilot()
-    except anthropic.AnthropicError as e:
-        sys.exit(f"No se pudo crear el cliente de Anthropic: {e}\nDefine ANTHROPIC_API_KEY en .env (ver .env.example).")
+    except (anthropic.AnthropicError, openai.OpenAIError, ValueError) as e:
+        sys.exit(f"No se pudo iniciar el agente: {e}\nRevisa LLM_PROVIDER y la API key en .env (ver .env.example).")
+    print(f"[{copilot.provider} · {copilot.model}]", file=sys.stderr)
 
     preguntas = [" ".join(sys.argv[1:])] if len(sys.argv) > 1 else None
     while True:
@@ -236,16 +324,16 @@ def main() -> None:
             break
         try:
             r = copilot.preguntar(pregunta, on_tool=_imprimir_herramienta)
-        except anthropic.AuthenticationError:
-            sys.exit("API key inválida. Revisa ANTHROPIC_API_KEY en .env.")
-        except anthropic.RateLimitError:
-            print("Límite de uso alcanzado; espera un momento e intenta de nuevo.", file=sys.stderr)
+        except (anthropic.AuthenticationError, openai.AuthenticationError):
+            sys.exit("API key inválida. Revisa tu .env.")
+        except (anthropic.RateLimitError, openai.RateLimitError) as e:
+            print(f"Límite de uso o saldo agotado: {e}", file=sys.stderr)
             continue
-        except anthropic.APIStatusError as e:
+        except (anthropic.APIStatusError, openai.APIStatusError) as e:
             print(f"Error de la API ({e.status_code}): {e.message}", file=sys.stderr)
             continue
-        except anthropic.APIConnectionError:
-            print("Sin conexión con la API de Anthropic.", file=sys.stderr)
+        except (anthropic.APIConnectionError, openai.APIConnectionError):
+            print("Sin conexión con la API.", file=sys.stderr)
             continue
         print(f"\n{r.texto}\n")
         print(f"[{len(r.llamadas)} llamadas a herramientas · {r.tokens_entrada:,} tokens de entrada · {r.tokens_salida:,} de salida]", file=sys.stderr)
