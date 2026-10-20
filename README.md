@@ -4,7 +4,8 @@ Agente con LLM que responde preguntas de ubicación comercial en lenguaje natura
 (*"¿dónde abrirías una farmacia en Guadalajara, lejos de la competencia y en una zona de nivel socioeconómico medio-alto?"*)
 consultando datos geoespaciales públicos de INEGI con SQL espacial.
 
-> 🚧 En construcción. Ya funcionan el pipeline de datos, las herramientas, el agente (CLI) y la app con mapa.
+**▶ Demo en vivo: [site-selection-copilot.streamlit.app](https://site-selection-copilot.streamlit.app/)**
+(10 análisis reales generados por el agente, con su mapa y las herramientas que usó).
 
 ## Datos
 
@@ -100,7 +101,7 @@ El diseño sigue un sistema "Data-Dense Dashboard" (azul marino + acento ámbar,
 - [ ] Set de evaluación (~30 preguntas con respuesta esperada)
 - [x] UI con chat y mapa interactivo (Streamlit + Folium) con modo demo
 - [x] Galería pública de 10 análisis (sin costo por visita)
-- [ ] Despliegue público (Streamlit Community Cloud)
+- [x] Despliegue público en Streamlit Community Cloud
 
 ## Licencia de datos
 
