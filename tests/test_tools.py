@@ -100,3 +100,19 @@ def test_sql_bloquea_escritura_y_archivos(sql):
 def test_sql_limita_filas():
     r = geo.consulta_sql("SELECT id FROM negocios")
     assert len(r["filas"]) == geo.SQL_ROW_LIMIT and r["truncado"]
+
+
+GRAFO_GDL = DB_PATH.parent / "osm" / "zm_guadalajara_drive.graphml"
+
+
+@pytest.mark.skipif(not GRAFO_GDL.exists(), reason="Corre primero site_copilot.tools.isochrones")
+def test_isocronas_offline_crecen_con_el_tiempo(monkeypatch):
+    from site_copilot.tools import isochrones as iso
+
+    # Sin red: las isócronas dentro de la ZM Guadalajara deben salir de la red precargada.
+    monkeypatch.setattr(iso.ox, "graph_from_point", lambda *a, **k: pytest.fail("intentó descargar de OSM"))
+    iso._grafo.cache_clear()
+    pie = [iso.isocrona(*PROVIDENCIA, m, "pie")["area_km2"] for m in (5, 10)]
+    auto = iso.isocrona(*PROVIDENCIA, 10, "auto")["area_km2"]
+    assert 0 < pie[0] < pie[1] < auto
+    assert 0.8 < pie[1] < 2.5  # 10 min a 4.8 km/h ≈ 800 m de recorrido

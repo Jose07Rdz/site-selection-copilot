@@ -15,3 +15,6 @@ wheels/
 
 # Secretos
 .env
+
+# Configuración local del editor
+.claude/

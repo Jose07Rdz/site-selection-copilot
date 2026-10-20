@@ -1,0 +1,813 @@
+{
+ "pregunta": "Quiero abrir una cafetería de especialidad en la colonia Americana de Guadalajara (20.6737, -103.3700). ¿Cuánta gente vive a 10 minutos caminando y cuántas cafeterías compiten ahí? ¿Vale la pena?",
+ "proveedor": "openai",
+ "modelo": "gpt-5-mini",
+ "fecha": "2026-10-19",
+ "resultado": {
+  "texto": "Recomendación breve\n- Sí—la Colonia Americana muestra suficiente población caminable y alta actividad comercial para una cafetería de especialidad, pero es una zona muy competitiva: necesitarás diferenciación (calidad, oferta única, horario/terraceo) y una buena micro‑ubicación.\n\nHe usado el código SCIAN 722515 (Cafeterías, fuentes de sodas, neverías, refresquerías y similares) para contar competidores (buscar_actividad: 722515, 7,025 negocios en el catálogo).\n\nCandidatas (análisis del punto solicitado)\n| Zona / AGEB | Punto sugerido (lat, lon) | Población en 10 min a pie | Competidores (cafeterías) | Comercios cercanos (500 m) | NSE (quintil municipal promedio) |\n|---|---:|---:|---:|---:|---:|\n| Colonia Americana (isochrone 10 min alrededor del punto) | 20.6737, -103.3700 | 3,786 (isócrona 10 min, fuente: isocrona) | 75 (cafeterías en el área, isocrona) | 1,087 negocios en 500 m (perfil_zona) | ~4.6 (promedio de quintil municipal, isocrona / perfil_zona) |\n\nPor qué (datos clave)\n- Población accesible: ~3,786 personas dentro de 10 minutos a pie (isocrona 10 min).\n- Demanda y tránsito comercial altos: 1,784 negocios en el área caminable y 1,087 negocios en 500 m; muchas actividades de alimentos y ocio (isocrona / perfil_zona).\n- Competencia numerosa: 75 establecimientos catalogados como cafeterías en el área de 10 min (isocrona), y 39 cafeterías dentro de 500 m (perfil_zona), lo que indica mercado consolidado.\n- Perfil socioeconómico favorable: escolaridad promedio alta y nse_quintil_municipal promedio ~4.6 (entre 4 y 5), indicando poder adquisitivo adecuado para café de especialidad.\n\nRiesgos y supuestos\n- Población y comercio basados en datos INEGI/DENUE 2020 y DENUE actuales: población referida es de censo 2020 (isocrona/pérfil_zona) — la dinámica poblacional/afluencia turística posterior puede cambiar.\n- DENUE/SCIAN no distingue con certeza café de especialidad vs. cafeterías comunes ni cadenas vs. independientes; los \"competidores\" incluyen todo tipo de cafeterías y cafés dentro del mismo código.\n- La isócrona asume velocidad de caminata estándar; resultados son estimaciones para área recorrible a pie en 10 minutos.\n- No he revisado locales específicos (visita de campo necesaria para confirmar fachada, flujo peatonal en horas pico, renta y permisos).\n\nSi quieres, puedo:\n- Buscar locales comerciales disponibles cerca del punto sugerido y evaluar distancias a paradas de transporte/estacionamientos.\n- Filtrar competidores por tamaño (personal ocupado) o cadenas para ver cuántos son cafés pequeños vs. grandes.",
+  "capas": [
+   {
+    "herramienta": "isocrona",
+    "tipo": "puntos",
+    "entrada": {
+     "lat": 20.6737,
+     "lon": -103.37,
+     "minutos": 10.0,
+     "modo": "pie",
+     "scian": [
+      "722515"
+     ]
+    },
+    "datos": [
+     {
+      "id": 10928398,
+      "nombre": "CAFETERIA GONG CHA",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.66869923,
+      "lon": -103.3682374
+     },
+     {
+      "id": 11556763,
+      "nombre": "CHUBBIQUILES",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.66751174,
+      "lon": -103.36916482
+     },
+     {
+      "id": 11841924,
+      "nombre": "FINCA SANTA VERACRUZ",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.6683227,
+      "lon": -103.37133809
+     },
+     {
+      "id": 10634896,
+      "nombre": "LUNGO KAFFEE",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.66763735,
+      "lon": -103.3696673
+     },
+     {
+      "id": 11314799,
+      "nombre": "CAFETERIA MICROCAFE",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.66934518,
+      "lon": -103.36716905
+     },
+     {
+      "id": 11101291,
+      "nombre": "CAFETERIA MONTENEGRO ALACENA Y CAFE",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.6692328,
+      "lon": -103.36693665
+     },
+     {
+      "id": 10232951,
+      "nombre": "ESPACIO ABIERTO CAFETERIA",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67008506,
+      "lon": -103.37250419
+     },
+     {
+      "id": 1669866,
+      "nombre": "MACONDO CAFE",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.6702688,
+      "lon": -103.3729904
+     },
+     {
+      "id": 6772369,
+      "nombre": "BLACK COFFEE GALERIAS DE JALISCO",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.6691854,
+      "lon": -103.36864912
+     },
+     {
+      "id": 9843332,
+      "nombre": "BOHO CAFE",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.66967355,
+      "lon": -103.37032411
+     },
+     {
+      "id": 10238761,
+      "nombre": "CAFETERIA BIOLENTO",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.66987608,
+      "lon": -103.37153762
+     },
+     {
+      "id": 1838745,
+      "nombre": "CAFETERIA CLAVIGERO",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67031947,
+      "lon": -103.37017642
+     },
+     {
+      "id": 10401201,
+      "nombre": "CAFETERIA TICK TACK POP",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.66918779,
+      "lon": -103.3679096
+     },
+     {
+      "id": 12290991,
+      "nombre": "CAFETERÍAS, FUENTES DE SODAS, NEVERÍAS, REFRESQUERÍAS Y SIMILARES SIN NOMBRE",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.66918613,
+      "lon": -103.36804274
+     },
+     {
+      "id": 10999380,
+      "nombre": "CAPELTIC",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67020115,
+      "lon": -103.3686716
+     },
+     {
+      "id": 9865236,
+      "nombre": "GARRAFLE CO",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.66930715,
+      "lon": -103.36921215
+     },
+     {
+      "id": 10093235,
+      "nombre": "MUUNCAFE",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.66931488,
+      "lon": -103.36894228
+     },
+     {
+      "id": 7983660,
+      "nombre": "CAFECHO",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67061434,
+      "lon": -103.36646868
+     },
+     {
+      "id": 11567732,
+      "nombre": "ICENBERG LAB",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67271995,
+      "lon": -103.36596414
+     },
+     {
+      "id": 1838565,
+      "nombre": "LLUVIA CAFE",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67241402,
+      "lon": -103.3634475
+     },
+     {
+      "id": 10636213,
+      "nombre": "NERETTA CAFE",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67295065,
+      "lon": -103.36359318
+     },
+     {
+      "id": 8400811,
+      "nombre": "PALREAL LA PURA CREMA",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67271995,
+      "lon": -103.36596414
+     },
+     {
+      "id": 9995519,
+      "nombre": "RESTAURANTE SAYULITROS",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67221138,
+      "lon": -103.36704367
+     },
+     {
+      "id": 10279240,
+      "nombre": "SPECIALITY COFFE BAKED GOODS & BAGELS",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67061909,
+      "lon": -103.36605426
+     },
+     {
+      "id": 8381009,
+      "nombre": "CAFE LABRANZA TOSTADORES DE CAFE",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67297981,
+      "lon": -103.37740125
+     },
+     {
+      "id": 9799610,
+      "nombre": "CAFE SINONIMO",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67218824,
+      "lon": -103.37599771
+     },
+     {
+      "id": 11453210,
+      "nombre": "HUMO",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67169128,
+      "lon": -103.37243082
+     },
+     {
+      "id": 11041363,
+      "nombre": "SAINT MALO",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67296883,
+      "lon": -103.3725929
+     },
+     {
+      "id": 10344936,
+      "nombre": "ZENGUELE",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67130175,
+      "lon": -103.37498628
+     },
+     {
+      "id": 11224969,
+      "nombre": "AMELI CAFETERIA FRANCESA",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67336875,
+      "lon": -103.37149694
+     },
+     {
+      "id": 10546489,
+      "nombre": "BIKE COFFE DUKE",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67311302,
+      "lon": -103.36757368
+     },
+     {
+      "id": 7865505,
+      "nombre": "BROMELIA CAFE",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67213695,
+      "lon": -103.37077316
+     },
+     {
+      "id": 1838526,
+      "nombre": "EL ROGER",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67309154,
+      "lon": -103.36827692
+     },
+     {
+      "id": 1838528,
+      "nombre": "EL SORBO DE CAFE",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.6731249,
+      "lon": -103.36834909
+     },
+     {
+      "id": 10704661,
+      "nombre": "INTENSO CAFE",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67216773,
+      "lon": -103.36915429
+     },
+     {
+      "id": 1670568,
+      "nombre": "LA ESTACION DE JULIO",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67312154,
+      "lon": -103.36729417
+     },
+     {
+      "id": 6736255,
+      "nombre": "THE COFFEE LEGACY",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67354213,
+      "lon": -103.36835281
+     },
+     {
+      "id": 10681323,
+      "nombre": "BOLIS DELIZ",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67482461,
+      "lon": -103.37602942
+     },
+     {
+      "id": 1833806,
+      "nombre": "CAFE LA PALOMA",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67338687,
+      "lon": -103.37495937
+     },
+     {
+      "id": 10809723,
+      "nombre": "QUINDICI",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.6747974,
+      "lon": -103.37602902
+     },
+     {
+      "id": 8400801,
+      "nombre": "COFFEE BREAK",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67385684,
+      "lon": -103.36474733
+     },
+     {
+      "id": 7800353,
+      "nombre": "EXPENDIO DE CAFE DIAS DE LUZ",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67471934,
+      "lon": -103.36618258
+     },
+     {
+      "id": 10768193,
+      "nombre": "LUDICO CAFE BOTANICO",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67397282,
+      "lon": -103.36382213
+     },
+     {
+      "id": 8405313,
+      "nombre": "NOHM CHA",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67371604,
+      "lon": -103.36491956
+     },
+     {
+      "id": 10554997,
+      "nombre": "VICTORIA CAFETERIA",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.6749697,
+      "lon": -103.36494614
+     },
+     {
+      "id": 6344778,
+      "nombre": "38195 STARBUCKS CHAPULTEPEC",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67358075,
+      "lon": -103.36887525
+     },
+     {
+      "id": 1670573,
+      "nombre": "CAFE PROVIDENCIA",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67409201,
+      "lon": -103.3687435
+     },
+     {
+      "id": 8380473,
+      "nombre": "COMO SI FUERA DOMINGO CAFE",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67370962,
+      "lon": -103.36997951
+     },
+     {
+      "id": 10971083,
+      "nombre": "MARIA BONITA CAFE",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67368083,
+      "lon": -103.37087577
+     },
+     {
+      "id": 12291367,
+      "nombre": "STARBUCKS CAFE",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67358381,
+      "lon": -103.36877341
+     },
+     {
+      "id": 12291441,
+      "nombre": "PARTENOPE GELATI",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67561272,
+      "lon": -103.37660455
+     },
+     {
+      "id": 7826117,
+      "nombre": "CAFETERIA FABULA",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67601322,
+      "lon": -103.36513536
+     },
+     {
+      "id": 9970241,
+      "nombre": "RESTAURANTE CAFETERIA EL FRUTERO",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67602142,
+      "lon": -103.36499784
+     },
+     {
+      "id": 8380857,
+      "nombre": "BAOBAD",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67540008,
+      "lon": -103.37581837
+     },
+     {
+      "id": 7782128,
+      "nombre": "CAFETERIA CAFE Y DESAYUNOS",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67596151,
+      "lon": -103.37467511
+     },
+     {
+      "id": 10120598,
+      "nombre": "CASA CORTES",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67534661,
+      "lon": -103.37234804
+     },
+     {
+      "id": 10002675,
+      "nombre": "MAIORA",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67520046,
+      "lon": -103.37305976
+     },
+     {
+      "id": 1834244,
+      "nombre": "TRE VOLLTE BENEDETTO",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67574496,
+      "lon": -103.37336417
+     },
+     {
+      "id": 9135664,
+      "nombre": "CAFE COMALA",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67612557,
+      "lon": -103.37058481
+     },
+     {
+      "id": 9895836,
+      "nombre": "CAFETERIA TACITA MIA",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67663161,
+      "lon": -103.36878958
+     },
+     {
+      "id": 10843927,
+      "nombre": "JOLLY MOLLY",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67671658,
+      "lon": -103.36946062
+     },
+     {
+      "id": 10360805,
+      "nombre": "LA MINERIA CAFE",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67539034,
+      "lon": -103.37034364
+     },
+     {
+      "id": 11084054,
+      "nombre": "WAFFLES BOKETTO",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67589021,
+      "lon": -103.37020411
+     },
+     {
+      "id": 10662191,
+      "nombre": "BANDIDO CAFE",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67737714,
+      "lon": -103.37160649
+     },
+     {
+      "id": 11829293,
+      "nombre": "BLACK SOUL",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67735887,
+      "lon": -103.37062022
+     },
+     {
+      "id": 11030024,
+      "nombre": "TRES MOTIVOS",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67771167,
+      "lon": -103.36793817
+     },
+     {
+      "id": 9812999,
+      "nombre": "EXTRACTO CAFE",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67771879,
+      "lon": -103.37278653
+     },
+     {
+      "id": 10669528,
+      "nombre": "CAFETERIA LA HISTORICA",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67779249,
+      "lon": -103.36778191
+     },
+     {
+      "id": 1670264,
+      "nombre": "CUP CAFE",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67839044,
+      "lon": -103.36786324
+     },
+     {
+      "id": 11493880,
+      "nombre": "IDEAL CAFE",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67825463,
+      "lon": -103.36885609
+     },
+     {
+      "id": 10887300,
+      "nombre": "OHAYO PANADERIA Y PASTELERIA ESTILO ASIATICO",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67881774,
+      "lon": -103.36766915
+     },
+     {
+      "id": 11564816,
+      "nombre": "ROSK DONAS",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67839358,
+      "lon": -103.3685255
+     },
+     {
+      "id": 12291330,
+      "nombre": "SLAVA CAFETERIA",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67775401,
+      "lon": -103.36935547
+     },
+     {
+      "id": 1834315,
+      "nombre": "LAS BANDEROLAS",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67895442,
+      "lon": -103.37140109
+     },
+     {
+      "id": 7782175,
+      "nombre": "TEA RECS",
+      "actividad": "Cafeterías, fuentes de sodas, neverías, refresquerías y similares",
+      "lat": 20.67930024,
+      "lon": -103.3713183
+     }
+    ]
+   },
+   {
+    "herramienta": "isocrona",
+    "tipo": "geojson",
+    "entrada": {
+     "lat": 20.6737,
+     "lon": -103.37,
+     "minutos": 10.0,
+     "modo": "pie",
+     "scian": [
+      "722515"
+     ]
+    },
+    "datos": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        -103.37190652672464,
+        20.66715176887415
+       ],
+       [
+        -103.37803322815576,
+        20.673300984822653
+       ],
+       [
+        -103.37776700100216,
+        20.674808110117464
+       ],
+       [
+        -103.37186428076335,
+        20.67984853720034
+       ],
+       [
+        -103.36948253295755,
+        20.679878265267938
+       ],
+       [
+        -103.36827961349088,
+        20.679366967807237
+       ],
+       [
+        -103.36684216889876,
+        20.67811528377314
+       ],
+       [
+        -103.36576638944682,
+        20.67654012326472
+       ],
+       [
+        -103.36352481809348,
+        20.67508907774345
+       ],
+       [
+        -103.3629447369765,
+        20.67332013888631
+       ],
+       [
+        -103.36352213993693,
+        20.672047513800777
+       ],
+       [
+        -103.36462636972325,
+        20.671264112403975
+       ],
+       [
+        -103.36570806953033,
+        20.67095700855322
+       ],
+       [
+        -103.36670004770453,
+        20.66943915143558
+       ],
+       [
+        -103.37038734381206,
+        20.66615270186307
+       ],
+       [
+        -103.37190652672464,
+        20.66715176887415
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "herramienta": "perfil_zona",
+    "tipo": "geojson",
+    "entrada": {
+     "lat": 20.6737,
+     "lon": -103.37,
+     "radio_m": 500.0
+    },
+    "datos": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        -103.36518120563477,
+        20.67374324609904
+       ],
+       [
+        -103.36526484800454,
+        20.67285766436664
+       ],
+       [
+        -103.36553045624666,
+        20.67200445624668
+       ],
+       [
+        -103.36596782015857,
+        20.671216409044057
+       ],
+       [
+        -103.36656013003659,
+        20.670523805442617
+       ],
+       [
+        -103.36728462297593,
+        20.669953259991342
+       ],
+       [
+        -103.36811345775328,
+        20.669526696599007
+       ],
+       [
+        -103.36901478465289,
+        20.669260506289785
+       ],
+       [
+        -103.36995396913794,
+        20.669164917543966
+       ],
+       [
+        -103.37089492238718,
+        20.669243603385357
+       ],
+       [
+        -103.37180148763359,
+        20.669493540289555
+       ],
+       [
+        -103.37263882910989,
+        20.669905124326256
+       ],
+       [
+        -103.37337477030685,
+        20.670462540080045
+       ],
+       [
+        -103.37398103018576,
+        20.671144368195197
+       ],
+       [
+        -103.37443430988586,
+        20.67192440823252
+       ],
+       [
+        -103.37471718818281,
+        20.67277268525849
+       ],
+       [
+        -103.37481879127193,
+        20.673656601526627
+       ],
+       [
+        -103.37473521109146,
+        20.67454218902846
+       ],
+       [
+        -103.37446965604182,
+        20.675395414804484
+       ],
+       [
+        -103.37403232822747,
+        20.67618348886196
+       ],
+       [
+        -103.3734400318566,
+        20.676876124428443
+       ],
+       [
+        -103.37271552777764,
+        20.677446702088684
+       ],
+       [
+        -103.3718866589098,
+        20.677873293030434
+       ],
+       [
+        -103.3709852801588,
+        20.678139502035247
+       ],
+       [
+        -103.37004603395539,
+        20.678235097776707
+       ],
+       [
+        -103.36910501851683,
+        20.678156406165865
+       ],
+       [
+        -103.36819840007796,
+        20.6779064516056
+       ],
+       [
+        -103.36736102250408,
+        20.677494840714065
+       ],
+       [
+        -103.36662506779999,
+        20.676937392995157
+       ],
+       [
+        -103.36601881906068,
+        20.676255532671068
+       ],
+       [
+        -103.36556557345108,
+        20.67547546508436
+       ],
+       [
+        -103.36528274700551,
+        20.674627169362758
+       ],
+       [
+        -103.36518120563477,
+        20.67374324609904
+       ]
+      ]
+     ]
+    }
+   }
+  ],
+  "llamadas": [
+   {
+    "herramienta": "buscar_actividad",
+    "entrada": {
+     "texto": "cafetería"
+    }
+   },
+   {
+    "herramienta": "isocrona",
+    "entrada": {
+     "lat": 20.6737,
+     "lon": -103.37,
+     "minutos": 10.0,
+     "modo": "pie",
+     "scian": [
+      "722515"
+     ]
+    }
+   },
+   {
+    "herramienta": "perfil_zona",
+    "entrada": {
+     "lat": 20.6737,
+     "lon": -103.37,
+     "radio_m": 500.0
+    }
+   }
+  ],
+  "tokens_entrada": 10432,
+  "tokens_salida": 2630
+ }
+}

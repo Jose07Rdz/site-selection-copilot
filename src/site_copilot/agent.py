@@ -86,6 +86,9 @@ def _make_tools(registro: Resultado) -> list:
         except geo.ToolError as e:
             registro.llamadas.append({"herramienta": nombre, "entrada": kwargs, "error": str(e)})
             raise SdkToolError(str(e)) from e
+        except Exception as e:  # errores inesperados: se registran y el modelo ve un mensaje genérico
+            registro.llamadas.append({"herramienta": nombre, "entrada": kwargs, "error": f"{type(e).__name__}: {e}"[:300]})
+            raise SdkToolError(f"Falla interna de la herramienta ({type(e).__name__}); intenta otro enfoque.") from e
         for k in [k for k in out if k.startswith("_")]:
             registro.capas.append({"herramienta": nombre, "tipo": k[1:], "entrada": kwargs, "datos": out.pop(k)})
         registro.llamadas.append({"herramienta": nombre, "entrada": kwargs})

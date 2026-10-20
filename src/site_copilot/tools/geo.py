@@ -165,13 +165,19 @@ def perfil_area(area_sql: str) -> dict:
 
 def competidores_en_area(area_sql: str, scian: list[str]) -> dict:
     filtro, params = _scian_filter(scian)
-    res = rows(f"""
+    puntos = rows(f"""
         WITH zona AS (SELECT {area_sql} AS g)
-        SELECT actividad, COUNT(*) AS n FROM negocios, zona
+        SELECT id, nombre, actividad, lat, lon FROM negocios, zona
         WHERE ST_Within(negocios.geom, zona.g) AND {filtro}
-        GROUP BY actividad ORDER BY n DESC
     """, params)
-    return {"competidores_total": sum(r["n"] for r in res), "por_actividad": res}
+    conteo: dict[str, int] = {}
+    for r in puntos:
+        conteo[r["actividad"]] = conteo.get(r["actividad"], 0) + 1
+    return {
+        "competidores_total": len(puntos),
+        "por_actividad": [{"actividad": k, "n": v} for k, v in sorted(conteo.items(), key=lambda kv: -kv[1])],
+        "_puntos": puntos,
+    }
 
 
 def perfil_zona(lat: float, lon: float, radio_m: float = 1000) -> dict:

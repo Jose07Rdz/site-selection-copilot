@@ -1,0 +1,750 @@
+{
+ "pregunta": "¿Dónde abrirías una farmacia en Guadalajara o Zapopan, en una zona de nivel socioeconómico medio-alto y con poca competencia?",
+ "proveedor": "openai",
+ "modelo": "gpt-5-mini",
+ "fecha": "2026-10-19",
+ "resultado": {
+  "texto": "Recomendación\n- Abriría la farmacia en Zapopan (no hubo candidatas en Guadalajara con NSE medio‑alto y baja competencia). Usé los códigos SCIAN 464111 (farmacias sin minisúper) y 464112 (farmacias con minisúper) porque ambos compiten en la práctica. Abajo presento las 3 ubicaciones sugeridas (validadas en su punto sugerido).\n\nTabla de candidatas\n\n| Zona / AGEB (cvegeo) | Punto sugerido (lat, lon) | Población en 1 km | Competidores (1 km, medido en el punto sugerido) | Comercios a 500 m | NSE (quintil municipal) |\n|---|---:|---:|---:|---:|---:|\n| Zapopan — 1412000017008 | 20.76789, -103.425391 | 19,518 | 1 (más cercano a 507 m) | 25 | 5 |\n| Zapopan — 1412000013984 | 20.69473, -103.442276 | 17,162 | 3 (más cercano a 265 m) | 28 | 5 |\n| Zapopan — 1412000016917 | 20.751492, -103.44309 | 31,195 | 3 (más cercano a 310 m) | 48 | 4 |\n\n(Notas: la población y comercios a 500 m vienen del ranking por AGEB; los competidores en la columna se midieron específicamente en cada punto sugerido mediante conteo de competidores SCIAN 464111/464112.)\n\nPor qué (resumen y cifras clave)\n- 1412000017008 — baja competencia relativa: 19,518 personas en 1 km y solo 1 farmacia en el punto sugerido (competidor a ~507 m). Zona con actividad comercial (perfil: 387 negocios en 1 km). (Datos: rankear_zonas + perfil_zona + competencia_cercana.)\n- 1412000013984 — NSE más alto y mezcla comercial: punto con nse_quintil_municipal_prom ≈ 4.46 y 241 negocios en 1 km; sin embargo, hay 3 farmacias en 1 km (la más cercana a 265 m), lo que indica presencia de cadenas/competencia fuerte. (Datos: perfil_zona + competencia_cercana.)\n- 1412000016917 — gran mercado: 31,195 personas en 1 km y 48 comercios a 500 m (mucho flujo), pero competencia moderada (3 farmacias en 1 km). Buena opción si buscas volumen más que exclusividad. (Datos: rankear_zonas + perfil_zona + competencia_cercana.)\n\nRiesgos y supuestos\n- Población y densidades son del Censo 2020; la dinámica poblacional/comercial puede haber cambiado.\n- DENUE/DENUE‑like (tabla de negocios) no distingue bien entre cadenas y farmacias independientes; el número de competidores puede ocultar diferencias de tamaño/participación de mercado.\n- El índice NSE es aproximado (quintil municipal relativo dentro del municipio). La medición del NSE local puede variar dentro del radio (ver perfíl agregado).\n- Recomendación basada en datos secundarios; sugiero validar in situ los puntos sugeridos (flujo peatonal, visibilidad, estacionamiento) y revisar contratos de renta y permisos.\n\nSi quieres, puedo:\n- Priorizar zonas con competencia exactamente 0 en 1 km (si aceptas que eso puede indicar menos actividad comercial).\n- Mapear las distancias a cada competidor y mostrar nombres/cadenas.\n- Buscar locales disponibles cerca del punto sugerido y preparar una lista corta para visitas. ¿Cuál prefieres?",
+  "capas": [
+   {
+    "herramienta": "rankear_zonas",
+    "tipo": "puntos",
+    "entrada": {
+     "municipios": [
+      "Guadalajara",
+      "Zapopan"
+     ],
+     "scian": [
+      "464111",
+      "464112"
+     ],
+     "nse_min": 4,
+     "radio_m": 1000.0,
+     "top_n": 10,
+     "min_comercio": 25
+    },
+    "datos": [
+     {
+      "cvegeo": "1412000017008",
+      "lat": 20.76789,
+      "lon": -103.425391,
+      "comercios_150m": 14,
+      "competidores_radio": 1,
+      "dist_competidor_m": 507
+     },
+     {
+      "cvegeo": "1412000013984",
+      "lat": 20.69473,
+      "lon": -103.442276,
+      "comercios_150m": 11,
+      "competidores_radio": 3,
+      "dist_competidor_m": 265
+     },
+     {
+      "cvegeo": "1412000016917",
+      "lat": 20.751492,
+      "lon": -103.44309,
+      "comercios_150m": 19,
+      "competidores_radio": 3,
+      "dist_competidor_m": 310
+     },
+     {
+      "cvegeo": "1412000016512",
+      "lat": 20.758409,
+      "lon": -103.431376,
+      "comercios_150m": 25,
+      "competidores_radio": 5,
+      "dist_competidor_m": 57
+     },
+     {
+      "cvegeo": "1412000013950",
+      "lat": 20.750208,
+      "lon": -103.431798,
+      "comercios_150m": 28,
+      "competidores_radio": 9,
+      "dist_competidor_m": 105
+     },
+     {
+      "cvegeo": "1412000016438",
+      "lat": 20.626987,
+      "lon": -103.480819,
+      "comercios_150m": 18,
+      "competidores_radio": 3,
+      "dist_competidor_m": 237
+     },
+     {
+      "cvegeo": "1412000015637",
+      "lat": 20.749738,
+      "lon": -103.432831,
+      "comercios_150m": 16,
+      "competidores_radio": 7,
+      "dist_competidor_m": 220
+     },
+     {
+      "cvegeo": "1412000016048",
+      "lat": 20.759686,
+      "lon": -103.4003,
+      "comercios_150m": 24,
+      "competidores_radio": 8,
+      "dist_competidor_m": 168
+     },
+     {
+      "cvegeo": "1412000014874",
+      "lat": 20.746821,
+      "lon": -103.429227,
+      "comercios_150m": 36,
+      "competidores_radio": 14,
+      "dist_competidor_m": 140
+     },
+     {
+      "cvegeo": "1412000015285",
+      "lat": 20.750208,
+      "lon": -103.431798,
+      "comercios_150m": 27,
+      "competidores_radio": 9,
+      "dist_competidor_m": 105
+     }
+    ]
+   },
+   {
+    "herramienta": "perfil_zona",
+    "tipo": "geojson",
+    "entrada": {
+     "lat": 20.76789,
+     "lon": -103.425391,
+     "radio_m": 1000.0
+    },
+    "datos": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        -103.4157467143827,
+        20.76797984884961
+       ],
+       [
+        -103.41591345090355,
+        20.76620850840494
+       ],
+       [
+        -103.41644439087356,
+        20.764501799174468
+       ],
+       [
+        -103.41731911843861,
+        20.762925305034305
+       ],
+       [
+        -103.4185040100742,
+        20.761539603677644
+       ],
+       [
+        -103.41995352797178,
+        20.760397939575704
+       ],
+       [
+        -103.42161197050098,
+        20.759544178926983
+       ],
+       [
+        -103.42341561240652,
+        20.75901112501713
+       ],
+       [
+        -103.42529515255261,
+        20.758819258560088
+       ],
+       [
+        -103.42717837532891,
+        20.758975951282395
+       ],
+       [
+        -103.42899292371521,
+        20.759475182874787
+       ],
+       [
+        -103.43066907776378,
+        20.7602977721505
+       ],
+       [
+        -103.4321424320514,
+        20.761412113558208
+       ],
+       [
+        -103.43335636948993,
+        20.762775390837703
+       ],
+       [
+        -103.43426423661832,
+        20.764335221320035
+       ],
+       [
+        -103.43483113685323,
+        20.76603166785114
+       ],
+       [
+        -103.43503527272587,
+        20.767799541190243
+       ],
+       [
+        -103.43486878534415,
+        20.76957090454922
+       ],
+       [
+        -103.4343380585467,
+        20.771277684123053
+       ],
+       [
+        -103.43346347573406,
+        20.77285428532654
+       ],
+       [
+        -103.43227863839347,
+        20.774240114166965
+       ],
+       [
+        -103.43082907606755,
+        20.775381906764846
+       ],
+       [
+        -103.42917049715054,
+        20.776235777359513
+       ],
+       [
+        -103.42736664766147,
+        20.77676890592683
+       ],
+       [
+        -103.42548686033884,
+        20.77696080038709
+       ],
+       [
+        -103.42360338842342,
+        20.77680408475041
+       ],
+       [
+        -103.42178862686455,
+        20.77630478281464
+       ],
+       [
+        -103.4201123280636,
+        20.775482086475588
+       ],
+       [
+        -103.41863891948097,
+        20.77436761758417
+       ],
+       [
+        -103.41742502647077,
+        20.773004211808708
+       ],
+       [
+        -103.41651729573022,
+        20.771444271380446
+       ],
+       [
+        -103.41595060307883,
+        20.769747750191833
+       ],
+       [
+        -103.4157467143827,
+        20.76797984884961
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "herramienta": "competencia_cercana",
+    "tipo": "puntos",
+    "entrada": {
+     "lat": 20.76789,
+     "lon": -103.425391,
+     "scian": [
+      "464111",
+      "464112"
+     ],
+     "radio_m": 1000.0
+    },
+    "datos": [
+     {
+      "id": 1704888,
+      "nombre": "FARMACIA SAN RAFAEL",
+      "actividad": "Farmacias con minisúper",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.76915334,
+      "lon": -103.42070152,
+      "distancia_m": 507.0
+     }
+    ]
+   },
+   {
+    "herramienta": "perfil_zona",
+    "tipo": "geojson",
+    "entrada": {
+     "lat": 20.69473,
+     "lon": -103.442276,
+     "radio_m": 1000.0
+    },
+    "datos": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        -103.43263695367303,
+        20.69482091208726
+       ],
+       [
+        -103.43280337813604,
+        20.693049647583358
+       ],
+       [
+        -103.4333338167201,
+        20.69134297057653
+       ],
+       [
+        -103.43420787285037,
+        20.689766463697357
+       ],
+       [
+        -103.43539194881137,
+        20.688380705116437
+       ],
+       [
+        -103.43684053814052,
+        20.687238941488737
+       ],
+       [
+        -103.43849797488569,
+        20.68638504282133
+       ],
+       [
+        -103.44030057243211,
+        20.68585181768944
+       ],
+       [
+        -103.44217906976336,
+        20.685659753376317
+       ],
+       [
+        -103.44406129132788,
+        20.68581622920683
+       ],
+       [
+        -103.4458749185668,
+        20.68631523320786
+       ],
+       [
+        -103.44755026692013,
+        20.68713759294604
+       ],
+       [
+        -103.44902296192102,
+        20.688251711703163
+       ],
+       [
+        -103.45023641181722,
+        20.68961478179071
+       ],
+       [
+        -103.45114398188979,
+        20.691174428518124
+       ],
+       [
+        -103.4517107869823,
+        20.692870721807424
+       ],
+       [
+        -103.45191503329698,
+        20.6946384783174
+       ],
+       [
+        -103.45174885771353,
+        20.696409765754897
+       ],
+       [
+        -103.45121863210304,
+        20.698116513231305
+       ],
+       [
+        -103.4503447206171,
+        20.699693127387732
+       ],
+       [
+        -103.4491606989504,
+        20.70107901372157
+       ],
+       [
+        -103.44771206529967,
+        20.70222090612858
+       ],
+       [
+        -103.44605449236464,
+        20.703074914996293
+       ],
+       [
+        -103.44425168749373,
+        20.7036082149724
+       ],
+       [
+        -103.44237294326665,
+        20.703800307379385
+       ],
+       [
+        -103.44049047282257,
+        20.703643808615272
+       ],
+       [
+        -103.43867663261008,
+        20.70314473414466
+       ],
+       [
+        -103.43700113961242,
+        20.702322267129237
+       ],
+       [
+        -103.43552839031726,
+        20.701208020619198
+       ],
+       [
+        -103.43431498474261,
+        20.69984482175235
+       ],
+       [
+        -103.43340755085993,
+        20.698285064824617
+       ],
+       [
+        -103.43284095309188,
+        20.696588696691077
+       ],
+       [
+        -103.43263695367303,
+        20.69482091208726
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "herramienta": "competencia_cercana",
+    "tipo": "puntos",
+    "entrada": {
+     "lat": 20.69473,
+     "lon": -103.442276,
+     "scian": [
+      "464111",
+      "464112"
+     ],
+     "radio_m": 1000.0
+    },
+    "datos": [
+     {
+      "id": 6342228,
+      "nombre": "FARMACIAS GUADALAJARA",
+      "actividad": "Farmacias con minisúper",
+      "personal_ocupado": "31 a 50 personas",
+      "lat": 20.69364772,
+      "lon": -103.4400045,
+      "distancia_m": 265.0
+     },
+     {
+      "id": 6418376,
+      "nombre": "FARMACIAS GUADALAJARA",
+      "actividad": "Farmacias con minisúper",
+      "personal_ocupado": "11 a 30 personas",
+      "lat": 20.69536778,
+      "lon": -103.44888285,
+      "distancia_m": 691.0
+     },
+     {
+      "id": 9615267,
+      "nombre": "FARMACIA INNOVA CARE",
+      "actividad": "Farmacias con minisúper",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.7024821,
+      "lon": -103.4459569,
+      "distancia_m": 943.0
+     }
+    ]
+   },
+   {
+    "herramienta": "perfil_zona",
+    "tipo": "geojson",
+    "entrada": {
+     "lat": 20.751492,
+     "lon": -103.44309,
+     "radio_m": 1000.0
+    },
+    "datos": {
+     "type": "Polygon",
+     "coordinates": [
+      [
+       [
+        -103.43344689847534,
+        20.751582967211526
+       ],
+       [
+        -103.43361338232798,
+        20.749811628334797
+       ],
+       [
+        -103.43414403384743,
+        20.748104877648984
+       ],
+       [
+        -103.43501844826555,
+        20.74652830062288
+       ],
+       [
+        -103.43620301409102,
+        20.745142478133065
+       ],
+       [
+        -103.43765220603329,
+        20.744000659302706
+       ],
+       [
+        -103.43931033498411,
+        20.743146716272523
+       ],
+       [
+        -103.44111368773399,
+        20.74261345933307
+       ],
+       [
+        -103.44299297425434,
+        20.742421376996877
+       ],
+       [
+        -103.44487598867728,
+        20.742577849284164
+       ],
+       [
+        -103.44669038198676,
+        20.74307686435562
+       ],
+       [
+        -103.44836644019344,
+        20.743899249345706
+       ],
+       [
+        -103.44983976155825,
+        20.745013406555547
+       ],
+       [
+        -103.45105373026091,
+        20.74637652680666
+       ],
+       [
+        -103.45196169164305,
+        20.747936233468526
+       ],
+       [
+        -103.45252874550408,
+        20.749632594149436
+       ],
+       [
+        -103.45273308847634,
+        20.75140042291134
+       ],
+       [
+        -103.45256685371322,
+        20.753171784681786
+       ],
+       [
+        -103.45203641534816,
+        20.754878605717938
+       ],
+       [
+        -103.45116214569845,
+        20.75645528984086
+       ],
+       [
+        -103.44997763421578,
+        20.757841239869325
+       ],
+       [
+        -103.44852839791747,
+        20.758983187263663
+       ],
+       [
+        -103.44687013266459,
+        20.75983724031042
+       ],
+       [
+        -103.44506657241735,
+        20.760370571970043
+       ],
+       [
+        -103.44318703879398,
+        20.76056268235447
+       ],
+       [
+        -103.4413037752815,
+        20.760406187173434
+       ],
+       [
+        -103.43948916881764,
+        20.759907101751637
+       ],
+       [
+        -103.43781296584253,
+        20.759084609664754
+       ],
+       [
+        -103.43633959013493,
+        20.75797032491625
+       ],
+       [
+        -103.43512566578832,
+        20.756607076101172
+       ],
+       [
+        -103.43421784070826,
+        20.755047259422682
+       ],
+       [
+        -103.43365099434457,
+        20.753350824021645
+       ],
+       [
+        -103.43344689847534,
+        20.751582967211526
+       ]
+      ]
+     ]
+    }
+   },
+   {
+    "herramienta": "competencia_cercana",
+    "tipo": "puntos",
+    "entrada": {
+     "lat": 20.751492,
+     "lon": -103.44309,
+     "scian": [
+      "464111",
+      "464112"
+     ],
+     "radio_m": 1000.0
+    },
+    "datos": [
+     {
+      "id": 6344849,
+      "nombre": "FARMACIAS GUADALAJARA",
+      "actividad": "Farmacias con minisúper",
+      "personal_ocupado": "11 a 30 personas",
+      "lat": 20.75417997,
+      "lon": -103.44228202,
+      "distancia_m": 310.0
+     },
+     {
+      "id": 10725899,
+      "nombre": "FARMACIAS SIMILARES",
+      "actividad": "Farmacias sin minisúper",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.75812902,
+      "lon": -103.43830522,
+      "distancia_m": 890.0
+     },
+     {
+      "id": 7625620,
+      "nombre": "FARMACIA",
+      "actividad": "Farmacias sin minisúper",
+      "personal_ocupado": "0 a 5 personas",
+      "lat": 20.75983612,
+      "lon": -103.44085128,
+      "distancia_m": 957.0
+     }
+    ]
+   }
+  ],
+  "llamadas": [
+   {
+    "herramienta": "buscar_actividad",
+    "entrada": {
+     "texto": "farmacia"
+    }
+   },
+   {
+    "herramienta": "rankear_zonas",
+    "entrada": {
+     "municipios": [
+      "Guadalajara",
+      "Zapopan"
+     ],
+     "scian": [
+      "464111",
+      "464112"
+     ],
+     "nse_min": 4,
+     "radio_m": 1000.0,
+     "top_n": 10,
+     "min_comercio": 25
+    }
+   },
+   {
+    "herramienta": "perfil_zona",
+    "entrada": {
+     "lat": 20.76789,
+     "lon": -103.425391,
+     "radio_m": 1000.0
+    }
+   },
+   {
+    "herramienta": "competencia_cercana",
+    "entrada": {
+     "lat": 20.76789,
+     "lon": -103.425391,
+     "scian": [
+      "464111",
+      "464112"
+     ],
+     "radio_m": 1000.0
+    }
+   },
+   {
+    "herramienta": "perfil_zona",
+    "entrada": {
+     "lat": 20.69473,
+     "lon": -103.442276,
+     "radio_m": 1000.0
+    }
+   },
+   {
+    "herramienta": "competencia_cercana",
+    "entrada": {
+     "lat": 20.69473,
+     "lon": -103.442276,
+     "scian": [
+      "464111",
+      "464112"
+     ],
+     "radio_m": 1000.0
+    }
+   },
+   {
+    "herramienta": "perfil_zona",
+    "entrada": {
+     "lat": 20.751492,
+     "lon": -103.44309,
+     "radio_m": 1000.0
+    }
+   },
+   {
+    "herramienta": "competencia_cercana",
+    "entrada": {
+     "lat": 20.751492,
+     "lon": -103.44309,
+     "scian": [
+      "464111",
+      "464112"
+     ],
+     "radio_m": 1000.0
+    }
+   }
+  ],
+  "tokens_entrada": 41341,
+  "tokens_salida": 3599
+ }
+}

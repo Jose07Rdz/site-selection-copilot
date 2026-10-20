@@ -17,6 +17,7 @@ from functools import cache, lru_cache
 import networkx as nx
 import numpy as np
 import osmnx as ox
+import requests
 import shapely
 
 from site_copilot.config import DATA_DIR
@@ -48,7 +49,7 @@ def _con_reintentos(fn, intentos: int = 4, espera_s: float = 5):
     for i in range(intentos):
         try:
             return fn()
-        except (ox._errors.ResponseStatusCodeError, ox._errors.InsufficientResponseError, ConnectionError) as e:
+        except (ox._errors.ResponseStatusCodeError, ox._errors.InsufficientResponseError, requests.RequestException) as e:
             if i == intentos - 1:
                 raise ToolError(f"OpenStreetMap (Overpass) no respondió; intenta más tarde. Detalle: {str(e)[:120]}") from e
             time.sleep(espera_s * 2**i)
@@ -79,6 +80,32 @@ def _grafo_zona(zona: str) -> nx.MultiDiGraph | None:
     return G
 
 
+# Vías por donde no se camina; el resto de la red de auto sirve como aproximación peatonal.
+NO_PEATONAL = {"motorway", "motorway_link", "trunk", "trunk_link"}
+
+
+@cache
+def _grafo_pie_zona(zona: str) -> nx.MultiGraph | None:
+    """Red peatonal aproximada a partir de la red de auto precargada: sin sentido único ni autopistas.
+
+    No incluye andadores ni calles peatonales, así que tiende a subestimar ligeramente el área.
+    """
+    G = _grafo_zona(zona)
+    if G is None:
+        return None
+    mps = VELOCIDAD_PIE_KMH * 1000 / 3600
+
+    def caminable(u, v, k) -> bool:
+        hw = G.edges[u, v, k].get("highway")
+        tipos = set(hw) if isinstance(hw, list) else {hw}
+        return not tipos <= NO_PEATONAL
+
+    H = nx.MultiGraph(nx.subgraph_view(G, filter_edge=caminable))
+    for _, _, d in H.edges(data=True):
+        d["travel_time"] = d["length"] / mps
+    return H
+
+
 def _zona_que_contiene(lat: float, lon: float, margen: float) -> str | None:
     for nombre, (n, s, e, w) in ZONAS.items():
         if s + margen <= lat <= n - margen and w + margen <= lon <= e - margen:
@@ -88,9 +115,10 @@ def _zona_que_contiene(lat: float, lon: float, margen: float) -> str | None:
 
 @lru_cache(maxsize=8)
 def _grafo(lat: float, lon: float, modo: str, dist_m: int) -> nx.MultiDiGraph:
-    if modo == "auto":
-        zona = _zona_que_contiene(lat, lon, margen=dist_m / 111_000)
-        if zona and (G := _grafo_zona(zona)) is not None:
+    zona = _zona_que_contiene(lat, lon, margen=dist_m / 111_000)
+    if zona:
+        G = _grafo_zona(zona) if modo == "auto" else _grafo_pie_zona(zona)
+        if G is not None:
             return G
     network_type = MODOS[modo][0]
     G = _con_reintentos(lambda: ox.graph_from_point((lat, lon), dist=dist_m, network_type=network_type, simplify=True))
@@ -142,6 +170,7 @@ def isocrona(lat: float, lon: float, minutos: float, modo: str = "auto", scian: 
     out = {"centro": {"lat": lat, "lon": lon}, "minutos": minutos, "modo": modo, **perfil_area(area_sql)}
     if scian:
         out["competencia"] = competidores_en_area(area_sql, scian)
+        out["_puntos"] = out["competencia"].pop("_puntos")
     out["_geojson"] = json.loads(shapely.to_geojson(poly))
     return out
 
