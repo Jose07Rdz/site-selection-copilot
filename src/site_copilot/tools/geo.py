@@ -17,6 +17,8 @@ LCC = "EPSG:6372"  # proyección métrica de INEGI para México
 WGS84 = "EPSG:4326"
 MAX_RADIO_M = 10_000
 SQL_ROW_LIMIT = 200
+RADIO_COMERCIO_M = 500  # radio para medir si una zona tiene actividad comercial
+RADIO_CLUSTER_M = 150  # radio para encontrar el punto con más comercio alrededor
 
 
 class ToolError(ValueError):
@@ -211,24 +213,54 @@ def competencia_cercana(lat: float, lon: float, scian: list[str], radio_m: float
 # Ranking de zonas candidatas
 # ---------------------------------------------------------------------------
 
+def _punto_comercial(lat: float, lon: float) -> dict:
+    """Dentro de RADIO_COMERCIO_M, el comercio al por menor con más comercios a RADIO_CLUSTER_M.
+
+    Aproxima "dónde están los locales" de la zona, en vez del centroide de la AGEB,
+    que puede caer en medio de un fraccionamiento sin uso comercial.
+    """
+    d = RADIO_COMERCIO_M / 111_000
+    res = rows(f"""
+        WITH r AS (
+            SELECT id, lat, lon FROM negocios
+            WHERE scian_sector = '46'
+              AND lat BETWEEN {lat - d} AND {lat + d} AND lon BETWEEN {lon - d * 1.1} AND {lon + d * 1.1}
+              AND {_haversine_sql(lat, lon)} <= {RADIO_COMERCIO_M}
+        )
+        -- Agrupar por id (no por coordenada): varios locales de una plaza comparten el mismo punto.
+        SELECT a.lat, a.lon, COUNT(*) AS comercios_150m
+        FROM r a JOIN r b ON {_haversine_sql('a.lat', 'a.lon', 'b.lat', 'b.lon')} <= {RADIO_CLUSTER_M}
+        GROUP BY a.id, a.lat, a.lon
+        ORDER BY comercios_150m DESC, {_haversine_sql(lat, lon, 'a.lat', 'a.lon')}
+        LIMIT 1
+    """)
+    return res[0] if res else {"lat": lat, "lon": lon, "comercios_150m": 0}
+
+
 def rankear_zonas(
     municipios: list[str],
     scian: list[str],
     nse_min: int = 1,
     radio_m: float = 1000,
     top_n: int = 10,
+    min_comercio: int = 25,
 ) -> dict:
     """Ordena AGEB urbanas como candidatas para abrir un negocio.
 
     Para el centroide de cada AGEB calcula, en un radio dado, la población (demanda) y el
     número de competidores. El score es habitantes por competidor: poblacion_radio / (competidores + 1).
+    Descarta zonas con menos de `min_comercio` comercios al por menor a 500 m: sin comercio
+    suele tratarse de fraccionamientos residenciales donde no hay locales disponibles.
     """
     _check_radio(radio_m)
     if not 1 <= nse_min <= 5:
         raise ToolError("nse_min va de 1 (más bajo) a 5 (más alto).")
+    if not 0 <= min_comercio <= 500:
+        raise ToolError("min_comercio va de 0 a 500.")
     top_n = max(1, min(top_n, 30))
     claves = _resolver_municipios(municipios)
     filtro, params = _scian_filter(scian, "n.scian")
+    filtro_punto, _ = _scian_filter(scian)
     # Prefiltro rectangular en grados antes del cálculo de distancia (latitudes de México ~15-33°).
     dlat = radio_m / 111_000
     dlon = radio_m / (111_000 * math.cos(math.radians(33)))
@@ -236,9 +268,9 @@ def rankear_zonas(
     res = rows(f"""
         WITH cand AS (
             SELECT cvegeo, cve_mun, localidad, poblacion, nse_quintil_municipal, escolaridad_prom, pct_viv_auto,
-                   ST_Y(ST_Centroid(geom)) AS lat, ST_X(ST_Centroid(geom)) AS lon
+                   comercio_500m, ST_Y(ST_Centroid(geom)) AS lat, ST_X(ST_Centroid(geom)) AS lon
             FROM agebs
-            WHERE cve_mun IN ({mun_ph}) AND poblacion > 0 AND nse_quintil_municipal >= ?
+            WHERE cve_mun IN ({mun_ph}) AND poblacion > 0 AND nse_quintil_municipal >= ? AND comercio_500m >= ?
         ),
         cen AS (
             SELECT poblacion, ST_Y(ST_Centroid(geom)) AS lat, ST_X(ST_Centroid(geom)) AS lon
@@ -266,6 +298,7 @@ def rankear_zonas(
                d.poblacion_radio,
                COALESCE(k.competidores, 0) AS competidores,
                k.dist_competidor_m,
+               c.comercio_500m,
                d.poblacion_radio / (COALESCE(k.competidores, 0) + 1) AS hab_por_competidor
         FROM cand c
         JOIN demanda d USING (cvegeo)
@@ -273,10 +306,37 @@ def rankear_zonas(
         LEFT JOIN comp k USING (cvegeo)
         ORDER BY hab_por_competidor DESC
         LIMIT ?
-    """, [*claves, nse_min, *params, top_n])
+    """, [*claves, nse_min, min_comercio, *params, top_n])
+
+    candidatas = []
+    for r in res:
+        r = _round(r, 4)
+        centro_lat, centro_lon = r.pop("lat"), r.pop("lon")
+        punto = _punto_comercial(centro_lat, centro_lon)
+        plat, plon = punto["lat"], punto["lon"]
+        # Competencia medida también en el punto sugerido, que es lo que el usuario visitaría.
+        comp_punto = rows(f"""
+            SELECT COUNT(*) AS n, MIN({_haversine_sql(plat, plon)}) AS d FROM negocios
+            WHERE {filtro_punto}
+              AND lat BETWEEN {plat - dlat} AND {plat + dlat} AND lon BETWEEN {plon - dlon} AND {plon + dlon}
+              AND {_haversine_sql(plat, plon)} <= {radio_m}
+        """, params)[0]
+        r["punto_sugerido"] = {
+            "lat": round(plat, 6), "lon": round(plon, 6), "comercios_150m": punto["comercios_150m"],
+            "competidores_radio": comp_punto["n"],
+            "dist_competidor_m": round(comp_punto["d"]) if comp_punto["d"] is not None else None,
+        }
+        candidatas.append(r)
     return {
-        "metodo": f"Por AGEB: población en {radio_m:.0f} m / (competidores en {radio_m:.0f} m + 1). Población del Censo 2020.",
-        "candidatas": [_round(r, 4) for r in res],
+        "metodo": (
+            f"Por AGEB (desde su centroide): población en {radio_m:.0f} m / (competidores en {radio_m:.0f} m + 1), "
+            f"solo zonas con al menos {min_comercio} comercios al por menor a {RADIO_COMERCIO_M} m. "
+            f"punto_sugerido = el comercio con más comercios a {RADIO_CLUSTER_M} m dentro de esos {RADIO_COMERCIO_M} m, "
+            f"con sus propios competidores en {radio_m:.0f} m (reporta estos al usuario); "
+            "valida ahí con perfil_zona / competencia_cercana. Población del Censo 2020."
+        ),
+        "candidatas": candidatas,
+        "_puntos": [{"cvegeo": c["cvegeo"], **c["punto_sugerido"]} for c in candidatas],
     }
 
 
@@ -290,7 +350,8 @@ Tablas (DuckDB + extensión spatial, geometrías EPSG:4326):
 - agebs(cvegeo, cve_mun, localidad, poblacion, pob_18_mas, escolaridad_prom, pea, pob_derechohabiente,
         viviendas_hab, ocupantes_prom, viv_con_auto, viv_con_internet, viv_con_pc, densidad_hab_km2,
         pct_viv_auto, pct_viv_internet, pct_viv_pc, area_km2, nse_score, nse_quintil_estatal,
-        nse_quintil_municipal, geom)  -- quintiles 1 = más bajo, 5 = más alto
+        nse_quintil_municipal, comercio_500m, geom)
+        -- quintiles 1 = más bajo, 5 = más alto; comercio_500m = comercios al por menor a 500 m del centroide
 - negocios(id, nombre, razon_social, scian, scian_sector, actividad, personal_ocupado,
         tipo_centro_comercial, centro_comercial, cod_postal, cve_mun, municipio, localidad,
         cvegeo_ageb, lat, lon, fecha_alta, geom)

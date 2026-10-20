@@ -48,8 +48,35 @@ def test_ranking_respeta_filtros_y_orden():
     res = geo.rankear_zonas(["Guadalajara"], FARMACIAS, nse_min=4, radio_m=1000, top_n=10)["candidatas"]
     assert len(res) == 10
     assert all(c["municipio"] == "Guadalajara" and c["nse_quintil_municipal"] >= 4 for c in res)
+    assert all(c["comercio_500m"] >= 25 for c in res)
     scores = [c["hab_por_competidor"] for c in res]
     assert scores == sorted(scores, reverse=True)
+
+
+# AGEB residencial del norte de Zapopan sin un solo negocio adentro: era la #1 antes del filtro comercial.
+AGEB_RESIDENCIAL = "1412000017031"
+
+
+def test_ranking_excluye_zonas_sin_comercio():
+    con_filtro = geo.rankear_zonas(["Zapopan"], FARMACIAS, nse_min=4, top_n=30)["candidatas"]
+    sin_filtro = geo.rankear_zonas(["Zapopan"], FARMACIAS, nse_min=4, top_n=30, min_comercio=0)["candidatas"]
+    assert AGEB_RESIDENCIAL in [c["cvegeo"] for c in sin_filtro]
+    assert AGEB_RESIDENCIAL not in [c["cvegeo"] for c in con_filtro]
+
+
+def test_punto_sugerido_cae_en_zona_comercial():
+    for c in geo.rankear_zonas(["Guadalajara", "Zapopan"], FARMACIAS, nse_min=4, top_n=5)["candidatas"]:
+        p = c["punto_sugerido"]
+        assert p["comercios_150m"] >= 5
+        # A no más de 500 m de donde se midió la zona: confirma que el comercio cercano existe ahí.
+        cerca = geo.consulta_sql(
+            f"SELECT COUNT(*) AS n FROM negocios WHERE scian_sector = '46' "
+            f"AND abs(lat - {p['lat']}) < 0.0015 AND abs(lon - {p['lon']}) < 0.0015"
+        )["filas"][0]["n"]
+        assert cerca >= p["comercios_150m"] * 0.8
+        # La competencia reportada en el punto coincide con la herramienta de competencia.
+        directo = geo.competencia_cercana(p["lat"], p["lon"], FARMACIAS, radio_m=1000)["competidores_total"]
+        assert abs(p["competidores_radio"] - directo) <= 1
 
 
 @pytest.mark.parametrize("lat, lon", [(-103.387, 20.695), (40.0, -3.7)])

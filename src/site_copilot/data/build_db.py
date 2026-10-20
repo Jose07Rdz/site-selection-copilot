@@ -180,6 +180,25 @@ def build(con: duckdb.DuckDBPyConnection, states: list[str]) -> None:
         WHERE TRY_CAST(latitud AS DOUBLE) IS NOT NULL
     """)
 
+    # Comercios al por menor (SCIAN 46) a 500 m del centroide de cada AGEB. Distingue zonas con
+    # actividad comercial de fraccionamientos puramente residenciales; se usa en el ranking.
+    con.sql("""
+        CREATE OR REPLACE TABLE agebs AS
+        WITH c AS (SELECT cvegeo, ST_Y(ST_Centroid(geom)) AS lat, ST_X(ST_Centroid(geom)) AS lon FROM agebs),
+        r AS (SELECT lat, lon FROM negocios WHERE scian_sector = '46'),
+        k AS (
+            SELECT c.cvegeo, COUNT(*) AS n
+            FROM c JOIN r
+              ON r.lat BETWEEN c.lat - 0.0046 AND c.lat + 0.0046
+             AND r.lon BETWEEN c.lon - 0.0054 AND c.lon + 0.0054
+            WHERE 2 * 6371000 * ASIN(SQRT(POWER(SIN(RADIANS(r.lat - c.lat) / 2), 2)
+                  + COS(RADIANS(c.lat)) * COS(RADIANS(r.lat)) * POWER(SIN(RADIANS(r.lon - c.lon) / 2), 2))) <= 500
+            GROUP BY c.cvegeo
+        )
+        SELECT a.* EXCLUDE (geom), COALESCE(k.n, 0)::INTEGER AS comercio_500m, a.geom
+        FROM agebs a LEFT JOIN k USING (cvegeo)
+    """)
+
     for table in ("municipios", "agebs", "negocios"):
         con.sql(f"CREATE INDEX {table}_geom_idx ON {table} USING RTREE (geom)")
 

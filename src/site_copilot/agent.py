@@ -47,14 +47,17 @@ Cómo trabajar:
 - Traduce el giro del usuario a códigos SCIAN con buscar_actividad antes de medir competencia; \
 elige los códigos que de verdad compiten (p. ej., farmacias con y sin minisúper) y dilo.
 - Para recomendar ubicaciones, usa rankear_zonas para generar candidatas y luego valida las mejores \
-2 o 3 con perfil_zona, competencia_cercana o isocrona. No recomiendes un punto que no hayas revisado.
+2 o 3 con perfil_zona, competencia_cercana o isocrona en su punto_sugerido (no en el centroide de la AGEB). \
+No recomiendes un punto que no hayas revisado.
+- Cero competidores no siempre es buena señal: revisa en perfil_zona que haya actividad comercial y \
+menciona si la zona parece puramente residencial.
 - Usa consulta_sql solo para preguntas que las demás herramientas no cubren.
 - Basa cada cifra en un resultado de herramienta. Si los datos no alcanzan para responder, dilo.
 - "NSE medio-alto" equivale a nse_min=4 y "alto" a nse_min=5, salvo que el usuario indique otra cosa.
 
 Formato de la respuesta final (en español, breve y accionable):
 1. Recomendación en 1-2 frases.
-2. Tabla con las ubicaciones candidatas: zona/AGEB, coordenadas, población en el radio, competidores, NSE.
+2. Tabla en Markdown con las candidatas: zona/AGEB, punto sugerido (lat, lon), población en el radio, competidores, comercios cercanos, NSE.
 3. Por qué (2-4 viñetas con cifras).
 4. Riesgos y supuestos (población 2020, DENUE no distingue cadenas de independientes, NSE aproximado).
 """
@@ -107,11 +110,14 @@ def _make_tools(registro: Resultado) -> list:
         return run("buscar_municipio", geo.buscar_municipio, texto=texto)
 
     @beta_tool
-    def rankear_zonas(municipios: list[str], scian: list[str], nse_min: int = 1, radio_m: float = 1000, top_n: int = 10) -> str:
+    def rankear_zonas(
+        municipios: list[str], scian: list[str], nse_min: int = 1, radio_m: float = 1000, top_n: int = 10, min_comercio: int = 25
+    ) -> str:
         """Ordena las AGEB urbanas de uno o varios municipios como candidatas para abrir un negocio.
 
         Score = población en el radio / (competidores en el radio + 1), calculado desde el centroide de cada AGEB.
-        Devuelve coordenadas, población, competidores, distancia al competidor más cercano y NSE.
+        Excluye zonas sin actividad comercial (fraccionamientos residenciales sin locales). Cada candidata trae un
+        punto_sugerido: el lugar con más comercio cercano, que es donde conviene validar y ubicar el local.
 
         Args:
             municipios: Nombres de municipios a considerar, p. ej. ["Guadalajara", "Zapopan"].
@@ -119,8 +125,13 @@ def _make_tools(registro: Resultado) -> list:
             nse_min: Quintil NSE municipal mínimo de la AGEB (1 a 5).
             radio_m: Radio de influencia en metros (50 a 10000).
             top_n: Número de candidatas a devolver (máximo 30).
+            min_comercio: Mínimo de comercios al por menor a 500 m (0 a 500). 25 descarta el ~10 % más residencial;
+                bájalo solo si el usuario busca explícitamente zonas residenciales.
         """
-        return run("rankear_zonas", geo.rankear_zonas, municipios=municipios, scian=scian, nse_min=nse_min, radio_m=radio_m, top_n=top_n)
+        return run(
+            "rankear_zonas", geo.rankear_zonas,
+            municipios=municipios, scian=scian, nse_min=nse_min, radio_m=radio_m, top_n=top_n, min_comercio=min_comercio,
+        )
 
     @beta_tool
     def perfil_zona(lat: float, lon: float, radio_m: float = 1000) -> str:
